@@ -1,4 +1,9 @@
 {
-  "buildCommand": "npm run vercel-build",
-  "installCommand": "npm install"
+  "projectSettings": {
+    "framework": "nextjs",
+    "rootDirectory": "healthybrew",
+    "buildCommand": "npm run build",
+    "installCommand": "npm install",
+    "outputDirectory": ".next"
+  }
 }
