@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import type { ReactElement } from "react";
 import { CupSteamIcon, HeartHerbIcon, SparkIcon, TeaLeafIcon } from "@/components/icons";
 
 type HealthMetric = {
@@ -16,7 +17,7 @@ interface HealthSummaryProps {
   focusTagline?: string;
 }
 
-const iconMap: Record<string, JSX.Element> = {
+const iconMap: Record<string, ReactElement> = {
   calm: <TeaLeafIcon className="h-6 w-6 text-emerald-500" />,
   heart: <HeartHerbIcon className="h-6 w-6 text-rose-500" />,
   spark: <SparkIcon className="h-6 w-6 text-amber-500" />,

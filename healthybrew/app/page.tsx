@@ -1,6 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from "react";
+import type { ReactElement } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   drinks,
@@ -37,7 +38,7 @@ type SelectedIngredient = {
   icon: Ingredient["icon"];
 };
 
-const ingredientIconMap: Record<Ingredient["icon"], JSX.Element> = {
+const ingredientIconMap: Record<Ingredient["icon"], ReactElement> = {
   leaf: <TeaLeafIcon className="h-5 w-5 text-emerald-500" />,
   bean: <CoffeeBeanIcon className="h-5 w-5 text-amber-500" />,
   flower: <HeartHerbIcon className="h-5 w-5 text-rose-500" />,
@@ -47,7 +48,7 @@ const ingredientIconMap: Record<Ingredient["icon"], JSX.Element> = {
   seed: <CupSteamIcon className="h-5 w-5 text-amber-600" />,
 };
 
-const categoryIconMap: Record<DrinkType, JSX.Element> = {
+const categoryIconMap: Record<DrinkType, ReactElement> = {
   tea: <TeaLeafIcon className="h-6 w-6 text-emerald-500" />,
   coffee: <CoffeeBeanIcon className="h-6 w-6 text-amber-500" />,
 };
