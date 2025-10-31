@@ -1,0 +1,15 @@
+{
+  "name": "healthybrew-monorepo",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm install --prefix healthybrew",
+    "vercel-build": "npm run build --prefix healthybrew",
+    "build": "npm run build --prefix healthybrew",
+    "dev": "npm run dev --prefix healthybrew",
+    "start": "npm run start --prefix healthybrew",
+    "lint": "npm run lint --prefix healthybrew"
+  },
+  "dependencies": {
+    "next": "16.0.1"
+  }
+}
