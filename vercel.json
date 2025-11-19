@@ -1,9 +1,15 @@
 {
-  "projectSettings": {
-    "framework": "nextjs",
-    "rootDirectory": "healthybrew",
-    "buildCommand": "npm run build",
-    "installCommand": "npm install",
-    "outputDirectory": ".next"
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "healthybrew/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "healthybrew/$1"
+    }
+  ]
 }

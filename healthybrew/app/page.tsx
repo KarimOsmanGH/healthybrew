@@ -637,7 +637,7 @@ export default function Home() {
         </div>
 
         <footer className="pb-6 text-center text-sm text-emerald-600">
-          Made with ?? ? Hosted on Vercel
+          Crafted with care and botanicals. Hosted on Vercel.
         </footer>
       </div>
     </div>
