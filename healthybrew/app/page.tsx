@@ -330,7 +330,7 @@ export default function Home() {
           </div>
         </header>
 
-        <div className="grid flex-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)_320px]">
+        <div className="grid flex-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
           <aside className="flex flex-col gap-6 rounded-3xl border border-emerald-600/40 bg-gradient-to-br from-emerald-600 to-emerald-700 p-6 shadow-lg shadow-emerald-900/30 backdrop-blur">
             <div>
               <label className="flex items-center gap-2 rounded-2xl bg-emerald-800/40 px-3 py-2 text-sm text-white shadow-inner">
@@ -421,14 +421,6 @@ export default function Home() {
               </AnimatePresence>
             </div>
           </section>
-
-          <aside className="flex flex-col gap-5 rounded-3xl border border-emerald-600/40 bg-gradient-to-br from-emerald-600 to-emerald-700 p-5 shadow-lg shadow-emerald-900/30 backdrop-blur">
-            <HealthSummary
-              metrics={healthMetrics}
-              totalBenefits={totalTouchpoints}
-              focusTagline={activeFocus?.tagline}
-            />
-          </aside>
         </div>
 
         <footer className="pb-6 text-center text-sm text-emerald-600/70">
