@@ -39,18 +39,18 @@ type SelectedIngredient = {
 };
 
 const ingredientIconMap: Record<Ingredient["icon"], ReactElement> = {
-  leaf: <TeaLeafIcon className="h-5 w-5 text-emerald-500" />,
-  bean: <CoffeeBeanIcon className="h-5 w-5 text-amber-500" />,
-  flower: <HeartHerbIcon className="h-5 w-5 text-rose-500" />,
-  spice: <SparkIcon className="h-5 w-5 text-orange-500" />,
-  citrus: <CupSteamIcon className="h-5 w-5 text-yellow-500" />,
-  root: <SparkIcon className="h-5 w-5 text-emerald-600" />,
-  seed: <CupSteamIcon className="h-5 w-5 text-amber-600" />,
+  leaf: <TeaLeafIcon className="h-5 w-5 text-white" />,
+  bean: <CoffeeBeanIcon className="h-5 w-5 text-white" />,
+  flower: <HeartHerbIcon className="h-5 w-5 text-white" />,
+  spice: <SparkIcon className="h-5 w-5 text-white" />,
+  citrus: <CupSteamIcon className="h-5 w-5 text-white" />,
+  root: <SparkIcon className="h-5 w-5 text-white" />,
+  seed: <CupSteamIcon className="h-5 w-5 text-white" />,
 };
 
 const categoryIconMap: Record<DrinkType, ReactElement> = {
-  tea: <TeaLeafIcon className="h-6 w-6 text-emerald-500" />,
-  coffee: <CoffeeBeanIcon className="h-6 w-6 text-amber-500" />,
+  tea: <TeaLeafIcon className="h-6 w-6 text-white" />,
+  coffee: <CoffeeBeanIcon className="h-6 w-6 text-white" />,
 };
 
 const highlightPalette = [
@@ -276,35 +276,34 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-orange-50 to-purple-50">
       <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-8 px-4 pb-10 pt-10 sm:px-6 lg:px-8">
-        <header className="rounded-3xl border border-emerald-600/40 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-700 p-8 shadow-xl shadow-emerald-900/30 backdrop-blur">
+        <header className="rounded-[2rem] border-4 border-rose-300/60 bg-gradient-to-br from-pink-400 via-rose-400 to-pink-500 p-8 shadow-2xl shadow-pink-300/40 backdrop-blur">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-2">
               <div className="flex items-center gap-3 text-white/90">
                 <Sparkles className="h-5 w-5" />
-                <span className="text-sm font-semibold uppercase tracking-[0.3em]">HealthyBrew</span>
+                <span className="text-sm font-bold uppercase tracking-[0.3em]">HealthyBrew</span>
               </div>
-              <h1 className="text-3xl font-semibold text-white sm:text-4xl">
-                Curate healthy tea & coffee blends tailored to your rituals
+              <h1 className="text-3xl font-bold text-white sm:text-4xl">
+                お茶とコーヒー ♡ Tea & Coffee Wellness
               </h1>
-              <p className="max-w-2xl text-base text-white/80">
-                Explore hand-crafted recipes, spotlight targeted health benefits, and assemble a custom
-                blend designed for the way you want to feel.
+              <p className="max-w-2xl text-base text-white/90">
+                Explore delightful recipes and discover the perfect blend for your wellness journey ✿
               </p>
             </div>
           </div>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-3 rounded-full bg-emerald-800/50 p-1 shadow-inner">
+            <div className="flex items-center gap-3 rounded-full bg-rose-600/40 p-1.5 shadow-inner">
               {drinkTypes.map((type) => (
                 <button
                   key={type}
                   type="button"
                   onClick={() => setActiveType(type)}
-                  className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+                  className={`flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition-all ${
                     activeType === type
-                      ? "bg-white text-emerald-900 shadow"
-                      : "text-white/80 hover:text-white"
+                      ? "bg-white text-pink-600 shadow-lg"
+                      : "text-white/90 hover:text-white hover:bg-white/10"
                   }`}
                 >
                   {categoryIconMap[type]}
@@ -320,7 +319,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.2 }}
-                  className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-emerald-600 shadow"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-sm font-bold text-pink-600 shadow-lg"
                 >
                   <Check className="h-4 w-4" />
                   {feedback}
@@ -330,23 +329,23 @@ export default function Home() {
           </div>
         </header>
 
-        <div className="grid flex-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)_320px]">
-          <aside className="flex flex-col gap-6 rounded-3xl border border-emerald-600/40 bg-gradient-to-br from-emerald-600 to-emerald-700 p-6 shadow-lg shadow-emerald-900/30 backdrop-blur">
+        <div className="grid flex-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
+          <aside className="flex flex-col gap-6 rounded-[2rem] border-4 border-purple-300/50 bg-gradient-to-br from-purple-300 via-purple-400 to-purple-500 p-6 shadow-xl shadow-purple-300/40 backdrop-blur">
             <div>
-              <label className="flex items-center gap-2 rounded-2xl bg-emerald-800/40 px-3 py-2 text-sm text-white shadow-inner">
+              <label className="flex items-center gap-2 rounded-2xl bg-purple-600/30 px-4 py-3 text-sm text-white shadow-inner">
                 <Search className="h-4 w-4" />
                 <input
                   type="search"
                   placeholder="Search blends..."
                   value={searchTerm}
                   onChange={(event) => setSearchTerm(event.target.value)}
-                  className="w-full bg-transparent text-sm font-medium text-white placeholder:text-white/50 focus:outline-none"
+                  className="w-full bg-transparent text-sm font-semibold text-white placeholder:text-white/60 focus:outline-none"
                 />
               </label>
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-center justify-between text-sm font-semibold text-white">
+              <div className="flex items-center justify-between text-sm font-bold text-white">
                 <span className="inline-flex items-center gap-2">
                   <Filter className="h-4 w-4" /> Health Focus
                 </span>
@@ -356,7 +355,7 @@ export default function Home() {
                     onClick={() => {
                       setSelectedFocus(null);
                     }}
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-white/80 hover:text-white"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-white/80 hover:text-white"
                   >
                     <RotateCcw className="h-3.5 w-3.5" />
                     Reset
@@ -365,8 +364,8 @@ export default function Home() {
               </div>
 
               <section className="space-y-2">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
-                  Select your wellness goal
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/80">
+                  Select your goal
                 </p>
                 <div className="space-y-2">
                   {healthFocuses.map((focus) => {
@@ -376,14 +375,14 @@ export default function Home() {
                         key={focus.id}
                         type="button"
                         onClick={() => setSelectedFocus(isSelected ? null : focus.id)}
-                        className={`w-full rounded-xl border px-3 py-2.5 text-left transition-all ${
+                        className={`w-full rounded-2xl border-2 px-4 py-3 text-left transition-all ${
                           isSelected
-                            ? "border-white/30 bg-white text-emerald-700 shadow-lg"
-                            : "border-emerald-500/30 bg-emerald-800/40 text-white hover:bg-emerald-800/60"
+                            ? "border-white/40 bg-white text-pink-600 shadow-lg"
+                            : "border-purple-400/40 bg-purple-600/30 text-white hover:bg-purple-600/50"
                         }`}
                       >
-                        <p className="text-sm font-semibold">{focus.label}</p>
-                        <p className={`text-xs ${isSelected ? "text-emerald-600/80" : "text-white/70"}`}>
+                        <p className="text-sm font-bold">{focus.label}</p>
+                        <p className={`text-xs ${isSelected ? "text-pink-500/90" : "text-white/80"}`}>
                           {focus.tagline}
                         </p>
                       </button>
@@ -395,12 +394,12 @@ export default function Home() {
           </aside>
 
           <section className="space-y-4">
-            <div className="flex flex-col gap-3 rounded-2xl border border-emerald-600/40 bg-gradient-to-br from-emerald-600 to-emerald-700 p-5 shadow-lg shadow-emerald-900/30">
-              <h2 className="text-lg font-semibold text-white">
+            <div className="flex flex-col gap-3 rounded-3xl border-4 border-orange-300/50 bg-gradient-to-br from-orange-300 via-orange-400 to-orange-500 p-6 shadow-xl shadow-orange-300/40">
+              <h2 className="text-lg font-bold text-white">
                 {filteredDrinks.length} {activeType} blends curated for wellness
               </h2>
               {activeFocus && (
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-emerald-700 w-fit">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-xs font-bold text-orange-600 shadow-md w-fit">
                   <Sparkles className="h-3.5 w-3.5" /> Focus: {activeFocus.label}
                 </span>
               )}
@@ -415,24 +414,15 @@ export default function Home() {
                     pinnedBenefit={pinnedBenefit}
                     onHoverBenefit={setHoveredBenefit}
                     onPinBenefit={(benefit) => setPinnedBenefit((current) => (current === benefit ? null : benefit))}
-                    onAddToBlend={() => handleAddDrinkToBlend(drink)}
                   />
                 ))}
               </AnimatePresence>
             </div>
           </section>
-
-          <aside className="flex flex-col gap-5 rounded-3xl border border-emerald-600/40 bg-gradient-to-br from-emerald-600 to-emerald-700 p-5 shadow-lg shadow-emerald-900/30 backdrop-blur">
-            <HealthSummary
-              metrics={healthMetrics}
-              totalBenefits={totalTouchpoints}
-              focusTagline={activeFocus?.tagline}
-            />
-          </aside>
         </div>
 
-        <footer className="pb-6 text-center text-sm text-emerald-600/70">
-          Crafted with care and botanicals. Hosted on Vercel.
+        <footer className="pb-6 text-center text-sm text-pink-400 font-bold">
+          ✿ Crafted with care and botanicals ✿
         </footer>
       </div>
     </div>
@@ -445,7 +435,6 @@ interface DrinkCardProps {
   pinnedBenefit: string | null;
   onHoverBenefit: (benefit: string | null) => void;
   onPinBenefit: (benefit: string) => void;
-  onAddToBlend: () => void;
 }
 
 function DrinkCard({
@@ -454,7 +443,6 @@ function DrinkCard({
   pinnedBenefit,
   onHoverBenefit,
   onPinBenefit,
-  onAddToBlend,
 }: DrinkCardProps) {
   return (
     <motion.article
@@ -463,25 +451,25 @@ function DrinkCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="group flex h-full flex-col justify-between rounded-3xl border border-emerald-600/40 bg-gradient-to-br from-emerald-600 to-emerald-700 p-6 shadow-lg shadow-emerald-900/30 backdrop-blur transition hover:-translate-y-1 hover:shadow-xl"
+      className="group flex h-full flex-col rounded-[2rem] border-4 border-pink-300/50 bg-gradient-to-br from-pink-100 via-rose-100 to-orange-100 p-7 shadow-xl shadow-pink-200/50 backdrop-blur transition hover:-translate-y-2 hover:shadow-2xl hover:border-pink-300/70"
     >
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <div>
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
+            <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-pink-400">
               {drink.type} blend
             </p>
-            <h3 className="mt-1 text-xl font-semibold text-white">{drink.name}</h3>
+            <h3 className="mt-1 text-2xl font-bold text-pink-600">{drink.name}</h3>
           </div>
-          <div className="flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-emerald-600">
-            <CupSteamIcon className="h-4 w-4 text-emerald-500" />
+          <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-300 to-rose-300 px-4 py-1.5 text-xs font-bold text-white shadow-md">
+            <CupSteamIcon className="h-4 w-4 text-white" />
             wellbeing
           </div>
         </div>
-        <p className="text-sm text-white/90">{drink.description}</p>
+        <p className="text-sm text-gray-700 leading-relaxed">{drink.description}</p>
 
         <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-pink-500">
             <span>Ingredients</span>
             <span>{drink.ingredients.length}</span>
           </div>
@@ -493,18 +481,18 @@ function DrinkCard({
               return (
                 <div
                   key={ingredient.name}
-                  className={`flex items-start gap-3 rounded-2xl border bg-emerald-800/40 p-3 transition-all ${
+                  className={`flex items-start gap-3 rounded-2xl border-2 bg-white/60 p-3 transition-all ${
                     isHighlighted
-                      ? "border-white/40 shadow-md shadow-emerald-900/20"
-                      : "border-emerald-500/30"
+                      ? "border-pink-300 shadow-lg shadow-pink-200/50 bg-white/90"
+                      : "border-pink-200/50"
                   }`}
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-emerald-600">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-pink-300 to-rose-300 shadow-md">
                     {ingredientIconMap[ingredient.icon]}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white">{ingredient.name}</p>
-                    <p className="text-xs text-white/70">{ingredient.description}</p>
+                    <p className="text-sm font-bold text-pink-700">{ingredient.name}</p>
+                    <p className="text-xs text-gray-600">{ingredient.description}</p>
                   </div>
                 </div>
               );
@@ -513,7 +501,7 @@ function DrinkCard({
         </section>
 
         <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-pink-500">
             <span>Health Benefits</span>
             <span>{drink.healthBenefits.length}</span>
           </div>
@@ -528,12 +516,12 @@ function DrinkCard({
                   onMouseEnter={() => onHoverBenefit(benefit)}
                   onMouseLeave={() => onHoverBenefit(null)}
                   onClick={() => onPinBenefit(benefit)}
-                  className={`rounded-full border px-3 py-1 text-xs font-semibold transition-all ${
+                  className={`rounded-full border-2 px-3 py-1.5 text-xs font-bold transition-all ${
                     isPinned
-                      ? "border-white/40 bg-white text-emerald-700 shadow"
+                      ? "border-pink-400 bg-gradient-to-r from-pink-400 to-rose-400 text-white shadow-lg"
                       : isActive
-                        ? "border-white/30 bg-white/80 text-emerald-700"
-                        : "border-emerald-500/30 bg-emerald-800/40 text-white hover:bg-white/90 hover:text-emerald-700"
+                        ? "border-pink-300 bg-pink-200 text-pink-700"
+                        : "border-pink-200 bg-white/70 text-pink-600 hover:bg-pink-200 hover:border-pink-300"
                   }`}
                 >
                   {benefit}
@@ -544,13 +532,13 @@ function DrinkCard({
         </section>
 
         <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-pink-500">
             <span>Preparation</span>
           </div>
-          <ol className="space-y-2 text-sm text-white/90">
+          <ol className="space-y-2 text-sm text-gray-700">
             {drink.preparation.map((step, index) => (
               <li key={`${drink.id}-prep-${index}`} className="flex gap-3">
-                <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-white/90 text-xs font-semibold text-emerald-600">
+                <span className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-purple-300 to-purple-400 text-xs font-bold text-white shadow-md">
                   {index + 1}
                 </span>
                 <span>{step}</span>
@@ -561,21 +549,12 @@ function DrinkCard({
 
         <section className="flex flex-wrap gap-2">
           {drink.flavorNotes.map((note) => (
-            <span key={note} className="rounded-full bg-emerald-800/40 border border-emerald-500/30 px-3 py-1 text-xs font-semibold text-white">
+            <span key={note} className="rounded-full bg-gradient-to-r from-orange-200 to-yellow-200 border-2 border-orange-300/50 px-4 py-1.5 text-xs font-bold text-orange-700 shadow-sm">
               {note}
             </span>
           ))}
         </section>
       </div>
-
-      <motion.button
-        whileTap={{ scale: 0.97 }}
-        onClick={onAddToBlend}
-        type="button"
-        className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-3 text-sm font-semibold text-emerald-700 shadow-lg shadow-emerald-900/30 transition hover:bg-white/90"
-      >
-        <Sparkles className="h-4 w-4" /> Add to blend
-      </motion.button>
     </motion.article>
   );
 }

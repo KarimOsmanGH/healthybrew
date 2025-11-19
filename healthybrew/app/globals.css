@@ -2,8 +2,8 @@
 
 :root {
   color-scheme: only light;
-  --background: #fdfcf8;
-  --foreground: #022c22;
+  --background: #fef6f9;
+  --foreground: #4a1942;
 }
 
 @theme inline {
