@@ -427,16 +427,6 @@ export default function Home() {
           </aside>
 
           <section className="space-y-4">
-            <div className="flex flex-col gap-3 rounded-3xl border-4 border-orange-900/30 bg-gradient-to-br from-orange-700 via-orange-800 to-orange-900 p-6 shadow-xl shadow-orange-900/20">
-              <h2 className="text-lg font-bold text-white">
-                {filteredDrinks.length} {activeType} blends curated for wellness
-              </h2>
-              {activeFocus && (
-                <span className="inline-flex items-center gap-2 rounded-full bg-amber-100/95 px-4 py-2 text-xs font-bold text-orange-900 shadow-md w-fit">
-                  <Sparkles className="h-3.5 w-3.5" /> Focus: {activeFocus.label}
-                </span>
-              )}
-            </div>
             <div className="grid gap-5 xl:grid-cols-2">
               <AnimatePresence>
                 {filteredDrinks.map((drink) => (
