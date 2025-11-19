@@ -530,19 +530,6 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col gap-6 rounded-[2.5rem] border-4 border-blue-300/60 bg-gradient-to-br from-blue-50/90 via-purple-50/90 to-pink-50/90 p-6 shadow-2xl shadow-blue-500/20 backdrop-blur-xl"
           >
-            <div>
-              <label className="flex items-center gap-2 rounded-2xl bg-white/80 px-4 py-3 text-sm text-purple-800 shadow-lg border-2 border-purple-200/50 backdrop-blur-sm">
-                <Search className="h-4 w-4" />
-                <input
-                  type="search"
-                  placeholder="Search blends..."
-                  value={searchTerm}
-                  onChange={(event) => setSearchTerm(event.target.value)}
-                  className="w-full bg-transparent text-sm font-semibold text-purple-800 placeholder:text-purple-600/50 focus:outline-none"
-                />
-              </label>
-            </div>
-
             <div className="space-y-4">
               <div className="flex items-center justify-between text-sm font-bold text-purple-800">
                 <span className="inline-flex items-center gap-2">
@@ -793,21 +780,6 @@ function DrinkCard({
               </li>
             ))}
           </ol>
-        </section>
-
-        <section className="flex flex-wrap gap-2">
-          {drink.flavorNotes.map((note, index) => (
-            <motion.span
-              key={note}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.1, y: -2 }}
-              className={`rounded-full bg-gradient-to-r ${cardGradient} border-2 border-white px-4 py-1.5 text-xs font-bold text-white shadow-lg`}
-            >
-              {note}
-            </motion.span>
-          ))}
         </section>
       </div>
     </motion.article>
