@@ -286,7 +286,7 @@ export default function Home() {
                 <span className="text-sm font-bold uppercase tracking-[0.3em]">HealthyBrew</span>
               </div>
               <h1 className="text-3xl font-bold text-white sm:text-4xl">
-                お茶とコーヒー ♡ Tea & Coffee Wellness
+                Tea & Coffee Wellness ♡
               </h1>
               <p className="max-w-2xl text-base text-white/90">
                 Explore delightful recipes and discover the perfect blend for your wellness journey ✿
