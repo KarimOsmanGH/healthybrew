@@ -98,11 +98,15 @@ export default function Home() {
   useEffect(() => {
     // Auto-play music on mount
     if (audioRef.current) {
-      audioRef.current.play().catch(() => {
-        // Autoplay might be blocked by browser
-        console.log('Autoplay blocked - user interaction required');
-      });
-      setIsMusicPlaying(true);
+      audioRef.current.play()
+        .then(() => {
+          setIsMusicPlaying(true);
+        })
+        .catch(() => {
+          // Autoplay might be blocked by browser
+          console.log('Autoplay blocked - user interaction required');
+          setIsMusicPlaying(false);
+        });
     }
   }, []);
 
@@ -485,7 +489,7 @@ function DrinkCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="group flex h-full flex-col rounded-[2rem] border-4 border-amber-200/30 bg-gradient-to-br from-white via-amber-50/50 to-orange-50/40 p-7 shadow-lg shadow-amber-900/5 backdrop-blur transition hover:-translate-y-2 hover:shadow-xl hover:border-amber-200/50"
+      className="group flex h-full flex-col rounded-[2rem] border-4 border-amber-300/60 bg-white p-7 shadow-xl shadow-amber-900/10 backdrop-blur transition hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-900/15 hover:border-amber-400/70"
     >
       <div className="space-y-4">
         <div className="flex items-start justify-between">
