@@ -28,6 +28,8 @@ import {
   Share2,
   Sparkles,
   Trash2,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 
 type SelectedIngredient = {
@@ -71,6 +73,8 @@ export default function Home() {
   const [selectedIngredients, setSelectedIngredients] = useState<Record<string, SelectedIngredient>>({});
   const [feedback, setFeedback] = useState<string | null>(null);
   const feedbackTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const triggerFeedback = (message: string) => {
     setFeedback(message);
@@ -275,10 +279,39 @@ export default function Home() {
     triggerFeedback(label);
   };
 
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isMusicPlaying) {
+        audioRef.current.pause();
+        setIsMusicPlaying(false);
+      } else {
+        audioRef.current.play().catch(() => {
+          // Handle autoplay restriction
+          triggerFeedback("Click to enable music");
+        });
+        setIsMusicPlaying(true);
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-orange-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
+      {/* Lofi Music Player */}
+      <audio ref={audioRef} loop className="hidden">
+        <source src="https://stream.zeno.fm/f3wvbbqmdg8uv" type="audio/mpeg" />
+      </audio>
+      
+      {/* Music Control Button */}
+      <button
+        onClick={toggleMusic}
+        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-amber-700 to-orange-800 text-white shadow-2xl shadow-amber-900/30 transition-all hover:scale-110 hover:shadow-amber-900/40 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+        aria-label={isMusicPlaying ? "Pause lofi music" : "Play lofi music"}
+      >
+        {isMusicPlaying ? <Volume2 className="h-6 w-6" /> : <VolumeX className="h-6 w-6" />}
+      </button>
+      
       <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-8 px-4 pb-10 pt-10 sm:px-6 lg:px-8">
-        <header className="rounded-[2rem] border-4 border-rose-300/60 bg-gradient-to-br from-pink-400 via-rose-400 to-pink-500 p-8 shadow-2xl shadow-pink-300/40 backdrop-blur">
+        <header className="rounded-[2rem] border-4 border-amber-700/30 bg-gradient-to-br from-amber-700 via-orange-800 to-amber-800 p-8 shadow-2xl shadow-amber-900/20 backdrop-blur">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-2">
               <div className="flex items-center gap-3 text-white/90">
@@ -294,7 +327,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-3 rounded-full bg-rose-600/40 p-1.5 shadow-inner">
+            <div className="flex items-center gap-3 rounded-full bg-amber-900/40 p-1.5 shadow-inner">
               {drinkTypes.map((type) => (
                 <button
                   key={type}
@@ -302,8 +335,8 @@ export default function Home() {
                   onClick={() => setActiveType(type)}
                   className={`flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition-all ${
                     activeType === type
-                      ? "bg-white text-pink-600 shadow-lg"
-                      : "text-white/90 hover:text-white hover:bg-white/10"
+                      ? "bg-amber-100 text-amber-900 shadow-lg"
+                      : "text-amber-100/90 hover:text-white hover:bg-white/10"
                   }`}
                 >
                   {categoryIconMap[type]}
@@ -319,7 +352,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.2 }}
-                  className="inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-sm font-bold text-pink-600 shadow-lg"
+                  className="inline-flex items-center gap-2 rounded-full bg-amber-100/95 px-4 py-2 text-sm font-bold text-amber-900 shadow-lg"
                 >
                   <Check className="h-4 w-4" />
                   {feedback}
@@ -330,9 +363,9 @@ export default function Home() {
         </header>
 
         <div className="grid flex-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
-          <aside className="flex flex-col gap-6 rounded-[2rem] border-4 border-purple-300/50 bg-gradient-to-br from-purple-300 via-purple-400 to-purple-500 p-6 shadow-xl shadow-purple-300/40 backdrop-blur">
+          <aside className="flex flex-col gap-6 rounded-[2rem] border-4 border-stone-700/30 bg-gradient-to-br from-stone-600 via-stone-700 to-stone-800 p-6 shadow-xl shadow-stone-900/20 backdrop-blur">
             <div>
-              <label className="flex items-center gap-2 rounded-2xl bg-purple-600/30 px-4 py-3 text-sm text-white shadow-inner">
+              <label className="flex items-center gap-2 rounded-2xl bg-stone-900/30 px-4 py-3 text-sm text-white shadow-inner">
                 <Search className="h-4 w-4" />
                 <input
                   type="search"
@@ -377,12 +410,12 @@ export default function Home() {
                         onClick={() => setSelectedFocus(isSelected ? null : focus.id)}
                         className={`w-full rounded-2xl border-2 px-4 py-3 text-left transition-all ${
                           isSelected
-                            ? "border-white/40 bg-white text-pink-600 shadow-lg"
-                            : "border-purple-400/40 bg-purple-600/30 text-white hover:bg-purple-600/50"
+                            ? "border-white/40 bg-amber-100 text-amber-900 shadow-lg"
+                            : "border-stone-600/40 bg-stone-900/30 text-white hover:bg-stone-900/50"
                         }`}
                       >
                         <p className="text-sm font-bold">{focus.label}</p>
-                        <p className={`text-xs ${isSelected ? "text-pink-500/90" : "text-white/80"}`}>
+                        <p className={`text-xs ${isSelected ? "text-amber-700/90" : "text-white/80"}`}>
                           {focus.tagline}
                         </p>
                       </button>
@@ -394,12 +427,12 @@ export default function Home() {
           </aside>
 
           <section className="space-y-4">
-            <div className="flex flex-col gap-3 rounded-3xl border-4 border-orange-300/50 bg-gradient-to-br from-orange-300 via-orange-400 to-orange-500 p-6 shadow-xl shadow-orange-300/40">
+            <div className="flex flex-col gap-3 rounded-3xl border-4 border-orange-900/30 bg-gradient-to-br from-orange-700 via-orange-800 to-orange-900 p-6 shadow-xl shadow-orange-900/20">
               <h2 className="text-lg font-bold text-white">
                 {filteredDrinks.length} {activeType} blends curated for wellness
               </h2>
               {activeFocus && (
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-xs font-bold text-orange-600 shadow-md w-fit">
+                <span className="inline-flex items-center gap-2 rounded-full bg-amber-100/95 px-4 py-2 text-xs font-bold text-orange-900 shadow-md w-fit">
                   <Sparkles className="h-3.5 w-3.5" /> Focus: {activeFocus.label}
                 </span>
               )}
@@ -421,7 +454,7 @@ export default function Home() {
           </section>
         </div>
 
-        <footer className="pb-6 text-center text-sm text-pink-400 font-bold">
+        <footer className="pb-6 text-center text-sm text-amber-700 font-bold">
           ✿ Crafted with care and botanicals ✿
         </footer>
       </div>
@@ -451,25 +484,25 @@ function DrinkCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="group flex h-full flex-col rounded-[2rem] border-4 border-pink-300/50 bg-gradient-to-br from-pink-100 via-rose-100 to-orange-100 p-7 shadow-xl shadow-pink-200/50 backdrop-blur transition hover:-translate-y-2 hover:shadow-2xl hover:border-pink-300/70"
+      className="group flex h-full flex-col rounded-[2rem] border-4 border-amber-900/20 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-7 shadow-xl shadow-amber-900/10 backdrop-blur transition hover:-translate-y-2 hover:shadow-2xl hover:border-amber-900/30"
     >
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <div>
-            <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-pink-400">
+            <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-amber-700">
               {drink.type} blend
             </p>
-            <h3 className="mt-1 text-2xl font-bold text-pink-600">{drink.name}</h3>
+            <h3 className="mt-1 text-2xl font-bold text-amber-900">{drink.name}</h3>
           </div>
-          <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-300 to-rose-300 px-4 py-1.5 text-xs font-bold text-white shadow-md">
+          <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-700 to-orange-800 px-4 py-1.5 text-xs font-bold text-white shadow-md">
             <CupSteamIcon className="h-4 w-4 text-white" />
             wellbeing
           </div>
         </div>
-        <p className="text-sm text-gray-700 leading-relaxed">{drink.description}</p>
+        <p className="text-sm text-stone-700 leading-relaxed">{drink.description}</p>
 
         <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-pink-500">
+          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-amber-700">
             <span>Ingredients</span>
             <span>{drink.ingredients.length}</span>
           </div>
@@ -483,16 +516,16 @@ function DrinkCard({
                   key={ingredient.name}
                   className={`flex items-start gap-3 rounded-2xl border-2 bg-white/60 p-3 transition-all ${
                     isHighlighted
-                      ? "border-pink-300 shadow-lg shadow-pink-200/50 bg-white/90"
-                      : "border-pink-200/50"
+                      ? "border-amber-700 shadow-lg shadow-amber-900/20 bg-white/90"
+                      : "border-amber-900/20"
                   }`}
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-pink-300 to-rose-300 shadow-md">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-700 to-orange-800 shadow-md">
                     {ingredientIconMap[ingredient.icon]}
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-pink-700">{ingredient.name}</p>
-                    <p className="text-xs text-gray-600">{ingredient.description}</p>
+                    <p className="text-sm font-bold text-amber-900">{ingredient.name}</p>
+                    <p className="text-xs text-stone-600">{ingredient.description}</p>
                   </div>
                 </div>
               );
@@ -501,7 +534,7 @@ function DrinkCard({
         </section>
 
         <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-pink-500">
+          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-amber-700">
             <span>Health Benefits</span>
             <span>{drink.healthBenefits.length}</span>
           </div>
@@ -518,10 +551,10 @@ function DrinkCard({
                   onClick={() => onPinBenefit(benefit)}
                   className={`rounded-full border-2 px-3 py-1.5 text-xs font-bold transition-all ${
                     isPinned
-                      ? "border-pink-400 bg-gradient-to-r from-pink-400 to-rose-400 text-white shadow-lg"
+                      ? "border-amber-700 bg-gradient-to-r from-amber-700 to-orange-800 text-white shadow-lg"
                       : isActive
-                        ? "border-pink-300 bg-pink-200 text-pink-700"
-                        : "border-pink-200 bg-white/70 text-pink-600 hover:bg-pink-200 hover:border-pink-300"
+                        ? "border-amber-700 bg-amber-200 text-amber-900"
+                        : "border-amber-900/20 bg-white/70 text-amber-800 hover:bg-amber-200 hover:border-amber-700"
                   }`}
                 >
                   {benefit}
@@ -532,13 +565,13 @@ function DrinkCard({
         </section>
 
         <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-pink-500">
+          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-amber-700">
             <span>Preparation</span>
           </div>
-          <ol className="space-y-2 text-sm text-gray-700">
+          <ol className="space-y-2 text-sm text-stone-700">
             {drink.preparation.map((step, index) => (
               <li key={`${drink.id}-prep-${index}`} className="flex gap-3">
-                <span className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-purple-300 to-purple-400 text-xs font-bold text-white shadow-md">
+                <span className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-stone-600 to-stone-700 text-xs font-bold text-white shadow-md">
                   {index + 1}
                 </span>
                 <span>{step}</span>
@@ -549,7 +582,7 @@ function DrinkCard({
 
         <section className="flex flex-wrap gap-2">
           {drink.flavorNotes.map((note) => (
-            <span key={note} className="rounded-full bg-gradient-to-r from-orange-200 to-yellow-200 border-2 border-orange-300/50 px-4 py-1.5 text-xs font-bold text-orange-700 shadow-sm">
+            <span key={note} className="rounded-full bg-gradient-to-r from-amber-200 to-yellow-200 border-2 border-amber-700/30 px-4 py-1.5 text-xs font-bold text-amber-900 shadow-sm">
               {note}
             </span>
           ))}
