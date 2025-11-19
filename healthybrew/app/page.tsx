@@ -95,6 +95,17 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    // Auto-play music on mount
+    if (audioRef.current) {
+      audioRef.current.play().catch(() => {
+        // Autoplay might be blocked by browser
+        console.log('Autoplay blocked - user interaction required');
+      });
+      setIsMusicPlaying(true);
+    }
+  }, []);
+
   const activeFocus = useMemo(
     () => (selectedFocus ? healthFocuses.find((focus) => focus.id === selectedFocus) ?? null : null),
     [selectedFocus],
@@ -295,7 +306,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50/30 to-orange-50/20">
       {/* Lofi Music Player */}
       <audio ref={audioRef} loop className="hidden">
         <source src="https://stream.zeno.fm/f3wvbbqmdg8uv" type="audio/mpeg" />
@@ -304,30 +315,30 @@ export default function Home() {
       {/* Music Control Button */}
       <button
         onClick={toggleMusic}
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-amber-700 to-orange-800 text-white shadow-2xl shadow-amber-900/30 transition-all hover:scale-110 hover:shadow-amber-900/40 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 to-orange-200 text-amber-800 shadow-xl shadow-amber-900/10 transition-all hover:scale-110 hover:shadow-amber-900/20 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2"
         aria-label={isMusicPlaying ? "Pause lofi music" : "Play lofi music"}
       >
         {isMusicPlaying ? <Volume2 className="h-6 w-6" /> : <VolumeX className="h-6 w-6" />}
       </button>
       
       <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-8 px-4 pb-10 pt-10 sm:px-6 lg:px-8">
-        <header className="rounded-[2rem] border-4 border-amber-700/30 bg-gradient-to-br from-amber-700 via-orange-800 to-amber-800 p-8 shadow-2xl shadow-amber-900/20 backdrop-blur">
+        <header className="rounded-[2rem] border-4 border-amber-200/50 bg-gradient-to-br from-amber-100 via-orange-100/80 to-yellow-100/60 p-8 shadow-xl shadow-amber-900/5 backdrop-blur">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-2">
-              <div className="flex items-center gap-3 text-white/90">
+              <div className="flex items-center gap-3 text-amber-700/80">
                 <Sparkles className="h-5 w-5" />
                 <span className="text-sm font-bold uppercase tracking-[0.3em]">HealthyBrew</span>
               </div>
-              <h1 className="text-3xl font-bold text-white sm:text-4xl">
+              <h1 className="text-3xl font-bold text-amber-800 sm:text-4xl">
                 Tea & Coffee Wellness ♡
               </h1>
-              <p className="max-w-2xl text-base text-white/90">
+              <p className="max-w-2xl text-base text-amber-700/80">
                 Explore delightful recipes and discover the perfect blend for your wellness journey ✿
               </p>
             </div>
           </div>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-3 rounded-full bg-amber-900/40 p-1.5 shadow-inner">
+            <div className="flex items-center gap-3 rounded-full bg-white/60 p-1.5 shadow-inner">
               {drinkTypes.map((type) => (
                 <button
                   key={type}
@@ -335,8 +346,8 @@ export default function Home() {
                   onClick={() => setActiveType(type)}
                   className={`flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition-all ${
                     activeType === type
-                      ? "bg-amber-100 text-amber-900 shadow-lg"
-                      : "text-amber-100/90 hover:text-white hover:bg-white/10"
+                      ? "bg-amber-200 text-amber-800 shadow-md"
+                      : "text-amber-700/70 hover:text-amber-800 hover:bg-white/40"
                   }`}
                 >
                   {categoryIconMap[type]}
@@ -352,7 +363,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.2 }}
-                  className="inline-flex items-center gap-2 rounded-full bg-amber-100/95 px-4 py-2 text-sm font-bold text-amber-900 shadow-lg"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-sm font-bold text-amber-800 shadow-md"
                 >
                   <Check className="h-4 w-4" />
                   {feedback}
@@ -363,22 +374,22 @@ export default function Home() {
         </header>
 
         <div className="grid flex-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
-          <aside className="flex flex-col gap-6 rounded-[2rem] border-4 border-stone-700/30 bg-gradient-to-br from-stone-600 via-stone-700 to-stone-800 p-6 shadow-xl shadow-stone-900/20 backdrop-blur">
+          <aside className="flex flex-col gap-6 rounded-[2rem] border-4 border-stone-200/50 bg-gradient-to-br from-stone-100 via-amber-50/50 to-orange-50/30 p-6 shadow-lg shadow-stone-900/5 backdrop-blur">
             <div>
-              <label className="flex items-center gap-2 rounded-2xl bg-stone-900/30 px-4 py-3 text-sm text-white shadow-inner">
+              <label className="flex items-center gap-2 rounded-2xl bg-white/60 px-4 py-3 text-sm text-amber-800 shadow-inner">
                 <Search className="h-4 w-4" />
                 <input
                   type="search"
                   placeholder="Search blends..."
                   value={searchTerm}
                   onChange={(event) => setSearchTerm(event.target.value)}
-                  className="w-full bg-transparent text-sm font-semibold text-white placeholder:text-white/60 focus:outline-none"
+                  className="w-full bg-transparent text-sm font-semibold text-amber-800 placeholder:text-amber-600/50 focus:outline-none"
                 />
               </label>
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-center justify-between text-sm font-bold text-white">
+              <div className="flex items-center justify-between text-sm font-bold text-amber-800">
                 <span className="inline-flex items-center gap-2">
                   <Filter className="h-4 w-4" /> Health Focus
                 </span>
@@ -388,7 +399,7 @@ export default function Home() {
                     onClick={() => {
                       setSelectedFocus(null);
                     }}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-white/80 hover:text-white"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-amber-600 hover:text-amber-800"
                   >
                     <RotateCcw className="h-3.5 w-3.5" />
                     Reset
@@ -397,7 +408,7 @@ export default function Home() {
               </div>
 
               <section className="space-y-2">
-                <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/80">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-amber-700/70">
                   Select your goal
                 </p>
                 <div className="space-y-2">
@@ -410,12 +421,12 @@ export default function Home() {
                         onClick={() => setSelectedFocus(isSelected ? null : focus.id)}
                         className={`w-full rounded-2xl border-2 px-4 py-3 text-left transition-all ${
                           isSelected
-                            ? "border-white/40 bg-amber-100 text-amber-900 shadow-lg"
-                            : "border-stone-600/40 bg-stone-900/30 text-white hover:bg-stone-900/50"
+                            ? "border-amber-300/60 bg-amber-100 text-amber-900 shadow-md"
+                            : "border-stone-200/60 bg-white/50 text-amber-800 hover:bg-white/70"
                         }`}
                       >
                         <p className="text-sm font-bold">{focus.label}</p>
-                        <p className={`text-xs ${isSelected ? "text-amber-700/90" : "text-white/80"}`}>
+                        <p className={`text-xs ${isSelected ? "text-amber-700/90" : "text-amber-700/70"}`}>
                           {focus.tagline}
                         </p>
                       </button>
@@ -444,7 +455,7 @@ export default function Home() {
           </section>
         </div>
 
-        <footer className="pb-6 text-center text-sm text-amber-700 font-bold">
+        <footer className="pb-6 text-center text-sm text-amber-600/70 font-bold">
           ✿ Crafted with care and botanicals ✿
         </footer>
       </div>
@@ -474,7 +485,7 @@ function DrinkCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="group flex h-full flex-col rounded-[2rem] border-4 border-amber-900/20 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-7 shadow-xl shadow-amber-900/10 backdrop-blur transition hover:-translate-y-2 hover:shadow-2xl hover:border-amber-900/30"
+      className="group flex h-full flex-col rounded-[2rem] border-4 border-amber-200/30 bg-gradient-to-br from-white via-amber-50/50 to-orange-50/40 p-7 shadow-lg shadow-amber-900/5 backdrop-blur transition hover:-translate-y-2 hover:shadow-xl hover:border-amber-200/50"
     >
       <div className="space-y-4">
         <div className="flex items-start justify-between">
@@ -484,8 +495,8 @@ function DrinkCard({
             </p>
             <h3 className="mt-1 text-2xl font-bold text-amber-900">{drink.name}</h3>
           </div>
-          <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-700 to-orange-800 px-4 py-1.5 text-xs font-bold text-white shadow-md">
-            <CupSteamIcon className="h-4 w-4 text-white" />
+          <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-200 to-orange-200 px-4 py-1.5 text-xs font-bold text-amber-800 shadow-sm">
+            <CupSteamIcon className="h-4 w-4 text-amber-700" />
             wellbeing
           </div>
         </div>
@@ -504,13 +515,13 @@ function DrinkCard({
               return (
                 <div
                   key={ingredient.name}
-                  className={`flex items-start gap-3 rounded-2xl border-2 bg-white/60 p-3 transition-all ${
+                  className={`flex items-start gap-3 rounded-2xl border-2 bg-white/80 p-3 transition-all ${
                     isHighlighted
-                      ? "border-amber-700 shadow-lg shadow-amber-900/20 bg-white/90"
-                      : "border-amber-900/20"
+                      ? "border-amber-300 shadow-md shadow-amber-900/10 bg-white"
+                      : "border-amber-200/40"
                   }`}
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-700 to-orange-800 shadow-md">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 to-orange-200 shadow-sm">
                     {ingredientIconMap[ingredient.icon]}
                   </div>
                   <div>
@@ -541,10 +552,10 @@ function DrinkCard({
                   onClick={() => onPinBenefit(benefit)}
                   className={`rounded-full border-2 px-3 py-1.5 text-xs font-bold transition-all ${
                     isPinned
-                      ? "border-amber-700 bg-gradient-to-r from-amber-700 to-orange-800 text-white shadow-lg"
+                      ? "border-amber-300 bg-gradient-to-r from-amber-200 to-orange-200 text-amber-800 shadow-md"
                       : isActive
-                        ? "border-amber-700 bg-amber-200 text-amber-900"
-                        : "border-amber-900/20 bg-white/70 text-amber-800 hover:bg-amber-200 hover:border-amber-700"
+                        ? "border-amber-300 bg-amber-100 text-amber-800"
+                        : "border-amber-200/40 bg-white/90 text-amber-700 hover:bg-amber-100 hover:border-amber-300"
                   }`}
                 >
                   {benefit}
@@ -561,7 +572,7 @@ function DrinkCard({
           <ol className="space-y-2 text-sm text-stone-700">
             {drink.preparation.map((step, index) => (
               <li key={`${drink.id}-prep-${index}`} className="flex gap-3">
-                <span className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-stone-600 to-stone-700 text-xs font-bold text-white shadow-md">
+                <span className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-stone-300 to-stone-400 text-xs font-bold text-white shadow-sm">
                   {index + 1}
                 </span>
                 <span>{step}</span>
@@ -572,7 +583,7 @@ function DrinkCard({
 
         <section className="flex flex-wrap gap-2">
           {drink.flavorNotes.map((note) => (
-            <span key={note} className="rounded-full bg-gradient-to-r from-amber-200 to-yellow-200 border-2 border-amber-700/30 px-4 py-1.5 text-xs font-bold text-amber-900 shadow-sm">
+            <span key={note} className="rounded-full bg-gradient-to-r from-amber-100 to-yellow-100 border-2 border-amber-200/50 px-4 py-1.5 text-xs font-bold text-amber-800 shadow-sm">
               {note}
             </span>
           ))}
