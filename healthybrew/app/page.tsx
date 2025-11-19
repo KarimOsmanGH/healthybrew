@@ -75,6 +75,7 @@ export default function Home() {
   const feedbackTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const autoplayAttempted = useRef(false);
 
   const triggerFeedback = (message: string) => {
     setFeedback(message);
@@ -95,19 +96,42 @@ export default function Home() {
     };
   }, []);
 
+  // Auto-play music on mount
   useEffect(() => {
-    // Auto-play music on mount
-    if (audioRef.current) {
-      audioRef.current.play()
-        .then(() => {
-          setIsMusicPlaying(true);
-        })
-        .catch(() => {
-          // Autoplay might be blocked by browser
-          console.log('Autoplay blocked - user interaction required');
-          setIsMusicPlaying(false);
-        });
-    }
+    const attemptAutoplay = () => {
+      if (audioRef.current && !autoplayAttempted.current) {
+        autoplayAttempted.current = true;
+        audioRef.current.play()
+          .then(() => {
+            setIsMusicPlaying(true);
+          })
+          .catch(() => {
+            // Autoplay blocked - try on first user interaction
+            console.log('Autoplay blocked - will try on first interaction');
+            
+            // Set up listener for first user interaction
+            const handleFirstInteraction = () => {
+              if (audioRef.current) {
+                audioRef.current.play()
+                  .then(() => {
+                    setIsMusicPlaying(true);
+                  })
+                  .catch((err) => {
+                    console.log('Play attempt failed:', err);
+                  });
+              }
+            };
+
+            // Add event listeners for first interaction (once each)
+            document.addEventListener('click', handleFirstInteraction, { once: true });
+            document.addEventListener('keydown', handleFirstInteraction, { once: true });
+            document.addEventListener('touchstart', handleFirstInteraction, { once: true });
+          });
+      }
+    };
+
+    // Try immediate autoplay
+    attemptAutoplay();
   }, []);
 
   const activeFocus = useMemo(
@@ -326,7 +350,7 @@ export default function Home() {
       </button>
       
       <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-8 px-4 pb-10 pt-10 sm:px-6 lg:px-8">
-        <header className="rounded-[2rem] border-4 border-amber-200/50 bg-gradient-to-br from-amber-100 via-orange-100/80 to-yellow-100/60 p-8 shadow-xl shadow-amber-900/5 backdrop-blur">
+        <header className="rounded-[2rem] border-4 border-amber-300/80 bg-gradient-to-br from-amber-100 via-orange-100/80 to-yellow-100/60 p-8 shadow-xl shadow-amber-900/10 backdrop-blur">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-2">
               <div className="flex items-center gap-3 text-amber-700/80">
@@ -378,7 +402,7 @@ export default function Home() {
         </header>
 
         <div className="grid flex-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
-          <aside className="flex flex-col gap-6 rounded-[2rem] border-4 border-stone-200/50 bg-gradient-to-br from-stone-100 via-amber-50/50 to-orange-50/30 p-6 shadow-lg shadow-stone-900/5 backdrop-blur">
+          <aside className="flex flex-col gap-6 rounded-[2rem] border-4 border-stone-300/80 bg-gradient-to-br from-stone-100 via-amber-50/50 to-orange-50/30 p-6 shadow-lg shadow-stone-900/10 backdrop-blur">
             <div>
               <label className="flex items-center gap-2 rounded-2xl bg-white/60 px-4 py-3 text-sm text-amber-800 shadow-inner">
                 <Search className="h-4 w-4" />
@@ -425,8 +449,8 @@ export default function Home() {
                         onClick={() => setSelectedFocus(isSelected ? null : focus.id)}
                         className={`w-full rounded-2xl border-2 px-4 py-3 text-left transition-all ${
                           isSelected
-                            ? "border-amber-300/60 bg-amber-100 text-amber-900 shadow-md"
-                            : "border-stone-200/60 bg-white/50 text-amber-800 hover:bg-white/70"
+                            ? "border-amber-400/80 bg-amber-100 text-amber-900 shadow-md"
+                            : "border-stone-300/70 bg-white/50 text-amber-800 hover:bg-white/70 hover:border-stone-400/70"
                         }`}
                       >
                         <p className="text-sm font-bold">{focus.label}</p>
@@ -489,7 +513,7 @@ function DrinkCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="group flex h-full flex-col rounded-[2rem] border-4 border-amber-300/60 bg-white p-7 shadow-xl shadow-amber-900/10 backdrop-blur transition hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-900/15 hover:border-amber-400/70"
+      className="group flex h-full flex-col rounded-[2rem] border-4 border-amber-400/80 bg-white p-7 shadow-xl shadow-amber-900/15 backdrop-blur transition hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-900/20 hover:border-amber-500"
     >
       <div className="space-y-4">
         <div className="flex items-start justify-between">
@@ -521,8 +545,8 @@ function DrinkCard({
                   key={ingredient.name}
                   className={`flex items-start gap-3 rounded-2xl border-2 bg-white/80 p-3 transition-all ${
                     isHighlighted
-                      ? "border-amber-300 shadow-md shadow-amber-900/10 bg-white"
-                      : "border-amber-200/40"
+                      ? "border-amber-400 shadow-md shadow-amber-900/10 bg-white"
+                      : "border-amber-300/60"
                   }`}
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 to-orange-200 shadow-sm">
@@ -556,10 +580,10 @@ function DrinkCard({
                   onClick={() => onPinBenefit(benefit)}
                   className={`rounded-full border-2 px-3 py-1.5 text-xs font-bold transition-all ${
                     isPinned
-                      ? "border-amber-300 bg-gradient-to-r from-amber-200 to-orange-200 text-amber-800 shadow-md"
+                      ? "border-amber-400 bg-gradient-to-r from-amber-200 to-orange-200 text-amber-800 shadow-md"
                       : isActive
-                        ? "border-amber-300 bg-amber-100 text-amber-800"
-                        : "border-amber-200/40 bg-white/90 text-amber-700 hover:bg-amber-100 hover:border-amber-300"
+                        ? "border-amber-400 bg-amber-100 text-amber-800"
+                        : "border-amber-300/60 bg-white/90 text-amber-700 hover:bg-amber-100 hover:border-amber-400"
                   }`}
                 >
                   {benefit}
@@ -587,7 +611,7 @@ function DrinkCard({
 
         <section className="flex flex-wrap gap-2">
           {drink.flavorNotes.map((note) => (
-            <span key={note} className="rounded-full bg-gradient-to-r from-amber-100 to-yellow-100 border-2 border-amber-200/50 px-4 py-1.5 text-xs font-bold text-amber-800 shadow-sm">
+            <span key={note} className="rounded-full bg-gradient-to-r from-amber-100 to-yellow-100 border-2 border-amber-300/70 px-4 py-1.5 text-xs font-bold text-amber-800 shadow-sm">
               {note}
             </span>
           ))}
