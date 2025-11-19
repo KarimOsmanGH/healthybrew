@@ -18,17 +18,17 @@ interface HealthSummaryProps {
 }
 
 const iconMap: Record<string, ReactElement> = {
-  calm: <TeaLeafIcon className="h-6 w-6 text-emerald-500" />,
-  heart: <HeartHerbIcon className="h-6 w-6 text-rose-500" />,
-  spark: <SparkIcon className="h-6 w-6 text-amber-500" />,
-  vitality: <CupSteamIcon className="h-6 w-6 text-sky-500" />,
+  calm: <TeaLeafIcon className="h-6 w-6 text-amber-700" />,
+  heart: <HeartHerbIcon className="h-6 w-6 text-orange-700" />,
+  spark: <SparkIcon className="h-6 w-6 text-amber-600" />,
+  vitality: <CupSteamIcon className="h-6 w-6 text-stone-600" />,
 };
 
 export function HealthSummary({ metrics, totalBenefits, focusTagline }: HealthSummaryProps) {
   const maxValue = Math.max(1, ...metrics.map((metric) => metric.value));
 
   return (
-    <div className="rounded-2xl bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-800 p-5 shadow-md">
+    <div className="rounded-2xl bg-gradient-to-br from-amber-800 via-amber-700 to-orange-800 p-5 shadow-md">
       <div className="mb-4 space-y-1">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
           Blend Health Profile
@@ -52,12 +52,12 @@ export function HealthSummary({ metrics, totalBenefits, focusTagline }: HealthSu
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
-                className="rounded-xl bg-emerald-800/40 border border-emerald-500/30 p-3 backdrop-blur"
+                className="rounded-xl bg-amber-900/40 border border-amber-600/30 p-3 backdrop-blur"
               >
                 <div className="mb-2 flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm">
-                      {iconMap[metric.id] ?? <SparkIcon className="h-5 w-5 text-emerald-500" />}
+                      {iconMap[metric.id] ?? <SparkIcon className="h-5 w-5 text-amber-700" />}
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-white">{metric.label}</p>
@@ -74,13 +74,13 @@ export function HealthSummary({ metrics, totalBenefits, focusTagline }: HealthSu
                     {metric.value}
                   </motion.span>
                 </div>
-                <div className="h-1.5 rounded-full bg-emerald-900/40">
+                <div className="h-1.5 rounded-full bg-stone-900/40">
                   <motion.div
                     key={`${metric.id}-${percentage}`}
                     initial={{ width: 0 }}
                     animate={{ width: `${percentage}%` }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="h-full rounded-full bg-gradient-to-r from-white/80 via-white to-white/90"
+                    className="h-full rounded-full bg-gradient-to-r from-amber-200 via-amber-100 to-yellow-100"
                   />
                 </div>
               </motion.div>
