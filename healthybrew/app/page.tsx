@@ -98,11 +98,15 @@ export default function Home() {
   useEffect(() => {
     // Auto-play music on mount
     if (audioRef.current) {
-      audioRef.current.play().catch(() => {
-        // Autoplay might be blocked by browser
-        console.log('Autoplay blocked - user interaction required');
-      });
-      setIsMusicPlaying(true);
+      audioRef.current.play()
+        .then(() => {
+          setIsMusicPlaying(true);
+        })
+        .catch(() => {
+          // Autoplay might be blocked by browser
+          console.log('Autoplay blocked - user interaction required');
+          setIsMusicPlaying(false);
+        });
     }
   }, []);
 
