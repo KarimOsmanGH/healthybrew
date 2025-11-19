@@ -278,24 +278,24 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-8 px-4 pb-10 pt-10 sm:px-6 lg:px-8">
-        <header className="rounded-3xl border border-white/60 bg-white/70 p-8 shadow-xl shadow-emerald-100/50 backdrop-blur">
+        <header className="rounded-3xl border border-emerald-600/40 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-700 p-8 shadow-xl shadow-emerald-900/30 backdrop-blur">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-2">
-              <div className="flex items-center gap-3 text-emerald-600">
+              <div className="flex items-center gap-3 text-white/90">
                 <Sparkles className="h-5 w-5" />
                 <span className="text-sm font-semibold uppercase tracking-[0.3em]">HealthyBrew</span>
               </div>
-              <h1 className="text-3xl font-semibold text-emerald-950 sm:text-4xl">
+              <h1 className="text-3xl font-semibold text-white sm:text-4xl">
                 Curate healthy tea & coffee blends tailored to your rituals
               </h1>
-              <p className="max-w-2xl text-base text-emerald-800/80">
+              <p className="max-w-2xl text-base text-white/80">
                 Explore hand-crafted recipes, spotlight targeted health benefits, and assemble a custom
                 blend designed for the way you want to feel.
               </p>
             </div>
           </div>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-3 rounded-full bg-emerald-50/80 p-1 shadow-inner">
+            <div className="flex items-center gap-3 rounded-full bg-emerald-800/50 p-1 shadow-inner">
               {drinkTypes.map((type) => (
                 <button
                   key={type}
@@ -304,7 +304,7 @@ export default function Home() {
                   className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all ${
                     activeType === type
                       ? "bg-white text-emerald-900 shadow"
-                      : "text-emerald-500 hover:text-emerald-700"
+                      : "text-white/80 hover:text-white"
                   }`}
                 >
                   {categoryIconMap[type]}
@@ -320,7 +320,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.2 }}
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-emerald-600 shadow"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-emerald-600 shadow"
                 >
                   <Check className="h-4 w-4" />
                   {feedback}
@@ -331,34 +331,32 @@ export default function Home() {
         </header>
 
         <div className="grid flex-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)_320px]">
-          <aside className="flex flex-col gap-6 rounded-3xl border border-white/60 bg-white/70 p-6 shadow-lg shadow-emerald-100/50 backdrop-blur">
+          <aside className="flex flex-col gap-6 rounded-3xl border border-emerald-600/40 bg-gradient-to-br from-emerald-600 to-emerald-700 p-6 shadow-lg shadow-emerald-900/30 backdrop-blur">
             <div>
-              <label className="flex items-center gap-2 rounded-2xl bg-white px-3 py-2 text-sm text-emerald-500 shadow-inner">
+              <label className="flex items-center gap-2 rounded-2xl bg-emerald-800/40 px-3 py-2 text-sm text-white shadow-inner">
                 <Search className="h-4 w-4" />
                 <input
                   type="search"
-                  placeholder="Search blends, ingredients, or benefits"
+                  placeholder="Search blends..."
                   value={searchTerm}
                   onChange={(event) => setSearchTerm(event.target.value)}
-                  className="w-full bg-transparent text-sm font-medium text-emerald-900 placeholder:text-emerald-400 focus:outline-none"
+                  className="w-full bg-transparent text-sm font-medium text-white placeholder:text-white/50 focus:outline-none"
                 />
               </label>
             </div>
 
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-sm font-semibold text-emerald-800">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between text-sm font-semibold text-white">
                 <span className="inline-flex items-center gap-2">
-                  <Filter className="h-4 w-4" /> Filters
+                  <Filter className="h-4 w-4" /> Health Focus
                 </span>
-                {(selectedIngredientFilters.size > 0 || selectedBenefitFilters.size > 0 || selectedFocus) && (
+                {selectedFocus && (
                   <button
                     type="button"
                     onClick={() => {
-                      setSelectedIngredientFilters(new Set());
-                      setSelectedBenefitFilters(new Set());
                       setSelectedFocus(null);
                     }}
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-500 hover:text-emerald-700"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-white/80 hover:text-white"
                   >
                     <RotateCcw className="h-3.5 w-3.5" />
                     Reset
@@ -366,60 +364,9 @@ export default function Home() {
                 )}
               </div>
 
-              <section className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">
-                  Ingredients
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {ingredientOptions.map((ingredient, index) => {
-                    const isSelected = selectedIngredientFilters.has(ingredient);
-                    const palette = highlightPalette[index % highlightPalette.length];
-                    return (
-                      <button
-                        key={ingredient}
-                        type="button"
-                        onClick={() => handleToggleSet(ingredient, setSelectedIngredientFilters)}
-                        className={`rounded-full border px-3 py-1 text-xs font-semibold transition-all ${
-                          isSelected
-                            ? `border-transparent ${palette}`
-                            : "border-emerald-100 bg-white text-emerald-500 hover:border-emerald-200 hover:text-emerald-700"
-                        }`}
-                      >
-                        {ingredient}
-                      </button>
-                    );
-                  })}
-                </div>
-              </section>
-
-              <section className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">
-                  Health Benefits
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {benefitOptions.map((benefit) => {
-                    const isSelected = selectedBenefitFilters.has(benefit);
-                    return (
-                      <button
-                        key={benefit}
-                        type="button"
-                        onClick={() => handleToggleSet(benefit, setSelectedBenefitFilters)}
-                        className={`rounded-full border px-3 py-1 text-xs font-semibold transition-all ${
-                          isSelected
-                            ? "border-transparent bg-emerald-500 text-white shadow"
-                            : "border-emerald-100 bg-white text-emerald-500 hover:border-emerald-200 hover:text-emerald-700"
-                        }`}
-                      >
-                        {benefit}
-                      </button>
-                    );
-                  })}
-                </div>
-              </section>
-
-              <section className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">
-                  Health Focus
+              <section className="space-y-2">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
+                  Select your wellness goal
                 </p>
                 <div className="space-y-2">
                   {healthFocuses.map((focus) => {
@@ -429,14 +376,14 @@ export default function Home() {
                         key={focus.id}
                         type="button"
                         onClick={() => setSelectedFocus(isSelected ? null : focus.id)}
-                        className={`w-full rounded-2xl border px-4 py-3 text-left transition-all ${
+                        className={`w-full rounded-xl border px-3 py-2.5 text-left transition-all ${
                           isSelected
-                            ? "border-transparent bg-gradient-to-r from-emerald-400 to-emerald-500 text-white shadow-lg"
-                            : "border-emerald-100 bg-white text-emerald-600 hover:border-emerald-200"
+                            ? "border-white/30 bg-white text-emerald-700 shadow-lg"
+                            : "border-emerald-500/30 bg-emerald-800/40 text-white hover:bg-emerald-800/60"
                         }`}
                       >
                         <p className="text-sm font-semibold">{focus.label}</p>
-                        <p className={`text-xs ${isSelected ? "text-white/80" : "text-emerald-500/80"}`}>
+                        <p className={`text-xs ${isSelected ? "text-emerald-600/80" : "text-white/70"}`}>
                           {focus.tagline}
                         </p>
                       </button>
@@ -448,12 +395,12 @@ export default function Home() {
           </aside>
 
           <section className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-emerald-900">
+            <div className="flex flex-col gap-3 rounded-2xl border border-emerald-600/40 bg-gradient-to-br from-emerald-600 to-emerald-700 p-5 shadow-lg shadow-emerald-900/30">
+              <h2 className="text-lg font-semibold text-white">
                 {filteredDrinks.length} {activeType} blends curated for wellness
               </h2>
               {activeFocus && (
-                <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-emerald-700 w-fit">
                   <Sparkles className="h-3.5 w-3.5" /> Focus: {activeFocus.label}
                 </span>
               )}
@@ -475,7 +422,7 @@ export default function Home() {
             </div>
           </section>
 
-          <aside className="flex flex-col gap-5 rounded-3xl border border-white/60 bg-white/90 p-5 shadow-lg shadow-emerald-100/50 backdrop-blur">
+          <aside className="flex flex-col gap-5 rounded-3xl border border-emerald-600/40 bg-gradient-to-br from-emerald-600 to-emerald-700 p-5 shadow-lg shadow-emerald-900/30 backdrop-blur">
             <HealthSummary
               metrics={healthMetrics}
               totalBenefits={totalTouchpoints}
@@ -484,7 +431,7 @@ export default function Home() {
           </aside>
         </div>
 
-        <footer className="pb-6 text-center text-sm text-emerald-600">
+        <footer className="pb-6 text-center text-sm text-emerald-600/70">
           Crafted with care and botanicals. Hosted on Vercel.
         </footer>
       </div>
@@ -516,25 +463,25 @@ function DrinkCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="group flex h-full flex-col justify-between rounded-3xl border border-white/80 bg-white/80 p-6 shadow-lg shadow-emerald-100/50 backdrop-blur transition hover:-translate-y-1 hover:shadow-xl"
+      className="group flex h-full flex-col justify-between rounded-3xl border border-emerald-600/40 bg-gradient-to-br from-emerald-600 to-emerald-700 p-6 shadow-lg shadow-emerald-900/30 backdrop-blur transition hover:-translate-y-1 hover:shadow-xl"
     >
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <div>
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">
+            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
               {drink.type} blend
             </p>
-            <h3 className="mt-1 text-xl font-semibold text-emerald-900">{drink.name}</h3>
+            <h3 className="mt-1 text-xl font-semibold text-white">{drink.name}</h3>
           </div>
-          <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-600">
+          <div className="flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-emerald-600">
             <CupSteamIcon className="h-4 w-4 text-emerald-500" />
             wellbeing
           </div>
         </div>
-        <p className="text-sm text-emerald-700/80">{drink.description}</p>
+        <p className="text-sm text-white/90">{drink.description}</p>
 
         <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
             <span>Ingredients</span>
             <span>{drink.ingredients.length}</span>
           </div>
@@ -546,18 +493,18 @@ function DrinkCard({
               return (
                 <div
                   key={ingredient.name}
-                  className={`flex items-start gap-3 rounded-2xl border bg-white p-3 transition-all ${
+                  className={`flex items-start gap-3 rounded-2xl border bg-emerald-800/40 p-3 transition-all ${
                     isHighlighted
-                      ? "border-emerald-300 shadow-md shadow-emerald-100"
-                      : "border-emerald-100"
+                      ? "border-white/40 shadow-md shadow-emerald-900/20"
+                      : "border-emerald-500/30"
                   }`}
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-emerald-600">
                     {ingredientIconMap[ingredient.icon]}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-emerald-900">{ingredient.name}</p>
-                    <p className="text-xs text-emerald-500/80">{ingredient.description}</p>
+                    <p className="text-sm font-semibold text-white">{ingredient.name}</p>
+                    <p className="text-xs text-white/70">{ingredient.description}</p>
                   </div>
                 </div>
               );
@@ -566,7 +513,7 @@ function DrinkCard({
         </section>
 
         <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
             <span>Health Benefits</span>
             <span>{drink.healthBenefits.length}</span>
           </div>
@@ -583,10 +530,10 @@ function DrinkCard({
                   onClick={() => onPinBenefit(benefit)}
                   className={`rounded-full border px-3 py-1 text-xs font-semibold transition-all ${
                     isPinned
-                      ? "border-transparent bg-emerald-600 text-white shadow"
+                      ? "border-white/40 bg-white text-emerald-700 shadow"
                       : isActive
-                        ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                        : "border-emerald-100 bg-white text-emerald-500 hover:border-emerald-200 hover:text-emerald-700"
+                        ? "border-white/30 bg-white/80 text-emerald-700"
+                        : "border-emerald-500/30 bg-emerald-800/40 text-white hover:bg-white/90 hover:text-emerald-700"
                   }`}
                 >
                   {benefit}
@@ -597,13 +544,13 @@ function DrinkCard({
         </section>
 
         <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
             <span>Preparation</span>
           </div>
-          <ol className="space-y-2 text-sm text-emerald-600">
+          <ol className="space-y-2 text-sm text-white/90">
             {drink.preparation.map((step, index) => (
               <li key={`${drink.id}-prep-${index}`} className="flex gap-3">
-                <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-xs font-semibold text-emerald-600">
+                <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-white/90 text-xs font-semibold text-emerald-600">
                   {index + 1}
                 </span>
                 <span>{step}</span>
@@ -614,7 +561,7 @@ function DrinkCard({
 
         <section className="flex flex-wrap gap-2">
           {drink.flavorNotes.map((note) => (
-            <span key={note} className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-600">
+            <span key={note} className="rounded-full bg-emerald-800/40 border border-emerald-500/30 px-3 py-1 text-xs font-semibold text-white">
               {note}
             </span>
           ))}
@@ -625,7 +572,7 @@ function DrinkCard({
         whileTap={{ scale: 0.97 }}
         onClick={onAddToBlend}
         type="button"
-        className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition group-hover:translate-y-0.5 group-hover:from-emerald-500 group-hover:to-emerald-600"
+        className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-3 text-sm font-semibold text-emerald-700 shadow-lg shadow-emerald-900/30 transition hover:bg-white/90"
       >
         <Sparkles className="h-4 w-4" /> Add to blend
       </motion.button>

@@ -58,6 +58,36 @@ export const healthFocuses: HealthFocus[] = [
     tagline: "Boost circulation and metabolic flow",
     benefits: ["Metabolism support", "Cardio health", "Energy lift", "Digestive comfort"],
   },
+  {
+    id: "digestive",
+    label: "Digestive Comfort",
+    tagline: "Soothing herbs for gentle digestion and gut health",
+    benefits: ["Digestive comfort", "Anti-inflammatory", "Calming", "Metabolism support"],
+  },
+  {
+    id: "energy-mood",
+    label: "Energy & Mood",
+    tagline: "Natural lift for vitality and emotional balance",
+    benefits: ["Energy lift", "Mood balance", "Gentle energy", "Focus support"],
+  },
+  {
+    id: "heart-circulation",
+    label: "Heart & Circulation",
+    tagline: "Support cardiovascular health and blood flow",
+    benefits: ["Cardio health", "Circulation support", "Heart nourishment", "Metabolism support"],
+  },
+  {
+    id: "anti-inflammatory",
+    label: "Anti-Inflammatory",
+    tagline: "Reduce inflammation and support joint health",
+    benefits: ["Anti-inflammatory", "Joint support", "Antioxidant boost", "Digestive comfort"],
+  },
+  {
+    id: "stress-relief",
+    label: "Stress Relief",
+    tagline: "Adaptogenic support for resilience and balance",
+    benefits: ["Stress relief", "Calming", "Hormonal balance", "Mood balance"],
+  },
 ];
 
 export const drinks: Drink[] = [
