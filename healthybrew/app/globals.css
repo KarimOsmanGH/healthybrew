@@ -2,8 +2,8 @@
 
 :root {
   color-scheme: only light;
-  --background: #fef9f5;
-  --foreground: #3e2723;
+  --background: linear-gradient(to bottom right, #fdf4ff, #f3e8ff, #e0e7ff);
+  --foreground: #6b21a8;
 }
 
 @theme inline {
@@ -18,6 +18,25 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), "Inter", "Helvetica Neue", Arial, sans-serif;
   min-height: 100vh;
+  position: relative;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }
 
 a {

@@ -76,6 +76,7 @@ export default function Home() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const autoplayAttempted = useRef(false);
+  const [showMusicPrompt, setShowMusicPrompt] = useState(false);
 
   const triggerFeedback = (message: string) => {
     setFeedback(message);
@@ -96,43 +97,52 @@ export default function Home() {
     };
   }, []);
 
-  // Auto-play music on mount
+  // Auto-play music on mount with better mobile handling
   useEffect(() => {
-    const attemptAutoplay = () => {
+    const attemptAutoplay = async () => {
       if (audioRef.current && !autoplayAttempted.current) {
         autoplayAttempted.current = true;
-        audioRef.current.play()
-          .then(() => {
-            setIsMusicPlaying(true);
-          })
-          .catch(() => {
-            // Autoplay blocked - try on first user interaction
-            console.log('Autoplay blocked - will try on first interaction');
-            
-            // Set up listener for first user interaction
-            const handleFirstInteraction = () => {
-              if (audioRef.current) {
-                audioRef.current.play()
-                  .then(() => {
-                    setIsMusicPlaying(true);
-                  })
-                  .catch((err) => {
-                    console.log('Play attempt failed:', err);
-                  });
+        
+        try {
+          // Try to play immediately
+          await audioRef.current.play();
+          setIsMusicPlaying(true);
+          setShowMusicPrompt(false);
+        } catch (error) {
+          // Autoplay blocked - show prompt and set up interaction listeners
+          console.log('Autoplay blocked - showing music prompt');
+          setShowMusicPrompt(true);
+          
+          const handleFirstInteraction = async () => {
+            if (audioRef.current && !isMusicPlaying) {
+              try {
+                await audioRef.current.play();
+                setIsMusicPlaying(true);
+                setShowMusicPrompt(false);
+              } catch (err) {
+                console.log('Play attempt failed:', err);
               }
-            };
+            }
+          };
 
-            // Add event listeners for first interaction (once each)
-            document.addEventListener('click', handleFirstInteraction, { once: true });
-            document.addEventListener('keydown', handleFirstInteraction, { once: true });
-            document.addEventListener('touchstart', handleFirstInteraction, { once: true });
+          // Add event listeners for first interaction
+          const events = ['click', 'touchstart', 'keydown'];
+          events.forEach(event => {
+            document.addEventListener(event, handleFirstInteraction, { once: true, passive: true });
           });
+          
+          // Cleanup function
+          return () => {
+            events.forEach(event => {
+              document.removeEventListener(event, handleFirstInteraction);
+            });
+          };
+        }
       }
     };
 
-    // Try immediate autoplay
     attemptAutoplay();
-  }, []);
+  }, [isMusicPlaying]);
 
   const activeFocus = useMemo(
     () => (selectedFocus ? healthFocuses.find((focus) => focus.id === selectedFocus) ?? null : null),
@@ -334,39 +344,151 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50/30 to-orange-50/20">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 relative overflow-hidden">
+      {/* Floating Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{ y: [0, -20, 0], rotate: [0, 180, 360] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-pink-300/20 to-purple-300/20 rounded-full blur-2xl"
+        />
+        <motion.div
+          animate={{ y: [0, 30, 0], rotate: [360, 180, 0] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute top-40 right-20 w-40 h-40 bg-gradient-to-br from-blue-300/20 to-cyan-300/20 rounded-full blur-2xl"
+        />
+        <motion.div
+          animate={{ y: [0, -40, 0], x: [0, 20, 0] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-20 left-1/4 w-48 h-48 bg-gradient-to-br from-yellow-300/20 to-orange-300/20 rounded-full blur-2xl"
+        />
+        <motion.div
+          animate={{ y: [0, 20, 0], x: [0, -30, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-40 right-1/3 w-36 h-36 bg-gradient-to-br from-rose-300/20 to-pink-300/20 rounded-full blur-2xl"
+        />
+      </div>
       {/* Lofi Music Player */}
-      <audio ref={audioRef} loop preload="none" className="hidden">
+      <audio ref={audioRef} loop preload="auto" playsInline className="hidden">
         <source src="https://stream.zeno.fm/f3wvbbqmdg8uv" type="audio/mpeg" />
       </audio>
       
+      {/* Music Prompt for Mobile */}
+      <AnimatePresence>
+        {showMusicPrompt && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-24 right-6 z-50 rounded-2xl bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 p-4 shadow-2xl max-w-xs"
+          >
+            <button
+              onClick={() => {
+                if (audioRef.current) {
+                  audioRef.current.play().then(() => {
+                    setIsMusicPlaying(true);
+                    setShowMusicPrompt(false);
+                  }).catch(() => {
+                    triggerFeedback("Could not play music");
+                  });
+                }
+              }}
+              className="w-full text-left"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90">
+                  <Volume2 className="h-5 w-5 text-purple-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-white">Tap to play lofi music ♪</p>
+                  <p className="text-xs text-white/80">Perfect for browsing</p>
+                </div>
+              </div>
+            </button>
+            <button
+              onClick={() => setShowMusicPrompt(false)}
+              className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-md text-gray-600 hover:bg-gray-100"
+            >
+              ×
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
       {/* Music Control Button */}
-      <button
+      <motion.button
         onClick={toggleMusic}
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 to-orange-200 text-amber-800 shadow-xl shadow-amber-900/10 transition-all hover:scale-110 hover:shadow-amber-900/20 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2"
+        whileHover={{ scale: 1.1, rotate: 5 }}
+        whileTap={{ scale: 0.95 }}
+        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 text-white shadow-2xl shadow-purple-500/30 transition-all focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-offset-2"
         aria-label={isMusicPlaying ? "Pause lofi music" : "Play lofi music"}
       >
-        {isMusicPlaying ? <Volume2 className="h-6 w-6" /> : <VolumeX className="h-6 w-6" />}
-      </button>
+        <motion.div
+          animate={isMusicPlaying ? { scale: [1, 1.2, 1] } : {}}
+          transition={{ duration: 0.8, repeat: isMusicPlaying ? Infinity : 0 }}
+        >
+          {isMusicPlaying ? <Volume2 className="h-6 w-6" /> : <VolumeX className="h-6 w-6" />}
+        </motion.div>
+      </motion.button>
       
       <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-8 px-4 pb-10 pt-10 sm:px-6 lg:px-8">
-        <header className="rounded-[2rem] border-4 border-amber-300/80 bg-gradient-to-br from-amber-100 via-orange-100/80 to-yellow-100/60 p-8 shadow-xl shadow-amber-900/10 backdrop-blur">
+        <motion.header
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="rounded-[2.5rem] border-4 border-purple-300/60 bg-gradient-to-br from-purple-100/90 via-pink-100/90 to-blue-100/90 p-8 shadow-2xl shadow-purple-500/20 backdrop-blur-xl relative overflow-hidden"
+        >
+          {/* Sparkle Effects */}
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="absolute top-4 right-4 text-4xl"
+          >
+            ✨
+          </motion.div>
+          <motion.div
+            animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
+            className="absolute bottom-4 left-4 text-3xl"
+          >
+            ☆
+          </motion.div>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-2">
-              <div className="flex items-center gap-3 text-amber-700/80">
+              <motion.div
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="flex items-center gap-3 text-purple-600"
+              >
                 <Sparkles className="h-5 w-5" />
                 <span className="text-sm font-bold uppercase tracking-[0.3em]">HealthyBrew</span>
-              </div>
-              <h1 className="text-3xl font-bold text-amber-800 sm:text-4xl">
+              </motion.div>
+              <motion.h1
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent sm:text-5xl"
+              >
                 Tea & Coffee Wellness ♡
-              </h1>
-              <p className="max-w-2xl text-base text-amber-700/80">
-                Explore delightful recipes and discover the perfect blend for your wellness journey ✿
-              </p>
+              </motion.h1>
+              <motion.p
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="max-w-2xl text-base text-purple-700/90"
+              >
+                Explore delightful recipes and discover the perfect blend for your wellness journey ✨✿✨
+              </motion.p>
             </div>
           </div>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-3 rounded-full bg-white/60 p-1.5 shadow-inner">
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div className="flex items-center gap-3 rounded-full bg-white/80 p-1.5 shadow-lg backdrop-blur-sm border-2 border-purple-200/50">
               {drinkTypes.map((type) => (
                 <button
                   key={type}
@@ -374,8 +496,8 @@ export default function Home() {
                   onClick={() => setActiveType(type)}
                   className={`flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition-all ${
                     activeType === type
-                      ? "bg-amber-200 text-amber-800 shadow-md"
-                      : "text-amber-700/70 hover:text-amber-800 hover:bg-white/40"
+                      ? "bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 text-white shadow-lg shadow-purple-400/50"
+                      : "text-purple-700/70 hover:text-purple-800 hover:bg-white/60"
                   }`}
                 >
                   {categoryIconMap[type]}
@@ -391,33 +513,38 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.2 }}
-                  className="inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-sm font-bold text-amber-800 shadow-md"
+                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-green-400/50"
                 >
                   <Check className="h-4 w-4" />
                   {feedback}
                 </motion.span>
               )}
             </AnimatePresence>
-          </div>
-        </header>
+          </motion.div>
+        </motion.header>
 
         <div className="grid flex-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
-          <aside className="flex flex-col gap-6 rounded-[2rem] border-4 border-stone-300/80 bg-gradient-to-br from-stone-100 via-amber-50/50 to-orange-50/30 p-6 shadow-lg shadow-stone-900/10 backdrop-blur">
+          <motion.aside
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col gap-6 rounded-[2.5rem] border-4 border-blue-300/60 bg-gradient-to-br from-blue-50/90 via-purple-50/90 to-pink-50/90 p-6 shadow-2xl shadow-blue-500/20 backdrop-blur-xl"
+          >
             <div>
-              <label className="flex items-center gap-2 rounded-2xl bg-white/60 px-4 py-3 text-sm text-amber-800 shadow-inner">
+              <label className="flex items-center gap-2 rounded-2xl bg-white/80 px-4 py-3 text-sm text-purple-800 shadow-lg border-2 border-purple-200/50 backdrop-blur-sm">
                 <Search className="h-4 w-4" />
                 <input
                   type="search"
                   placeholder="Search blends..."
                   value={searchTerm}
                   onChange={(event) => setSearchTerm(event.target.value)}
-                  className="w-full bg-transparent text-sm font-semibold text-amber-800 placeholder:text-amber-600/50 focus:outline-none"
+                  className="w-full bg-transparent text-sm font-semibold text-purple-800 placeholder:text-purple-600/50 focus:outline-none"
                 />
               </label>
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-center justify-between text-sm font-bold text-amber-800">
+              <div className="flex items-center justify-between text-sm font-bold text-purple-800">
                 <span className="inline-flex items-center gap-2">
                   <Filter className="h-4 w-4" /> Health Focus
                 </span>
@@ -427,7 +554,7 @@ export default function Home() {
                     onClick={() => {
                       setSelectedFocus(null);
                     }}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-amber-600 hover:text-amber-800"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-purple-600 hover:text-purple-800"
                   >
                     <RotateCcw className="h-3.5 w-3.5" />
                     Reset
@@ -436,7 +563,7 @@ export default function Home() {
               </div>
 
               <section className="space-y-2">
-                <p className="text-xs font-bold uppercase tracking-[0.3em] text-amber-700/70">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-purple-700/70">
                   Select your goal
                 </p>
                 <div className="space-y-2">
@@ -447,14 +574,14 @@ export default function Home() {
                         key={focus.id}
                         type="button"
                         onClick={() => setSelectedFocus(isSelected ? null : focus.id)}
-                        className={`w-full rounded-2xl border-2 px-4 py-3 text-left transition-all ${
+                        className={`w-full rounded-2xl border-2 px-4 py-3 text-left transition-all transform hover:scale-105 ${
                           isSelected
-                            ? "border-amber-400/80 bg-amber-100 text-amber-900 shadow-md"
-                            : "border-stone-300/70 bg-white/50 text-amber-800 hover:bg-white/70 hover:border-stone-400/70"
+                            ? "border-purple-400/80 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-900 shadow-lg shadow-purple-400/30"
+                            : "border-purple-300/70 bg-white/70 text-purple-800 hover:bg-white/90 hover:border-purple-400/70 hover:shadow-md"
                         }`}
                       >
                         <p className="text-sm font-bold">{focus.label}</p>
-                        <p className={`text-xs ${isSelected ? "text-amber-700/90" : "text-amber-700/70"}`}>
+                        <p className={`text-xs ${isSelected ? "text-purple-700/90" : "text-purple-700/70"}`}>
                           {focus.tagline}
                         </p>
                       </button>
@@ -463,7 +590,7 @@ export default function Home() {
                 </div>
               </section>
             </div>
-          </aside>
+          </motion.aside>
 
           <section className="space-y-4">
             <div className="grid gap-5 xl:grid-cols-2">
@@ -483,9 +610,14 @@ export default function Home() {
           </section>
         </div>
 
-        <footer className="pb-6 text-center text-sm text-amber-600/70 font-bold">
-          ✿ Crafted with care and botanicals ✿
-        </footer>
+        <motion.footer
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="pb-6 text-center text-sm text-purple-600/70 font-bold"
+        >
+          ✨ Crafted with love and botanicals ✨
+        </motion.footer>
       </div>
     </div>
   );
@@ -506,32 +638,78 @@ function DrinkCard({
   onHoverBenefit,
   onPinBenefit,
 }: DrinkCardProps) {
+  const gradientColors = [
+    "from-rose-400 via-pink-400 to-purple-400",
+    "from-blue-400 via-cyan-400 to-teal-400",
+    "from-amber-400 via-orange-400 to-red-400",
+    "from-emerald-400 via-green-400 to-lime-400",
+    "from-violet-400 via-purple-400 to-fuchsia-400",
+    "from-yellow-400 via-amber-400 to-orange-400",
+  ];
+  const gradientIndex = drink.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % gradientColors.length;
+  const cardGradient = gradientColors[gradientIndex];
+  
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12 }}
-      transition={{ duration: 0.25, ease: "easeOut" }}
-      className="group flex h-full flex-col rounded-[2rem] border-4 border-amber-400/80 bg-white p-7 shadow-xl shadow-amber-900/15 backdrop-blur transition hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-900/20 hover:border-amber-500"
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -20, scale: 0.95 }}
+      whileHover={{ y: -8, scale: 1.02 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="group relative flex h-full flex-col rounded-[2.5rem] border-4 border-purple-300/60 bg-white p-7 shadow-2xl shadow-purple-500/20 backdrop-blur-sm overflow-hidden hover:shadow-purple-500/30 hover:border-purple-400/80"
     >
+      {/* Gradient Accent */}
+      <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${cardGradient}`} />
+      
+      {/* Floating Icons */}
+      <motion.div
+        animate={{ rotate: [0, 10, -10, 0] }}
+        transition={{ duration: 4, repeat: Infinity }}
+        className="absolute top-4 right-4 text-3xl opacity-50"
+      >
+        {drink.type === 'tea' ? '🍵' : '☕'}
+      </motion.div>
+      
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <div>
-            <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-amber-700">
+            <motion.p
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+              className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] bg-gradient-to-r ${cardGradient} bg-clip-text text-transparent`}
+            >
               {drink.type} blend
-            </p>
-            <h3 className="mt-1 text-2xl font-bold text-amber-900">{drink.name}</h3>
+            </motion.p>
+            <motion.h3
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="mt-1 text-2xl font-bold bg-gradient-to-r from-purple-700 to-pink-700 bg-clip-text text-transparent"
+            >
+              {drink.name}
+            </motion.h3>
           </div>
-          <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-200 to-orange-200 px-4 py-1.5 text-xs font-bold text-amber-800 shadow-sm">
-            <CupSteamIcon className="h-4 w-4 text-amber-700" />
+          <motion.div
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            className={`flex items-center gap-2 rounded-full bg-gradient-to-r ${cardGradient} px-4 py-1.5 text-xs font-bold text-white shadow-lg`}
+          >
+            <CupSteamIcon className="h-4 w-4 text-white" />
             wellbeing
-          </div>
+          </motion.div>
         </div>
-        <p className="text-sm text-stone-700 leading-relaxed">{drink.description}</p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="text-sm text-purple-900/80 leading-relaxed"
+        >
+          {drink.description}
+        </motion.p>
 
         <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-amber-700">
+          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700">
             <span>Ingredients</span>
             <span>{drink.ingredients.length}</span>
           </div>
@@ -543,18 +721,22 @@ function DrinkCard({
               return (
                 <div
                   key={ingredient.name}
-                  className={`flex items-start gap-3 rounded-2xl border-2 bg-white/80 p-3 transition-all ${
+                  className={`flex items-start gap-3 rounded-2xl border-2 p-3 transition-all transform ${
                     isHighlighted
-                      ? "border-amber-400 shadow-md shadow-amber-900/10 bg-white"
-                      : "border-amber-300/60"
+                      ? `border-purple-400 shadow-lg bg-purple-50`
+                      : "border-purple-300/60 bg-white/80 hover:scale-105 hover:shadow-md"
                   }`}
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 to-orange-200 shadow-sm">
+                  <motion.div
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                    className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} shadow-lg`}
+                  >
                     {ingredientIconMap[ingredient.icon]}
-                  </div>
+                  </motion.div>
                   <div>
-                    <p className="text-sm font-bold text-amber-900">{ingredient.name}</p>
-                    <p className="text-xs text-stone-600">{ingredient.description}</p>
+                    <p className="text-sm font-bold text-purple-900">{ingredient.name}</p>
+                    <p className="text-xs text-purple-700/70">{ingredient.description}</p>
                   </div>
                 </div>
               );
@@ -563,7 +745,7 @@ function DrinkCard({
         </section>
 
         <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-amber-700">
+          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700">
             <span>Health Benefits</span>
             <span>{drink.healthBenefits.length}</span>
           </div>
@@ -578,12 +760,12 @@ function DrinkCard({
                   onMouseEnter={() => onHoverBenefit(benefit)}
                   onMouseLeave={() => onHoverBenefit(null)}
                   onClick={() => onPinBenefit(benefit)}
-                  className={`rounded-full border-2 px-3 py-1.5 text-xs font-bold transition-all ${
+                  className={`rounded-full border-2 px-3 py-1.5 text-xs font-bold transition-all transform hover:scale-110 ${
                     isPinned
-                      ? "border-amber-400 bg-gradient-to-r from-amber-200 to-orange-200 text-amber-800 shadow-md"
+                      ? `border-transparent bg-gradient-to-r ${cardGradient} text-white shadow-lg`
                       : isActive
-                        ? "border-amber-400 bg-amber-100 text-amber-800"
-                        : "border-amber-300/60 bg-white/90 text-amber-700 hover:bg-amber-100 hover:border-amber-400"
+                        ? "border-purple-400 bg-purple-100 text-purple-800 shadow-md"
+                        : "border-purple-300/60 bg-white/90 text-purple-700 hover:bg-purple-100 hover:border-purple-400 hover:shadow-md"
                   }`}
                 >
                   {benefit}
@@ -594,15 +776,19 @@ function DrinkCard({
         </section>
 
         <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-amber-700">
+          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700">
             <span>Preparation</span>
           </div>
-          <ol className="space-y-2 text-sm text-stone-700">
+          <ol className="space-y-2 text-sm text-purple-900/80">
             {drink.preparation.map((step, index) => (
               <li key={`${drink.id}-prep-${index}`} className="flex gap-3">
-                <span className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-stone-300 to-stone-400 text-xs font-bold text-white shadow-sm">
+                <motion.span
+                  whileHover={{ scale: 1.2, rotate: 360 }}
+                  transition={{ duration: 0.5 }}
+                  className={`mt-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} text-xs font-bold text-white shadow-lg`}
+                >
                   {index + 1}
-                </span>
+                </motion.span>
                 <span>{step}</span>
               </li>
             ))}
@@ -610,10 +796,17 @@ function DrinkCard({
         </section>
 
         <section className="flex flex-wrap gap-2">
-          {drink.flavorNotes.map((note) => (
-            <span key={note} className="rounded-full bg-gradient-to-r from-amber-100 to-yellow-100 border-2 border-amber-300/70 px-4 py-1.5 text-xs font-bold text-amber-800 shadow-sm">
+          {drink.flavorNotes.map((note, index) => (
+            <motion.span
+              key={note}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ scale: 1.1, y: -2 }}
+              className={`rounded-full bg-gradient-to-r ${cardGradient} border-2 border-white px-4 py-1.5 text-xs font-bold text-white shadow-lg`}
+            >
               {note}
-            </span>
+            </motion.span>
           ))}
         </section>
       </div>
