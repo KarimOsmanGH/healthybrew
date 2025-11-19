@@ -94,7 +94,7 @@ export const drinks: Drink[] = [
       },
     ],
     preparation: [
-      "Whisk matcha with 80?C water until frothy.",
+      "Whisk matcha with 80C water until frothy.",
       "Steam oat milk with ashwagandha until warm.",
       "Combine and finish with lemon zest swirl.",
     ],
@@ -196,7 +196,7 @@ export const drinks: Drink[] = [
       },
     ],
     preparation: [
-      "Steep white tea at 75?C for 2 minutes.",
+      "Steep white tea at 75C for 2 minutes.",
       "Add elderflower and lemongrass for 1 minute.",
       "Finish with expressed orange peel oils.",
     ],

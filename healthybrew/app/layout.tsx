@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HealthyBrew ? Blend Creator",
+  title: "HealthyBrew - Blend Creator",
   description:
     "Explore wellness-focused tea and coffee recipes, filter by benefits, and assemble your own healthy blends.",
 };
