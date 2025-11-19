@@ -28,30 +28,20 @@ export function HealthSummary({ metrics, totalBenefits, focusTagline }: HealthSu
   const maxValue = Math.max(1, ...metrics.map((metric) => metric.value));
 
   return (
-    <div className="rounded-3xl bg-gradient-to-br from-green-100 via-white to-amber-100 p-6 shadow-lg shadow-emerald-100/60 dark:shadow-none">
-      <div className="mb-6 flex items-start justify-between gap-4">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-500">
-            Blend Health Profile
-          </p>
-          <h3 className="mt-1 text-2xl font-semibold text-emerald-900">
-            {totalBenefits > 0 ? `${totalBenefits} health touchpoints` : "Start curating your blend"}
-          </h3>
-          {focusTagline && (
-            <p className="mt-2 text-sm text-emerald-700/80">{focusTagline}</p>
-          )}
-        </div>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ type: "spring", stiffness: 200, damping: 15 }}
-          className="rounded-2xl bg-white/70 px-4 py-2 text-sm font-semibold text-emerald-600 shadow-inner"
-        >
-          {totalBenefits > 0 ? "Balanced" : "Awaiting ingredients"}
-        </motion.div>
+    <div className="rounded-2xl bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-5 shadow-md">
+      <div className="mb-4 space-y-1">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-500">
+          Blend Health Profile
+        </p>
+        <h3 className="text-xl font-semibold text-emerald-900">
+          {totalBenefits > 0 ? `${totalBenefits} health touchpoints` : "Explore recipes"}
+        </h3>
+        {focusTagline && (
+          <p className="text-xs text-emerald-700/70">{focusTagline}</p>
+        )}
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         <AnimatePresence mode="sync">
           {metrics.map((metric) => {
             const percentage = Math.round((metric.value / maxValue) * 100);
@@ -62,16 +52,16 @@ export function HealthSummary({ metrics, totalBenefits, focusTagline }: HealthSu
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
-                className="rounded-2xl bg-white/70 p-4 backdrop-blur"
+                className="rounded-xl bg-white/80 p-3 backdrop-blur"
               >
-                <div className="mb-3 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-inner">
-                      {iconMap[metric.id] ?? <SparkIcon className="h-6 w-6 text-emerald-500" />}
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm">
+                      {iconMap[metric.id] ?? <SparkIcon className="h-5 w-5 text-emerald-500" />}
                     </div>
                     <div>
-                      <p className="text-base font-semibold text-emerald-900">{metric.label}</p>
-                      <p className="text-xs text-emerald-700/80">{metric.description}</p>
+                      <p className="text-sm font-semibold text-emerald-900">{metric.label}</p>
+                      <p className="text-[10px] text-emerald-700/70">{metric.description}</p>
                     </div>
                   </div>
                   <motion.span
@@ -79,12 +69,12 @@ export function HealthSummary({ metrics, totalBenefits, focusTagline }: HealthSu
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="text-sm font-semibold text-emerald-600"
+                    className="text-xs font-semibold text-emerald-600"
                   >
                     {metric.value}
                   </motion.span>
                 </div>
-                <div className="h-2 rounded-full bg-emerald-100">
+                <div className="h-1.5 rounded-full bg-emerald-100">
                   <motion.div
                     key={`${metric.id}-${percentage}`}
                     initial={{ width: 0 }}
