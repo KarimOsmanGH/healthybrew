@@ -336,7 +336,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50/30 to-orange-50/20">
       {/* Lofi Music Player */}
-      <audio ref={audioRef} loop className="hidden">
+      <audio ref={audioRef} loop preload="none" className="hidden">
         <source src="https://stream.zeno.fm/f3wvbbqmdg8uv" type="audio/mpeg" />
       </audio>
       
