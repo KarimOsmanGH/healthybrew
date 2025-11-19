@@ -276,7 +276,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(110,231,183,0.18)_0%,_rgba(253,230,138,0.12)_40%,_rgba(255,255,255,1)_100%)]">
+    <div className="min-h-screen bg-white">
       <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-8 px-4 pb-10 pt-10 sm:px-6 lg:px-8">
         <header className="rounded-3xl border border-white/60 bg-white/70 p-8 shadow-xl shadow-emerald-100/50 backdrop-blur">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
@@ -292,23 +292,6 @@ export default function Home() {
                 Explore hand-crafted recipes, spotlight targeted health benefits, and assemble a custom
                 blend designed for the way you want to feel.
               </p>
-            </div>
-            <div className="flex flex-shrink-0 items-center gap-4 rounded-2xl bg-gradient-to-r from-emerald-200 via-white to-amber-200 p-4 shadow-inner">
-              <div className="flex items-center gap-2">
-                <TeaLeafIcon className="h-8 w-8 text-emerald-600" />
-                <span className={`text-sm font-semibold ${activeType === "tea" ? "text-emerald-700" : "text-emerald-400"}`}>
-                  Tea Rituals
-                </span>
-              </div>
-              <div className="h-8 w-px bg-emerald-200" />
-              <div className="flex items-center gap-2">
-                <CoffeeBeanIcon className="h-8 w-8 text-amber-600" />
-                <span
-                  className={`text-sm font-semibold ${activeType === "coffee" ? "text-amber-700" : "text-amber-400"}`}
-                >
-                  Coffee Rituals
-                </span>
-              </div>
             </div>
           </div>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -347,7 +330,7 @@ export default function Home() {
           </div>
         </header>
 
-        <div className="grid flex-1 gap-6 lg:grid-cols-[320px_minmax(0,1fr)_320px]">
+        <div className="grid flex-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)_320px]">
           <aside className="flex flex-col gap-6 rounded-3xl border border-white/60 bg-white/70 p-6 shadow-lg shadow-emerald-100/50 backdrop-blur">
             <div>
               <label className="flex items-center gap-2 rounded-2xl bg-white px-3 py-2 text-sm text-emerald-500 shadow-inner">
@@ -492,147 +475,12 @@ export default function Home() {
             </div>
           </section>
 
-          <aside className="flex flex-col gap-5 rounded-3xl border border-white/60 bg-white/80 p-6 shadow-xl shadow-emerald-100/60 backdrop-blur">
-            <div className="flex items-start justify-between">
-              <div>
-                <h2 className="text-lg font-semibold text-emerald-900">Blend Creator</h2>
-                <p className="text-sm text-emerald-600/80">
-                  Ingredients you collect will appear here. Highlight benefits to fine-tune synergy.
-                </p>
-              </div>
-              <CupSteamIcon className="h-8 w-8 text-emerald-500" />
-            </div>
-
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400">
-                <span>Selected Ingredients</span>
-                <span>{Object.keys(selectedIngredients).length}</span>
-              </div>
-              {Object.keys(selectedIngredients).length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-emerald-200 bg-white/70 p-4 text-sm text-emerald-500">
-                  Add a blend to start crafting your signature brew.
-                </div>
-              ) : (
-                <ul className="space-y-3">
-                  {Object.values(selectedIngredients).map((ingredient) => (
-                    <li
-                      key={ingredient.name}
-                      className={`group rounded-2xl border border-emerald-100 bg-white p-4 transition-shadow hover:shadow-md ${
-                        highlightedBenefit && ingredient.benefits.includes(highlightedBenefit)
-                          ? "shadow-emerald-200"
-                          : ""
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-center gap-3">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-                            {ingredientIconMap[ingredient.icon]}
-                          </div>
-                          <div>
-                            <p className="text-sm font-semibold text-emerald-900">{ingredient.name}</p>
-                            <p className="text-xs text-emerald-500/80">
-                              {ingredient.sources.join(", ")} - {ingredient.count}x
-                            </p>
-                          </div>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveIngredient(ingredient.name)}
-                          className="rounded-full bg-emerald-50 p-1 text-emerald-500 opacity-0 transition-opacity group-hover:opacity-100"
-                          aria-label={`Remove ${ingredient.name}`}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {ingredient.benefits.map((benefit) => (
-                          <span
-                            key={benefit}
-                            className={`rounded-full px-2 py-1 text-[11px] font-semibold ${
-                              highlightedBenefit === benefit
-                                ? "bg-emerald-500 text-white"
-                                : "bg-emerald-50 text-emerald-600"
-                            }`}
-                          >
-                            {benefit}
-                          </span>
-                        ))}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
+          <aside className="flex flex-col gap-5 rounded-3xl border border-white/60 bg-white/90 p-5 shadow-lg shadow-emerald-100/50 backdrop-blur">
             <HealthSummary
               metrics={healthMetrics}
               totalBenefits={totalTouchpoints}
               focusTagline={activeFocus?.tagline}
             />
-
-            <div className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400">
-                Highlighted Benefits
-              </p>
-              {combinedBenefitList.length === 0 ? (
-                <p className="rounded-2xl bg-white p-4 text-sm text-emerald-500">
-                  Hover or pin a benefit to see contributing ingredients.
-                </p>
-              ) : (
-                <div className="space-y-2">
-                  {combinedBenefitList.map(([benefit, count]) => (
-                    <button
-                      key={benefit}
-                      type="button"
-                      onClick={() => setPinnedBenefit((current) => (current === benefit ? null : benefit))}
-                      onMouseEnter={() => setHoveredBenefit(benefit)}
-                      onMouseLeave={() => setHoveredBenefit(null)}
-                      className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-left transition-all ${
-                        pinnedBenefit === benefit
-                          ? "border-transparent bg-emerald-500 text-white shadow-lg"
-                          : highlightedBenefit === benefit
-                            ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                            : "border-emerald-100 bg-white text-emerald-600 hover:border-emerald-200"
-                      }`}
-                    >
-                      <span className="text-sm font-semibold">{benefit}</span>
-                      <span className="text-xs font-semibold">{count}x</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <div className="mt-auto space-y-3">
-              <div className="grid gap-3">
-                <motion.button
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleSaveAction("save")}
-                  disabled={Object.keys(selectedIngredients).length === 0}
-                  className="flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-600 disabled:cursor-not-allowed disabled:bg-emerald-200"
-                  type="button"
-                >
-                  <Save className="h-4 w-4" /> Save Blend
-                </motion.button>
-                <motion.button
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleSaveAction("export")}
-                  disabled={Object.keys(selectedIngredients).length === 0}
-                  className="flex items-center justify-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-3 text-sm font-semibold text-emerald-600 shadow transition hover:border-emerald-300 hover:text-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
-                  type="button"
-                >
-                  <Share2 className="h-4 w-4" /> Export Recipe
-                </motion.button>
-              </div>
-              <button
-                type="button"
-                onClick={handleClearBlend}
-                disabled={Object.keys(selectedIngredients).length === 0}
-                className="w-full text-xs font-semibold text-emerald-500/70 transition hover:text-emerald-600 disabled:cursor-not-allowed disabled:text-emerald-300"
-              >
-                Clear blend
-              </button>
-            </div>
           </aside>
         </div>
 
