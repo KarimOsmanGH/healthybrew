@@ -276,7 +276,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-sky-50">
       <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-8 px-4 pb-10 pt-10 sm:px-6 lg:px-8">
         <header className="rounded-3xl border border-emerald-600/40 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-700 p-8 shadow-xl shadow-emerald-900/30 backdrop-blur">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
@@ -366,7 +366,7 @@ export default function Home() {
 
               <section className="space-y-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
-                  Select your wellness goal
+                  Select your goal
                 </p>
                 <div className="space-y-2">
                   {healthFocuses.map((focus) => {
