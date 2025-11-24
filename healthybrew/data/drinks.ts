@@ -21,6 +21,7 @@ export interface Drink {
   type: DrinkType;
   name: string;
   description: string;
+  image: string;
   ingredients: Ingredient[];
   preparation: string[];
   healthBenefits: string[];
@@ -97,6 +98,7 @@ export const drinks: Drink[] = [
     name: "Jade Calm Matcha",
     description:
       "Silky ceremonial matcha layered with adaptogens for a lifted yet grounded focus.",
+    image: "https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=600&q=80",
     ingredients: [
       {
         name: "Ceremonial Matcha",
@@ -145,6 +147,7 @@ export const drinks: Drink[] = [
     name: "Golden Root Chai",
     description:
       "A turmeric-forward chai that warms circulation and soothes inflammation.",
+    image: "https://images.unsplash.com/photo-1597318181913-ae6b99c72a3a?w=600&q=80",
     ingredients: [
       {
         name: "Turmeric",
@@ -199,6 +202,7 @@ export const drinks: Drink[] = [
     name: "Citrus Bloom White Tea",
     description:
       "Delicate white tea layered with citrus and blossoms for immune-forward brightness.",
+    image: "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=600&q=80",
     ingredients: [
       {
         name: "White Peony Tea",
@@ -247,6 +251,7 @@ export const drinks: Drink[] = [
     name: "Vitality Cold Brew",
     description:
       "Slow-steeped cold brew energized with citrus and maca for steady momentum.",
+    image: "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=600&q=80",
     ingredients: [
       {
         name: "Single Origin Cold Brew",
@@ -295,6 +300,7 @@ export const drinks: Drink[] = [
     name: "Cardio Glow Latte",
     description:
       "Rose-infused espresso with beet crema to nourish circulation and the heart.",
+    image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80",
     ingredients: [
       {
         name: "Light Roast Espresso",
@@ -343,6 +349,7 @@ export const drinks: Drink[] = [
     name: "Cacao Adaptogen Mocha",
     description:
       "Silky mocha folded with reishi and lion's mane for resilient focus.",
+    image: "https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=600&q=80",
     ingredients: [
       {
         name: "Organic Espresso",
@@ -398,6 +405,7 @@ export const drinks: Drink[] = [
     name: "Lavender Dreams",
     description:
       "Chamomile and lavender unite for deep relaxation and restful evenings.",
+    image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=600&q=80",
     ingredients: [
       {
         name: "Chamomile Flowers",
@@ -445,6 +453,7 @@ export const drinks: Drink[] = [
     name: "Mint Green Refresh",
     description:
       "Cooling peppermint meets antioxidant-rich green tea for digestive ease.",
+    image: "https://images.unsplash.com/photo-1556881286-fc6915169721?w=600&q=80",
     ingredients: [
       {
         name: "Sencha Green Tea",
@@ -493,6 +502,7 @@ export const drinks: Drink[] = [
     name: "Hibiscus Berry Boost",
     description:
       "Tart hibiscus blended with berries for cardiovascular vitality.",
+    image: "https://images.unsplash.com/photo-1577968897966-3d21cf27749a?w=600&q=80",
     ingredients: [
       {
         name: "Hibiscus Petals",
@@ -541,6 +551,7 @@ export const drinks: Drink[] = [
     name: "Rooibos Vanilla Sunset",
     description:
       "Caffeine-free rooibos with vanilla and warming spices for evening calm.",
+    image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600&q=80",
     ingredients: [
       {
         name: "Red Rooibos",
@@ -587,6 +598,7 @@ export const drinks: Drink[] = [
     name: "Jasmine Pearl Serenity",
     description:
       "Hand-rolled jasmine pearls unfurl into aromatic tranquility.",
+    image: "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?w=600&q=80",
     ingredients: [
       {
         name: "Jasmine Pearls",
@@ -628,6 +640,7 @@ export const drinks: Drink[] = [
     name: "Oolong Stone Fruit",
     description:
       "Semi-oxidized oolong with peach and apricot for metabolism support.",
+    image: "https://images.unsplash.com/photo-1563822249548-9a72b6d563c3?w=600&q=80",
     ingredients: [
       {
         name: "Ti Kuan Yin Oolong",
@@ -675,6 +688,7 @@ export const drinks: Drink[] = [
     name: "Espresso Tonic Uplift",
     description:
       "Effervescent tonic water meets bold espresso for refreshing energy.",
+    image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80",
     ingredients: [
       {
         name: "Double Espresso",
@@ -722,6 +736,7 @@ export const drinks: Drink[] = [
     name: "Maple Pecan Brew",
     description:
       "Nutty medium roast enhanced with maple and pecans for cozy warmth.",
+    image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&q=80",
     ingredients: [
       {
         name: "Medium Roast Coffee",
@@ -769,6 +784,7 @@ export const drinks: Drink[] = [
     name: "Collagen Vanilla Latte",
     description:
       "Creamy latte boosted with collagen peptides for skin and joint health.",
+    image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80",
     ingredients: [
       {
         name: "Blonde Espresso",
@@ -817,6 +833,7 @@ export const drinks: Drink[] = [
     name: "Turmeric Golden Coffee",
     description:
       "Anti-inflammatory golden latte with coffee's energizing kick.",
+    image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&q=80",
     ingredients: [
       {
         name: "Medium Roast Coffee",
@@ -871,6 +888,7 @@ export const drinks: Drink[] = [
     name: "Hazelnut Praline Brew",
     description:
       "Decadent coffee with hazelnut and caramelized sweetness for indulgent moments.",
+    image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80",
     ingredients: [
       {
         name: "Dark Roast Coffee",
@@ -918,6 +936,7 @@ export const drinks: Drink[] = [
     name: "Mushroom Coffee Focus",
     description:
       "Coffee blended with cordyceps and chaga for sustained mental clarity.",
+    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80",
     ingredients: [
       {
         name: "Light Roast Coffee",

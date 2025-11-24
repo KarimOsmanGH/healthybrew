@@ -678,13 +678,26 @@ function DrinkCard({
       {/* Gradient Accent */}
       <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${cardGradient}`} />
       
-      {/* Floating Icons */}
+      {/* Drink Image */}
       <motion.div
-        animate={{ rotate: [0, 10, -10, 0] }}
-        transition={{ duration: 4, repeat: Infinity }}
-        className="absolute top-4 right-4 text-3xl opacity-50"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.2 }}
+        className="relative h-48 -mx-7 -mt-7 mb-4 overflow-hidden rounded-t-[2.25rem]"
       >
-        {drink.type === 'tea' ? '🍵' : '☕'}
+        <img
+          src={drink.image}
+          alt={drink.name}
+          className="h-full w-full object-cover"
+        />
+        <div className={`absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent`} />
+        <motion.div
+          animate={{ rotate: [0, 10, -10, 0] }}
+          transition={{ duration: 4, repeat: Infinity }}
+          className="absolute top-4 right-4 text-5xl drop-shadow-lg"
+        >
+          {drink.type === 'tea' ? '🍵' : '☕'}
+        </motion.div>
       </motion.div>
       
       <div className="space-y-4">
