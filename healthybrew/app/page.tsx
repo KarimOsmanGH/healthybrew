@@ -23,6 +23,8 @@ import { CherryBlossomRain } from "@/components/cherry-blossom-rain";
 import { JapaneseNatureBg } from "@/components/japanese-nature-bg";
 import {
   Check,
+  ChevronDown,
+  ChevronUp,
   Filter,
   RotateCcw,
   Save,
@@ -831,13 +833,6 @@ function DrinkCard({
           className="h-full w-full object-cover"
         />
         <div className={`absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent`} />
-        <motion.div
-          animate={{ rotate: [0, 10, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity }}
-          className="absolute top-2 right-2 text-4xl drop-shadow-lg"
-        >
-          {drink.type === 'tea' ? '🍵' : drink.type === 'coffee' ? '☕' : '💧'}
-        </motion.div>
       </motion.div>
       
       <div className="space-y-4">
