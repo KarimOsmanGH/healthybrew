@@ -55,6 +55,7 @@ const ingredientIconMap: Record<Ingredient["icon"], ReactElement> = {
 const categoryIconMap: Record<DrinkType, ReactElement> = {
   tea: <TeaLeafIcon className="h-6 w-6 text-white" />,
   coffee: <CoffeeBeanIcon className="h-6 w-6 text-white" />,
+  water: <SparkIcon className="h-6 w-6 text-white" />,
 };
 
 const highlightPalette = [
@@ -346,9 +347,31 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 relative overflow-hidden">
-      {/* Japanese Nature Background */}
-      <JapaneseNatureBg />
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
+      {/* Japanese Background Image with Animation */}
+      <motion.div
+        animate={{
+          scale: [1, 1.05, 1],
+          x: [0, -20, 0],
+          y: [0, -10, 0],
+        }}
+        transition={{
+          duration: 30,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/017/188/339/large_2x/japanese-background-illustration-happy-new-year-decoration-template-pastel-color-japanese-pattern-style-with-cherry-blossom-cloud-and-mount-fuji-design-for-card-wallpaper-poster-banner-vector.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.25,
+        }}
+      />
+      
+      {/* Overlay gradient for better readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-50/80 via-purple-50/80 to-blue-50/80 pointer-events-none" />
       
       {/* Cherry Blossom Rain */}
       <CherryBlossomRain />
@@ -462,7 +485,7 @@ export default function Home() {
             ☆
           </motion.div>
           
-          {/* Big Animated Coffee/Tea Emoji */}
+          {/* Big Animated Coffee/Tea/Water Emoji */}
           <motion.div
             key={activeType}
             initial={{ scale: 0, rotate: -180, opacity: 0 }}
@@ -488,7 +511,7 @@ export default function Home() {
               textShadow: "0 10px 40px rgba(147, 51, 234, 0.3)"
             }}
           >
-            {activeType === 'tea' ? '🍵' : '☕'}
+            {activeType === 'tea' ? '🍵' : activeType === 'coffee' ? '☕' : '💧'}
           </motion.div>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-2">
@@ -768,6 +791,9 @@ function DrinkCard({
   onHoverBenefit,
   onPinBenefit,
 }: DrinkCardProps) {
+  const [isIngredientsExpanded, setIsIngredientsExpanded] = useState(false);
+  const [isPreparationExpanded, setIsPreparationExpanded] = useState(false);
+  
   const gradientColors = [
     "from-rose-400 via-pink-400 to-purple-400",
     "from-blue-400 via-cyan-400 to-teal-400",
@@ -797,7 +823,7 @@ function DrinkCard({
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
-        className="relative h-48 -mx-7 -mt-7 mb-4 overflow-hidden rounded-t-[2.25rem]"
+        className="relative h-32 -mx-7 -mt-7 mb-4 overflow-hidden rounded-t-[2.25rem]"
       >
         <img
           src={drink.image}
@@ -808,9 +834,9 @@ function DrinkCard({
         <motion.div
           animate={{ rotate: [0, 10, -10, 0] }}
           transition={{ duration: 4, repeat: Infinity }}
-          className="absolute top-4 right-4 text-5xl drop-shadow-lg"
+          className="absolute top-2 right-2 text-4xl drop-shadow-lg"
         >
-          {drink.type === 'tea' ? '🍵' : '☕'}
+          {drink.type === 'tea' ? '🍵' : drink.type === 'coffee' ? '☕' : '💧'}
         </motion.div>
       </motion.div>
       
@@ -829,7 +855,7 @@ function DrinkCard({
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="mt-1 text-2xl font-bold bg-gradient-to-r from-purple-700 to-pink-700 bg-clip-text text-transparent whitespace-nowrap overflow-hidden text-ellipsis"
+              className="mt-1 text-xl font-bold bg-gradient-to-r from-purple-700 to-pink-700 bg-clip-text text-transparent whitespace-nowrap overflow-hidden text-ellipsis"
             >
               {drink.name}
             </motion.h3>
@@ -851,49 +877,65 @@ function DrinkCard({
           {drink.description}
         </motion.p>
 
-        <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700">
+        <section className="space-y-2">
+          <button
+            onClick={() => setIsIngredientsExpanded(!isIngredientsExpanded)}
+            className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
+          >
             <span>Ingredients</span>
-            <span>{drink.ingredients.length}</span>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {drink.ingredients.map((ingredient) => {
-              const isHighlighted = highlightedBenefit
-                ? ingredient.benefits.includes(highlightedBenefit)
-                : false;
-              return (
-                <div
-                  key={ingredient.name}
-                  className={`flex items-start gap-3 rounded-2xl border-2 p-3 transition-all transform ${
-                    isHighlighted
-                      ? `border-purple-400 shadow-lg bg-purple-50`
-                      : "border-purple-300/60 bg-white/80 hover:scale-105 hover:shadow-md"
-                  }`}
-                >
-                  <motion.div
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.5 }}
-                    className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} shadow-lg`}
-                  >
-                    {ingredientIconMap[ingredient.icon]}
-                  </motion.div>
-                  <div>
-                    <p className="text-sm font-bold text-purple-900">{ingredient.name}</p>
-                    <p className="text-xs text-purple-700/70">{ingredient.description}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+            <div className="flex items-center gap-2">
+              <span>{drink.ingredients.length}</span>
+              {isIngredientsExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            </div>
+          </button>
+          <AnimatePresence>
+            {isIngredientsExpanded && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="grid gap-2 sm:grid-cols-2 overflow-hidden"
+              >
+                {drink.ingredients.map((ingredient) => {
+                  const isHighlighted = highlightedBenefit
+                    ? ingredient.benefits.includes(highlightedBenefit)
+                    : false;
+                  return (
+                    <div
+                      key={ingredient.name}
+                      className={`flex items-start gap-2 rounded-xl border-2 p-2 transition-all ${
+                        isHighlighted
+                          ? `border-purple-400 shadow-lg bg-purple-50`
+                          : "border-purple-300/60 bg-white/80 hover:shadow-md"
+                      }`}
+                    >
+                      <motion.div
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.5 }}
+                        className={`flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} shadow-md flex-shrink-0`}
+                      >
+                        {ingredientIconMap[ingredient.icon]}
+                      </motion.div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-bold text-purple-900">{ingredient.name}</p>
+                        <p className="text-xs text-purple-700/70 line-clamp-2">{ingredient.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </section>
 
-        <section className="space-y-3">
+        <section className="space-y-2">
           <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700">
             <span>Health Benefits</span>
             <span>{drink.healthBenefits.length}</span>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {drink.healthBenefits.map((benefit) => {
+          <div className="flex flex-wrap gap-1.5">
+            {drink.healthBenefits.slice(0, 6).map((benefit) => {
               const isPinned = pinnedBenefit === benefit;
               const isActive = highlightedBenefit === benefit;
               return (
@@ -903,39 +945,58 @@ function DrinkCard({
                   onMouseEnter={() => onHoverBenefit(benefit)}
                   onMouseLeave={() => onHoverBenefit(null)}
                   onClick={() => onPinBenefit(benefit)}
-                  className={`rounded-full border-2 px-3 py-1.5 text-xs font-bold transition-all transform hover:scale-110 ${
+                  className={`rounded-full border-2 px-2.5 py-1 text-xs font-bold transition-all transform hover:scale-105 ${
                     isPinned
-                      ? `border-transparent bg-gradient-to-r ${cardGradient} text-white shadow-lg`
+                      ? `border-transparent bg-gradient-to-r ${cardGradient} text-white shadow-md`
                       : isActive
-                        ? "border-purple-400 bg-purple-100 text-purple-800 shadow-md"
-                        : "border-purple-300/60 bg-white/90 text-purple-700 hover:bg-purple-100 hover:border-purple-400 hover:shadow-md"
+                        ? "border-purple-400 bg-purple-100 text-purple-800 shadow-sm"
+                        : "border-purple-300/60 bg-white/90 text-purple-700 hover:bg-purple-100 hover:border-purple-400"
                   }`}
                 >
                   {benefit}
                 </button>
               );
             })}
+            {drink.healthBenefits.length > 6 && (
+              <span className="rounded-full border-2 border-purple-300/60 bg-white/90 px-2.5 py-1 text-xs font-bold text-purple-700">
+                +{drink.healthBenefits.length - 6}
+              </span>
+            )}
           </div>
         </section>
 
-        <section className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700">
+        <section className="space-y-2">
+          <button
+            onClick={() => setIsPreparationExpanded(!isPreparationExpanded)}
+            className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
+          >
             <span>Preparation</span>
-          </div>
-          <ol className="space-y-2 text-sm text-purple-900/80">
-            {drink.preparation.map((step, index) => (
-              <li key={`${drink.id}-prep-${index}`} className="flex gap-3">
-                <motion.span
-                  whileHover={{ scale: 1.2, rotate: 360 }}
-                  transition={{ duration: 0.5 }}
-                  className={`mt-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} text-xs font-bold text-white shadow-lg`}
-                >
-                  {index + 1}
-                </motion.span>
-                <span>{step}</span>
-              </li>
-            ))}
-          </ol>
+            {isPreparationExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          </button>
+          <AnimatePresence>
+            {isPreparationExpanded && (
+              <motion.ol
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-2 text-sm text-purple-900/80 overflow-hidden"
+              >
+                {drink.preparation.map((step, index) => (
+                  <li key={`${drink.id}-prep-${index}`} className="flex gap-2">
+                    <motion.span
+                      whileHover={{ scale: 1.2, rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                      className={`mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} text-xs font-bold text-white shadow-md flex-shrink-0`}
+                    >
+                      {index + 1}
+                    </motion.span>
+                    <span className="text-xs">{step}</span>
+                  </li>
+                ))}
+              </motion.ol>
+            )}
+          </AnimatePresence>
         </section>
       </div>
     </motion.article>
