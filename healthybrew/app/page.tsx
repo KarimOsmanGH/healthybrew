@@ -20,6 +20,7 @@ import {
 } from "@/components/icons";
 import { HealthSummary } from "@/components/health-summary";
 import { CherryBlossomRain } from "@/components/cherry-blossom-rain";
+import { JapaneseNatureBg } from "@/components/japanese-nature-bg";
 import {
   Check,
   Filter,
@@ -346,6 +347,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 relative overflow-hidden">
+      {/* Japanese Nature Background */}
+      <JapaneseNatureBg />
+      
       {/* Cherry Blossom Rain */}
       <CherryBlossomRain />
       
