@@ -347,9 +347,31 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 relative overflow-hidden">
-      {/* Japanese Nature Background */}
-      <JapaneseNatureBg />
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
+      {/* Japanese Background Image with Animation */}
+      <motion.div
+        animate={{
+          scale: [1, 1.05, 1],
+          x: [0, -20, 0],
+          y: [0, -10, 0],
+        }}
+        transition={{
+          duration: 30,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/017/188/339/large_2x/japanese-background-illustration-happy-new-year-decoration-template-pastel-color-japanese-pattern-style-with-cherry-blossom-cloud-and-mount-fuji-design-for-card-wallpaper-poster-banner-vector.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.25,
+        }}
+      />
+      
+      {/* Overlay gradient for better readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-50/80 via-purple-50/80 to-blue-50/80 pointer-events-none" />
       
       {/* Cherry Blossom Rain */}
       <CherryBlossomRain />
