@@ -442,16 +442,45 @@ export default function Home() {
           <motion.div
             animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="absolute top-4 right-4 text-4xl"
+            className="absolute top-4 right-4 text-4xl pointer-events-none"
           >
             ✨
           </motion.div>
           <motion.div
             animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
-            className="absolute bottom-4 left-4 text-3xl"
+            className="absolute bottom-4 left-4 text-3xl pointer-events-none"
           >
             ☆
+          </motion.div>
+          
+          {/* Big Animated Coffee/Tea Emoji */}
+          <motion.div
+            key={activeType}
+            initial={{ scale: 0, rotate: -180, opacity: 0 }}
+            animate={{ 
+              scale: 1, 
+              rotate: 0, 
+              opacity: 1,
+              y: [0, -15, 0],
+            }}
+            transition={{ 
+              scale: { duration: 0.5, ease: "easeOut" },
+              rotate: { duration: 0.5, ease: "easeOut" },
+              opacity: { duration: 0.3 },
+              y: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+            }}
+            whileHover={{ 
+              scale: 1.15, 
+              rotate: [0, -10, 10, -10, 0],
+              transition: { duration: 0.5 }
+            }}
+            className="absolute top-6 right-16 text-9xl cursor-pointer filter drop-shadow-2xl"
+            style={{ 
+              textShadow: "0 10px 40px rgba(147, 51, 234, 0.3)"
+            }}
+          >
+            {activeType === 'tea' ? '🍵' : '☕'}
           </motion.div>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-2">
