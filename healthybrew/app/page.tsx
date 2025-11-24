@@ -829,7 +829,7 @@ function DrinkCard({
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="mt-1 text-2xl font-bold bg-gradient-to-r from-purple-700 to-pink-700 bg-clip-text text-transparent"
+              className="mt-1 text-2xl font-bold bg-gradient-to-r from-purple-700 to-pink-700 bg-clip-text text-transparent whitespace-nowrap overflow-hidden text-ellipsis"
             >
               {drink.name}
             </motion.h3>
