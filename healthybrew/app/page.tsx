@@ -17,6 +17,7 @@ import {
   HeartHerbIcon,
   SparkIcon,
   TeaLeafIcon,
+  WaterDropIcon,
 } from "@/components/icons";
 import { HealthSummary } from "@/components/health-summary";
 import { CherryBlossomRain } from "@/components/cherry-blossom-rain";
@@ -57,7 +58,7 @@ const ingredientIconMap: Record<Ingredient["icon"], ReactElement> = {
 const categoryIconMap: Record<DrinkType, ReactElement> = {
   tea: <TeaLeafIcon className="h-6 w-6 text-white" />,
   coffee: <CoffeeBeanIcon className="h-6 w-6 text-white" />,
-  water: <SparkIcon className="h-6 w-6 text-white" />,
+  water: <WaterDropIcon className="h-6 w-6 text-white" />,
 };
 
 const highlightPalette = [
@@ -66,6 +67,49 @@ const highlightPalette = [
   "bg-amber-50 text-amber-700 ring-2 ring-inset ring-amber-200",
   "bg-sky-50 text-sky-700 ring-2 ring-inset ring-sky-200",
 ];
+
+const healthFocusColors: Record<string, { default: string; selected: string; text: string }> = {
+  "calm-focus": {
+    default: "border-cyan-300/70 bg-white/70 text-cyan-800 hover:bg-cyan-50/90 hover:border-cyan-400/70",
+    selected: "border-cyan-400/80 bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-900 shadow-lg shadow-cyan-400/30",
+    text: "cyan"
+  },
+  "immunity": {
+    default: "border-emerald-300/70 bg-white/70 text-emerald-800 hover:bg-emerald-50/90 hover:border-emerald-400/70",
+    selected: "border-emerald-400/80 bg-gradient-to-r from-emerald-100 to-green-100 text-emerald-900 shadow-lg shadow-emerald-400/30",
+    text: "emerald"
+  },
+  "metabolic": {
+    default: "border-orange-300/70 bg-white/70 text-orange-800 hover:bg-orange-50/90 hover:border-orange-400/70",
+    selected: "border-orange-400/80 bg-gradient-to-r from-orange-100 to-amber-100 text-orange-900 shadow-lg shadow-orange-400/30",
+    text: "orange"
+  },
+  "digestive": {
+    default: "border-lime-300/70 bg-white/70 text-lime-800 hover:bg-lime-50/90 hover:border-lime-400/70",
+    selected: "border-lime-400/80 bg-gradient-to-r from-lime-100 to-green-100 text-lime-900 shadow-lg shadow-lime-400/30",
+    text: "lime"
+  },
+  "energy-mood": {
+    default: "border-yellow-300/70 bg-white/70 text-yellow-800 hover:bg-yellow-50/90 hover:border-yellow-400/70",
+    selected: "border-yellow-400/80 bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-900 shadow-lg shadow-yellow-400/30",
+    text: "yellow"
+  },
+  "heart-circulation": {
+    default: "border-rose-300/70 bg-white/70 text-rose-800 hover:bg-rose-50/90 hover:border-rose-400/70",
+    selected: "border-rose-400/80 bg-gradient-to-r from-rose-100 to-pink-100 text-rose-900 shadow-lg shadow-rose-400/30",
+    text: "rose"
+  },
+  "anti-inflammatory": {
+    default: "border-amber-300/70 bg-white/70 text-amber-800 hover:bg-amber-50/90 hover:border-amber-400/70",
+    selected: "border-amber-400/80 bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-900 shadow-lg shadow-amber-400/30",
+    text: "amber"
+  },
+  "stress-relief": {
+    default: "border-purple-300/70 bg-white/70 text-purple-800 hover:bg-purple-50/90 hover:border-purple-400/70",
+    selected: "border-purple-400/80 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-900 shadow-lg shadow-purple-400/30",
+    text: "purple"
+  }
+};
 
 export default function Home() {
   const [activeType, setActiveType] = useState<DrinkType>("tea");
@@ -723,6 +767,7 @@ export default function Home() {
                   <div className="space-y-2">
                     {healthFocuses.map((focus) => {
                       const isSelected = selectedFocus === focus.id;
+                      const colors = healthFocusColors[focus.id] || healthFocusColors["calm-focus"];
                       return (
                         <button
                           key={focus.id}
@@ -730,12 +775,12 @@ export default function Home() {
                           onClick={() => setSelectedFocus(isSelected ? null : focus.id)}
                           className={`w-full rounded-2xl border-2 px-4 py-3 text-left transition-all transform hover:scale-105 ${
                             isSelected
-                              ? "border-purple-400/80 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-900 shadow-lg shadow-purple-400/30"
-                              : "border-purple-300/70 bg-white/70 text-purple-800 hover:bg-white/90 hover:border-purple-400/70 hover:shadow-md"
+                              ? colors.selected
+                              : colors.default + " hover:shadow-md"
                           }`}
                         >
                           <p className="text-sm font-bold">{focus.label}</p>
-                          <p className={`text-xs ${isSelected ? "text-purple-700/90" : "text-purple-700/70"}`}>
+                          <p className={`text-xs ${isSelected ? `text-${colors.text}-700/90` : `text-${colors.text}-700/70`}`}>
                             {focus.tagline}
                           </p>
                         </button>
@@ -795,6 +840,7 @@ function DrinkCard({
 }: DrinkCardProps) {
   const [isIngredientsExpanded, setIsIngredientsExpanded] = useState(false);
   const [isPreparationExpanded, setIsPreparationExpanded] = useState(false);
+  const [isBenefitsExpanded, setIsBenefitsExpanded] = useState(false);
   
   const gradientColors = [
     "from-rose-400 via-pink-400 to-purple-400",
@@ -925,39 +971,50 @@ function DrinkCard({
         </section>
 
         <section className="space-y-2">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700">
+          <button
+            onClick={() => setIsBenefitsExpanded(!isBenefitsExpanded)}
+            className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
+          >
             <span>Health Benefits</span>
-            <span>{drink.healthBenefits.length}</span>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {drink.healthBenefits.slice(0, 6).map((benefit) => {
-              const isPinned = pinnedBenefit === benefit;
-              const isActive = highlightedBenefit === benefit;
-              return (
-                <button
-                  key={benefit}
-                  type="button"
-                  onMouseEnter={() => onHoverBenefit(benefit)}
-                  onMouseLeave={() => onHoverBenefit(null)}
-                  onClick={() => onPinBenefit(benefit)}
-                  className={`rounded-full border-2 px-2.5 py-1 text-xs font-bold transition-all transform hover:scale-105 ${
-                    isPinned
-                      ? `border-transparent bg-gradient-to-r ${cardGradient} text-white shadow-md`
-                      : isActive
-                        ? "border-purple-400 bg-purple-100 text-purple-800 shadow-sm"
-                        : "border-purple-300/60 bg-white/90 text-purple-700 hover:bg-purple-100 hover:border-purple-400"
-                  }`}
-                >
-                  {benefit}
-                </button>
-              );
-            })}
-            {drink.healthBenefits.length > 6 && (
-              <span className="rounded-full border-2 border-purple-300/60 bg-white/90 px-2.5 py-1 text-xs font-bold text-purple-700">
-                +{drink.healthBenefits.length - 6}
-              </span>
+            <div className="flex items-center gap-2">
+              <span>{drink.healthBenefits.length}</span>
+              {isBenefitsExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            </div>
+          </button>
+          <AnimatePresence>
+            {isBenefitsExpanded && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-wrap gap-1.5 overflow-hidden"
+              >
+                {drink.healthBenefits.map((benefit) => {
+                  const isPinned = pinnedBenefit === benefit;
+                  const isActive = highlightedBenefit === benefit;
+                  return (
+                    <button
+                      key={benefit}
+                      type="button"
+                      onMouseEnter={() => onHoverBenefit(benefit)}
+                      onMouseLeave={() => onHoverBenefit(null)}
+                      onClick={() => onPinBenefit(benefit)}
+                      className={`rounded-full border-2 px-2.5 py-1 text-xs font-bold transition-all transform hover:scale-105 ${
+                        isPinned
+                          ? `border-transparent bg-gradient-to-r ${cardGradient} text-white shadow-md`
+                          : isActive
+                            ? "border-purple-400 bg-purple-100 text-purple-800 shadow-sm"
+                            : "border-purple-300/60 bg-white/90 text-purple-700 hover:bg-purple-100 hover:border-purple-400"
+                      }`}
+                    >
+                      {benefit}
+                    </button>
+                  );
+                })}
+              </motion.div>
             )}
-          </div>
+          </AnimatePresence>
         </section>
 
         <section className="space-y-2">

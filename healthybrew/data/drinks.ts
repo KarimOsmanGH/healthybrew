@@ -98,7 +98,7 @@ export const drinks: Drink[] = [
     name: "Jade Calm Matcha",
     description:
       "Silky ceremonial matcha layered with adaptogens for a lifted yet grounded focus.",
-    image: "https://images.pexels.com/photos/1793037/pexels-photo-1793037.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Ceremonial Matcha",
@@ -147,7 +147,7 @@ export const drinks: Drink[] = [
     name: "Golden Root Chai",
     description:
       "A turmeric-forward chai that warms circulation and soothes inflammation.",
-    image: "https://images.pexels.com/photos/1417945/pexels-photo-1417945.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1578899952107-9d1d0d82f43c?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Turmeric",
@@ -202,7 +202,7 @@ export const drinks: Drink[] = [
     name: "Citrus Bloom Tea",
     description:
       "Delicate white tea layered with citrus and blossoms for immune-forward brightness.",
-    image: "https://images.pexels.com/photos/230477/pexels-photo-230477.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "White Peony Tea",
@@ -251,7 +251,7 @@ export const drinks: Drink[] = [
     name: "Vitality Cold Brew",
     description:
       "Slow-steeped cold brew energized with citrus and maca for steady momentum.",
-    image: "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Single Origin Cold Brew",
@@ -300,7 +300,7 @@ export const drinks: Drink[] = [
     name: "Cardio Glow Latte",
     description:
       "Rose-infused espresso with beet crema to nourish circulation and the heart.",
-    image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1534182519810-bc2e369fc592?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Light Roast Espresso",
@@ -349,7 +349,7 @@ export const drinks: Drink[] = [
     name: "Adaptogen Mocha",
     description:
       "Silky mocha folded with reishi and lion's mane for resilient focus.",
-    image: "https://images.pexels.com/photos/4109998/pexels-photo-4109998.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1578374173705-0f5c70857fd6?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Organic Espresso",
@@ -405,7 +405,7 @@ export const drinks: Drink[] = [
     name: "Lavender Dreams",
     description:
       "Chamomile and lavender unite for deep relaxation and restful evenings.",
-    image: "https://images.pexels.com/photos/1793037/pexels-photo-1793037.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Chamomile Flowers",
@@ -453,7 +453,7 @@ export const drinks: Drink[] = [
     name: "Mint Green Refresh",
     description:
       "Cooling peppermint meets antioxidant-rich green tea for digestive ease.",
-    image: "https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1556679086-42f8d4f3e046?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Sencha Green Tea",
@@ -502,7 +502,7 @@ export const drinks: Drink[] = [
     name: "Hibiscus Berry Boost",
     description:
       "Tart hibiscus blended with berries for cardiovascular vitality.",
-    image: "https://images.pexels.com/photos/434295/pexels-photo-434295.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Hibiscus Petals",
@@ -551,7 +551,7 @@ export const drinks: Drink[] = [
     name: "Rooibos Vanilla",
     description:
       "Caffeine-free rooibos with vanilla and warming spices for evening calm.",
-    image: "https://images.pexels.com/photos/1638281/pexels-photo-1638281.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1597318130921-b6ad97b9e43f?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Red Rooibos",
@@ -598,7 +598,7 @@ export const drinks: Drink[] = [
     name: "Jasmine Pearl Tea",
     description:
       "Hand-rolled jasmine pearls unfurl into aromatic tranquility.",
-    image: "https://images.pexels.com/photos/1417945/pexels-photo-1417945.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Jasmine Pearls",
@@ -640,7 +640,7 @@ export const drinks: Drink[] = [
     name: "Oolong Stone Fruit",
     description:
       "Semi-oxidized oolong with peach and apricot for metabolism support.",
-    image: "https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1563822249366-3efbd7e02c7e?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Ti Kuan Yin Oolong",
@@ -688,7 +688,7 @@ export const drinks: Drink[] = [
     name: "Espresso Tonic",
     description:
       "Effervescent tonic water meets bold espresso for refreshing energy.",
-    image: "https://images.pexels.com/photos/324028/pexels-photo-324028.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1545665225-b23b99e4d45e?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Double Espresso",
@@ -736,7 +736,7 @@ export const drinks: Drink[] = [
     name: "Maple Pecan Brew",
     description:
       "Nutty medium roast enhanced with maple and pecans for cozy warmth.",
-    image: "https://images.pexels.com/photos/373639/pexels-photo-373639.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Medium Roast Coffee",
@@ -784,7 +784,7 @@ export const drinks: Drink[] = [
     name: "Vanilla Latte",
     description:
       "Creamy latte boosted with collagen peptides for skin and joint health.",
-    image: "https://images.pexels.com/photos/2396220/pexels-photo-2396220.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Blonde Espresso",
@@ -833,7 +833,7 @@ export const drinks: Drink[] = [
     name: "Golden Coffee",
     description:
       "Anti-inflammatory golden latte with coffee's energizing kick.",
-    image: "https://images.pexels.com/photos/1793037/pexels-photo-1793037.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Medium Roast Coffee",
@@ -888,7 +888,7 @@ export const drinks: Drink[] = [
     name: "Hazelnut Praline",
     description:
       "Decadent coffee with hazelnut and caramelized sweetness for indulgent moments.",
-    image: "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Dark Roast Coffee",
@@ -936,7 +936,7 @@ export const drinks: Drink[] = [
     name: "Mushroom Coffee",
     description:
       "Coffee blended with cordyceps and chaga for sustained mental clarity.",
-    image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Light Roast Coffee",
@@ -984,7 +984,7 @@ export const drinks: Drink[] = [
     name: "Cucumber Mint Water",
     description:
       "Crisp cucumber paired with cooling mint for ultimate hydration and freshness.",
-    image: "https://images.pexels.com/photos/1332189/pexels-photo-1332189.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Cucumber Slices",
@@ -1033,7 +1033,7 @@ export const drinks: Drink[] = [
     name: "Berry Basil Detox",
     description:
       "Antioxidant-rich berries with aromatic basil for gentle detoxification.",
-    image: "https://images.pexels.com/photos/96974/pexels-photo-96974.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Mixed Berries",
@@ -1077,7 +1077,7 @@ export const drinks: Drink[] = [
     name: "Citrus Ginger Spark",
     description:
       "Vibrant citrus trio with spicy ginger for immune-boosting hydration.",
-    image: "https://images.pexels.com/photos/1435740/pexels-photo-1435740.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Orange Slices",
@@ -1127,7 +1127,7 @@ export const drinks: Drink[] = [
     name: "Watermelon Rosemary",
     description:
       "Sweet watermelon meets aromatic rosemary for summer hydration bliss.",
-    image: "https://images.pexels.com/photos/5946068/pexels-photo-5946068.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1597306691224-b9b3f4c452e6?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Fresh Watermelon",
@@ -1170,7 +1170,7 @@ export const drinks: Drink[] = [
     name: "Pineapple Turmeric Water",
     description:
       "Tropical pineapple with golden turmeric for anti-inflammatory hydration.",
-    image: "https://images.pexels.com/photos/1435740/pexels-photo-1435740.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1589733955941-5eeaf9c0b5f4?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Fresh Pineapple",
@@ -1219,7 +1219,7 @@ export const drinks: Drink[] = [
     name: "Apple Cinnamon Water",
     description:
       "Crisp apple with warming cinnamon for metabolism and blood sugar balance.",
-    image: "https://images.pexels.com/photos/1332189/pexels-photo-1332189.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1572379884240-de51f7eab2c6?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Green Apple",
@@ -1262,7 +1262,7 @@ export const drinks: Drink[] = [
     name: "Strawberry Kiwi Boost",
     description:
       "Vitamin C powerhouse combination for immune support and radiant energy.",
-    image: "https://images.pexels.com/photos/96974/pexels-photo-96974.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1523677011781-c91d1bbe2f9c?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Fresh Strawberries",
@@ -1305,7 +1305,7 @@ export const drinks: Drink[] = [
     name: "Beetroot Berry Water",
     description:
       "Earthy beets with berries for cardiovascular support and vibrant color.",
-    image: "https://images.pexels.com/photos/1435740/pexels-photo-1435740.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=800&h=600&fit=crop",
     ingredients: [
       {
         name: "Fresh Beetroot",
