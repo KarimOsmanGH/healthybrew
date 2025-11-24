@@ -561,54 +561,160 @@ export default function Home() {
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col gap-6 rounded-[2.5rem] border-4 border-blue-300/60 bg-gradient-to-br from-blue-50/90 via-purple-50/90 to-pink-50/90 p-6 shadow-2xl shadow-blue-500/20 backdrop-blur-xl"
+            className="flex flex-col gap-6 rounded-[2.5rem] border-4 border-blue-300/60 p-6 shadow-2xl shadow-blue-500/20 backdrop-blur-xl relative overflow-hidden"
+            style={{
+              background: "linear-gradient(135deg, rgba(219, 234, 254, 0.95) 0%, rgba(243, 232, 255, 0.95) 50%, rgba(252, 231, 243, 0.95) 100%)"
+            }}
           >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between text-sm font-bold text-purple-800">
-                <span className="inline-flex items-center gap-2">
-                  <Filter className="h-4 w-4" /> Health Focus
-                </span>
-                {selectedFocus && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSelectedFocus(null);
-                    }}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-purple-600 hover:text-purple-800"
-                  >
-                    <RotateCcw className="h-3.5 w-3.5" />
-                    Reset
-                  </button>
-                )}
-              </div>
-
-              <section className="space-y-2">
-                <p className="text-xs font-bold uppercase tracking-[0.3em] text-purple-700/70">
-                  Select your goal
-                </p>
-                <div className="space-y-2">
-                  {healthFocuses.map((focus) => {
-                    const isSelected = selectedFocus === focus.id;
-                    return (
-                      <button
-                        key={focus.id}
-                        type="button"
-                        onClick={() => setSelectedFocus(isSelected ? null : focus.id)}
-                        className={`w-full rounded-2xl border-2 px-4 py-3 text-left transition-all transform hover:scale-105 ${
-                          isSelected
-                            ? "border-purple-400/80 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-900 shadow-lg shadow-purple-400/30"
-                            : "border-purple-300/70 bg-white/70 text-purple-800 hover:bg-white/90 hover:border-purple-400/70 hover:shadow-md"
-                        }`}
-                      >
-                        <p className="text-sm font-bold">{focus.label}</p>
-                        <p className={`text-xs ${isSelected ? "text-purple-700/90" : "text-purple-700/70"}`}>
-                          {focus.tagline}
-                        </p>
-                      </button>
-                    );
-                  })}
+            {/* Animated Japanese Wave Pattern Background */}
+            <motion.div
+              animate={{
+                backgroundPosition: ["0% 0%", "100% 100%"],
+              }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute inset-0 opacity-20"
+              style={{
+                backgroundImage: `
+                  radial-gradient(circle at 20% 50%, rgba(147, 197, 253, 0.8) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(196, 181, 253, 0.8) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 20%, rgba(249, 168, 212, 0.8) 0%, transparent 50%)
+                `,
+                backgroundSize: "200% 200%",
+              }}
+            />
+            
+            {/* Flowing Glow Effect */}
+            <motion.div
+              animate={{
+                opacity: [0.3, 0.6, 0.3],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-blue-400/40 to-purple-400/40 rounded-full blur-3xl"
+            />
+            
+            <motion.div
+              animate={{
+                opacity: [0.4, 0.7, 0.4],
+                scale: [1, 1.3, 1],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1,
+              }}
+              className="absolute bottom-10 left-10 w-40 h-40 bg-gradient-to-br from-pink-400/40 to-purple-400/40 rounded-full blur-3xl"
+            />
+            
+            {/* Subtle Wave Lines */}
+            <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+              <motion.path
+                d="M0,100 Q50,50 100,100 T200,100"
+                stroke="url(#gradient1)"
+                strokeWidth="2"
+                fill="none"
+                animate={{
+                  d: [
+                    "M0,100 Q50,50 100,100 T200,100",
+                    "M0,100 Q50,150 100,100 T200,100",
+                    "M0,100 Q50,50 100,100 T200,100",
+                  ],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              <motion.path
+                d="M0,150 Q50,100 100,150 T200,150"
+                stroke="url(#gradient2)"
+                strokeWidth="2"
+                fill="none"
+                animate={{
+                  d: [
+                    "M0,150 Q50,100 100,150 T200,150",
+                    "M0,150 Q50,200 100,150 T200,150",
+                    "M0,150 Q50,100 100,150 T200,150",
+                  ],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5,
+                }}
+              />
+              <defs>
+                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#60A5FA" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#C084FC" stopOpacity="0.6" />
+                </linearGradient>
+                <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#F472B6" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#A78BFA" stopOpacity="0.6" />
+                </linearGradient>
+              </defs>
+            </svg>
+            
+            {/* Content with higher z-index */}
+            <div className="relative z-10 flex flex-col gap-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between text-sm font-bold text-purple-800">
+                  <span className="inline-flex items-center gap-2">
+                    <Filter className="h-4 w-4" /> Health Focus
+                  </span>
+                  {selectedFocus && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedFocus(null);
+                      }}
+                      className="inline-flex items-center gap-1 text-xs font-bold text-purple-600 hover:text-purple-800"
+                    >
+                      <RotateCcw className="h-3.5 w-3.5" />
+                      Reset
+                    </button>
+                  )}
                 </div>
-              </section>
+
+                <section className="space-y-2">
+                  <p className="text-xs font-bold uppercase tracking-[0.3em] text-purple-700/70">
+                    Select your goal
+                  </p>
+                  <div className="space-y-2">
+                    {healthFocuses.map((focus) => {
+                      const isSelected = selectedFocus === focus.id;
+                      return (
+                        <button
+                          key={focus.id}
+                          type="button"
+                          onClick={() => setSelectedFocus(isSelected ? null : focus.id)}
+                          className={`w-full rounded-2xl border-2 px-4 py-3 text-left transition-all transform hover:scale-105 ${
+                            isSelected
+                              ? "border-purple-400/80 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-900 shadow-lg shadow-purple-400/30"
+                              : "border-purple-300/70 bg-white/70 text-purple-800 hover:bg-white/90 hover:border-purple-400/70 hover:shadow-md"
+                          }`}
+                        >
+                          <p className="text-sm font-bold">{focus.label}</p>
+                          <p className={`text-xs ${isSelected ? "text-purple-700/90" : "text-purple-700/70"}`}>
+                            {focus.tagline}
+                          </p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </section>
+              </div>
             </div>
           </motion.aside>
 
