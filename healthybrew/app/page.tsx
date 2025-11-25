@@ -408,16 +408,16 @@ export default function Home() {
         }}
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/017/188/339/large_2x/japanese-background-illustration-happy-new-year-decoration-template-pastel-color-japanese-pattern-style-with-cherry-blossom-cloud-and-mount-fuji-design-for-card-wallpaper-poster-banner-vector.jpg')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1528164344705-47542687000d?w=1920&h=1080&fit=crop&q=80')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          opacity: 0.25,
+          opacity: 0.15,
         }}
       />
       
       {/* Overlay gradient for better readability */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-50/80 via-purple-50/80 to-blue-50/80 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-50/90 via-purple-50/90 to-blue-50/90 pointer-events-none" />
       
       {/* Cherry Blossom Rain */}
       <CherryBlossomRain />
@@ -457,7 +457,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-24 right-6 z-50 rounded-2xl bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 p-4 shadow-2xl max-w-xs"
+            className="fixed bottom-36 right-4 sm:bottom-24 sm:right-6 z-50 rounded-2xl bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 p-3 sm:p-4 shadow-2xl max-w-[280px] sm:max-w-xs"
           >
             <button
               onClick={() => {
@@ -497,23 +497,23 @@ export default function Home() {
         onClick={toggleMusic}
         whileHover={{ scale: 1.1, rotate: 5 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 text-white shadow-2xl shadow-purple-500/30 transition-all focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-offset-2"
+        className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-50 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 text-white shadow-2xl shadow-purple-500/30 transition-all focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-offset-2"
         aria-label={isMusicPlaying ? "Pause lofi music" : "Play lofi music"}
       >
         <motion.div
           animate={isMusicPlaying ? { scale: [1, 1.2, 1] } : {}}
           transition={{ duration: 0.8, repeat: isMusicPlaying ? Infinity : 0 }}
         >
-          {isMusicPlaying ? <Volume2 className="h-6 w-6" /> : <VolumeX className="h-6 w-6" />}
+          {isMusicPlaying ? <Volume2 className="h-5 w-5 sm:h-6 sm:w-6" /> : <VolumeX className="h-5 w-5 sm:h-6 sm:w-6" />}
         </motion.div>
       </motion.button>
       
-      <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-8 px-4 pb-10 pt-10 sm:px-6 lg:px-8">
+      <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-4 px-3 pb-24 pt-6 sm:gap-8 sm:px-6 sm:pb-10 sm:pt-10 lg:px-8">
         <motion.header
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="rounded-[2.5rem] border-4 border-purple-300/60 bg-gradient-to-br from-purple-100/90 via-pink-100/90 to-blue-100/90 p-8 shadow-2xl shadow-purple-500/20 backdrop-blur-xl relative overflow-hidden"
+          className="rounded-[2rem] border-2 sm:rounded-[2.5rem] sm:border-4 border-purple-300/60 bg-gradient-to-br from-purple-100/90 via-pink-100/90 to-blue-100/90 p-4 sm:p-8 shadow-2xl shadow-purple-500/20 backdrop-blur-xl relative overflow-hidden"
         >
           {/* Sparkle Effects */}
           <motion.div
@@ -552,7 +552,7 @@ export default function Home() {
               rotate: [0, -10, 10, -10, 0],
               transition: { duration: 0.5 }
             }}
-            className="absolute top-6 right-16 text-9xl cursor-pointer filter drop-shadow-2xl"
+            className="absolute top-3 right-3 text-5xl sm:top-6 sm:right-16 sm:text-9xl cursor-pointer filter drop-shadow-2xl"
             style={{ 
               textShadow: "0 10px 40px rgba(147, 51, 234, 0.3)"
             }}
@@ -574,7 +574,7 @@ export default function Home() {
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent sm:text-5xl"
+                className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent sm:text-3xl lg:text-5xl pr-12 sm:pr-0"
               >
                 Tea & Coffee Wellness ♡
               </motion.h1>
@@ -582,7 +582,7 @@ export default function Home() {
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="max-w-2xl text-base text-purple-700/90"
+                className="max-w-2xl text-sm sm:text-base text-purple-700/90"
               >
                 Explore delightful recipes and discover the perfect blend for your wellness journey ✨✿✨
               </motion.p>
@@ -629,12 +629,12 @@ export default function Home() {
           </motion.div>
         </motion.header>
 
-        <div className="grid flex-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
+        <div className="grid flex-1 gap-4 lg:gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
           <motion.aside
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col gap-6 rounded-[2.5rem] border-4 border-blue-300/60 p-6 shadow-2xl shadow-blue-500/20 backdrop-blur-xl relative overflow-hidden"
+            className="flex flex-col gap-4 sm:gap-6 rounded-[2rem] border-2 sm:rounded-[2.5rem] sm:border-4 border-blue-300/60 p-4 sm:p-6 shadow-2xl shadow-blue-500/20 backdrop-blur-xl relative overflow-hidden"
             style={{
               background: "linear-gradient(135deg, rgba(219, 234, 254, 0.95) 0%, rgba(243, 232, 255, 0.95) 50%, rgba(252, 231, 243, 0.95) 100%)"
             }}
@@ -839,7 +839,7 @@ function DrinkCard({
   onPinBenefit,
 }: DrinkCardProps) {
   const [isIngredientsExpanded, setIsIngredientsExpanded] = useState(false);
-  const [isPreparationExpanded, setIsPreparationExpanded] = useState(false);
+  const [isPreparationExpanded, setIsPreparationExpanded] = useState(true);
   const [isBenefitsExpanded, setIsBenefitsExpanded] = useState(false);
   
   const gradientColors = [
@@ -861,7 +861,7 @@ function DrinkCard({
       exit={{ opacity: 0, y: -20, scale: 0.95 }}
       whileHover={{ y: -8, scale: 1.02 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="group relative flex h-full flex-col rounded-[2.5rem] border-4 border-purple-300/60 bg-white p-7 shadow-2xl shadow-purple-500/20 backdrop-blur-sm overflow-hidden hover:shadow-purple-500/30 hover:border-purple-400/80"
+      className="group relative flex h-full flex-col rounded-[2rem] border-2 sm:rounded-[2.5rem] sm:border-4 border-purple-300/60 bg-white p-4 sm:p-7 shadow-2xl shadow-purple-500/20 backdrop-blur-sm overflow-hidden hover:shadow-purple-500/30 hover:border-purple-400/80"
     >
       {/* Gradient Accent */}
       <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${cardGradient}`} />
@@ -871,7 +871,7 @@ function DrinkCard({
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
-        className="relative h-32 -mx-7 -mt-7 mb-4 overflow-hidden rounded-t-[2.25rem]"
+        className="relative h-24 sm:h-32 -mx-4 sm:-mx-7 -mt-4 sm:-mt-7 mb-3 sm:mb-4 overflow-hidden rounded-t-[1.75rem] sm:rounded-t-[2.25rem]"
       >
         <img
           src={drink.image}
@@ -896,29 +896,30 @@ function DrinkCard({
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="mt-1 text-xl font-bold bg-gradient-to-r from-purple-700 to-pink-700 bg-clip-text text-transparent whitespace-nowrap overflow-hidden text-ellipsis"
+              className="mt-1 text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-700 to-pink-700 bg-clip-text text-transparent"
             >
               {drink.name}
             </motion.h3>
           </div>
           <motion.div
             whileHover={{ scale: 1.1, rotate: 5 }}
-            className={`flex items-center gap-2 rounded-full bg-gradient-to-r ${cardGradient} px-4 py-1.5 text-xs font-bold text-white shadow-lg`}
+            className={`flex items-center gap-1.5 sm:gap-2 rounded-full bg-gradient-to-r ${cardGradient} px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold text-white shadow-lg flex-shrink-0`}
           >
-            <CupSteamIcon className="h-4 w-4 text-white" />
-            wellbeing
+            <CupSteamIcon className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
+            <span className="hidden sm:inline">wellbeing</span>
+            <span className="sm:hidden">wellness</span>
           </motion.div>
         </div>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="text-sm text-purple-900/80 leading-relaxed"
+          className="text-xs sm:text-sm text-purple-900/80 leading-relaxed"
         >
           {drink.description}
         </motion.p>
 
-        <section className="space-y-2">
+        <section className="space-y-1.5 sm:space-y-2">
           <button
             onClick={() => setIsIngredientsExpanded(!isIngredientsExpanded)}
             className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
@@ -972,6 +973,40 @@ function DrinkCard({
 
         <section className="space-y-2">
           <button
+            onClick={() => setIsPreparationExpanded(!isPreparationExpanded)}
+            className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
+          >
+            <span>Preparation</span>
+            {isPreparationExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          </button>
+          <AnimatePresence>
+            {isPreparationExpanded && (
+              <motion.ol
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-2 text-sm text-purple-900/80 overflow-hidden"
+              >
+                {drink.preparation.map((step, index) => (
+                  <li key={`${drink.id}-prep-${index}`} className="flex gap-2">
+                    <motion.span
+                      whileHover={{ scale: 1.2, rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                      className={`mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} text-xs font-bold text-white shadow-md flex-shrink-0`}
+                    >
+                      {index + 1}
+                    </motion.span>
+                    <span className="text-xs">{step}</span>
+                  </li>
+                ))}
+              </motion.ol>
+            )}
+          </AnimatePresence>
+        </section>
+
+        <section className="space-y-2">
+          <button
             onClick={() => setIsBenefitsExpanded(!isBenefitsExpanded)}
             className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
           >
@@ -1013,40 +1048,6 @@ function DrinkCard({
                   );
                 })}
               </motion.div>
-            )}
-          </AnimatePresence>
-        </section>
-
-        <section className="space-y-2">
-          <button
-            onClick={() => setIsPreparationExpanded(!isPreparationExpanded)}
-            className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
-          >
-            <span>Preparation</span>
-            {isPreparationExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-          </button>
-          <AnimatePresence>
-            {isPreparationExpanded && (
-              <motion.ol
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-2 text-sm text-purple-900/80 overflow-hidden"
-              >
-                {drink.preparation.map((step, index) => (
-                  <li key={`${drink.id}-prep-${index}`} className="flex gap-2">
-                    <motion.span
-                      whileHover={{ scale: 1.2, rotate: 360 }}
-                      transition={{ duration: 0.5 }}
-                      className={`mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} text-xs font-bold text-white shadow-md flex-shrink-0`}
-                    >
-                      {index + 1}
-                    </motion.span>
-                    <span className="text-xs">{step}</span>
-                  </li>
-                ))}
-              </motion.ol>
             )}
           </AnimatePresence>
         </section>
