@@ -408,7 +408,7 @@ export default function Home() {
         }}
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1528164344705-47542687000d?w=1920&h=1080&fit=crop&q=80')",
+          backgroundImage: "url('/japan-nature-bg.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -865,21 +865,6 @@ function DrinkCard({
     >
       {/* Gradient Accent */}
       <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${cardGradient}`} />
-      
-      {/* Drink Image */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2 }}
-        className="relative h-24 sm:h-32 -mx-4 sm:-mx-7 -mt-4 sm:-mt-7 mb-3 sm:mb-4 overflow-hidden rounded-t-[1.75rem] sm:rounded-t-[2.25rem]"
-      >
-        <img
-          src={drink.image}
-          alt={drink.name}
-          className="h-full w-full object-cover"
-        />
-        <div className={`absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent`} />
-      </motion.div>
       
       <div className="space-y-4">
         <div className="flex items-start justify-between">
