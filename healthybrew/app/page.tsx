@@ -919,6 +919,40 @@ function DrinkCard({
           {drink.description}
         </motion.p>
 
+        <section className="space-y-2">
+          <button
+            onClick={() => setIsPreparationExpanded(!isPreparationExpanded)}
+            className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
+          >
+            <span>Preparation</span>
+            {isPreparationExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          </button>
+          <AnimatePresence>
+            {isPreparationExpanded && (
+              <motion.ol
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-2 text-sm text-purple-900/80 overflow-hidden"
+              >
+                {drink.preparation.map((step, index) => (
+                  <li key={`${drink.id}-prep-${index}`} className="flex gap-2">
+                    <motion.span
+                      whileHover={{ scale: 1.2, rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                      className={`mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} text-xs font-bold text-white shadow-md flex-shrink-0`}
+                    >
+                      {index + 1}
+                    </motion.span>
+                    <span className="text-xs">{step}</span>
+                  </li>
+                ))}
+              </motion.ol>
+            )}
+          </AnimatePresence>
+        </section>
+
         <section className="space-y-1.5 sm:space-y-2">
           <button
             onClick={() => setIsIngredientsExpanded(!isIngredientsExpanded)}
@@ -967,40 +1001,6 @@ function DrinkCard({
                   );
                 })}
               </motion.div>
-            )}
-          </AnimatePresence>
-        </section>
-
-        <section className="space-y-2">
-          <button
-            onClick={() => setIsPreparationExpanded(!isPreparationExpanded)}
-            className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
-          >
-            <span>Preparation</span>
-            {isPreparationExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-          </button>
-          <AnimatePresence>
-            {isPreparationExpanded && (
-              <motion.ol
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-2 text-sm text-purple-900/80 overflow-hidden"
-              >
-                {drink.preparation.map((step, index) => (
-                  <li key={`${drink.id}-prep-${index}`} className="flex gap-2">
-                    <motion.span
-                      whileHover={{ scale: 1.2, rotate: 360 }}
-                      transition={{ duration: 0.5 }}
-                      className={`mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} text-xs font-bold text-white shadow-md flex-shrink-0`}
-                    >
-                      {index + 1}
-                    </motion.span>
-                    <span className="text-xs">{step}</span>
-                  </li>
-                ))}
-              </motion.ol>
             )}
           </AnimatePresence>
         </section>
