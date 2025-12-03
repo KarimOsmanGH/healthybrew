@@ -20,14 +20,12 @@ import {
   WaterDropIcon,
 } from "@/components/icons";
 import { DynamicParticles } from "@/components/dynamic-particles";
-import { TimeGreeting } from "@/components/time-greeting";
 import { CaffeineIndicator } from "@/components/caffeine-indicator";
 import { FlavorTags } from "@/components/flavor-tags";
 import { MobileNav } from "@/components/mobile-nav";
 import {
   Check,
   ChevronDown,
-  ChevronUp,
   Dices,
   Filter,
   RotateCcw,
@@ -432,22 +430,14 @@ export default function Home() {
           </motion.div>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-2">
-              <motion.div
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="flex items-center gap-3 text-purple-600"
-              >
-                <Sparkles className="h-5 w-5" />
-                <span className="text-sm font-bold uppercase tracking-[0.3em]">HealthyBrew</span>
-              </motion.div>
               <motion.h1
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent sm:text-3xl lg:text-5xl pr-12 sm:pr-0"
+                transition={{ delay: 0.2 }}
+                className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent sm:text-3xl lg:text-5xl pr-12 sm:pr-0 flex items-center gap-3"
               >
-                Tea & Coffee Wellness ♡
+                <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600" />
+                Healthbrew
               </motion.h1>
               <motion.p
                 initial={{ x: -20, opacity: 0 }}
@@ -516,205 +506,76 @@ export default function Home() {
             </div>
           </motion.div>
         </motion.header>
-        
-        {/* Time-based Greeting */}
-        <TimeGreeting />
 
-        <div className="grid flex-1 gap-4 lg:gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
-          <motion.aside
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col gap-4 sm:gap-6 rounded-[2rem] border-2 sm:rounded-[2.5rem] sm:border-4 border-blue-300/60 p-4 sm:p-6 shadow-2xl shadow-blue-500/20 backdrop-blur-xl relative overflow-hidden"
-            style={{
-              background: "linear-gradient(135deg, rgba(219, 234, 254, 0.95) 0%, rgba(243, 232, 255, 0.95) 50%, rgba(252, 231, 243, 0.95) 100%)"
-            }}
-          >
-            {/* Animated Japanese Wave Pattern Background */}
-            <motion.div
-              animate={{
-                backgroundPosition: ["0% 0%", "100% 100%"],
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute inset-0 opacity-20"
-              style={{
-                backgroundImage: `
-                  radial-gradient(circle at 20% 50%, rgba(147, 197, 253, 0.8) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(196, 181, 253, 0.8) 0%, transparent 50%),
-                  radial-gradient(circle at 40% 20%, rgba(249, 168, 212, 0.8) 0%, transparent 50%)
-                `,
-                backgroundSize: "200% 200%",
-              }}
-            />
-            
-            {/* Flowing Glow Effect */}
-            <motion.div
-              animate={{
-                opacity: [0.3, 0.6, 0.3],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-blue-400/40 to-purple-400/40 rounded-full blur-3xl"
-            />
-            
-            <motion.div
-              animate={{
-                opacity: [0.4, 0.7, 0.4],
-                scale: [1, 1.3, 1],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-              className="absolute bottom-10 left-10 w-40 h-40 bg-gradient-to-br from-pink-400/40 to-purple-400/40 rounded-full blur-3xl"
-            />
-            
-            {/* Subtle Wave Lines */}
-            <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
-              <motion.path
-                d="M0,100 Q50,50 100,100 T200,100"
-                stroke="url(#gradient1)"
-                strokeWidth="2"
-                fill="none"
-                animate={{
-                  d: [
-                    "M0,100 Q50,50 100,100 T200,100",
-                    "M0,100 Q50,150 100,100 T200,100",
-                    "M0,100 Q50,50 100,100 T200,100",
-                  ],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              <motion.path
-                d="M0,150 Q50,100 100,150 T200,150"
-                stroke="url(#gradient2)"
-                strokeWidth="2"
-                fill="none"
-                animate={{
-                  d: [
-                    "M0,150 Q50,100 100,150 T200,150",
-                    "M0,150 Q50,200 100,150 T200,150",
-                    "M0,150 Q50,100 100,150 T200,150",
-                  ],
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.5,
-                }}
-              />
-              <defs>
-                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#60A5FA" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#C084FC" stopOpacity="0.6" />
-                </linearGradient>
-                <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#F472B6" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#A78BFA" stopOpacity="0.6" />
-                </linearGradient>
-              </defs>
-            </svg>
-            
-            {/* Content with higher z-index */}
-            <div className="relative z-10 flex flex-col gap-6">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between text-sm font-bold text-purple-800">
-                  <span className="inline-flex items-center gap-2">
-                    <Filter className="h-4 w-4" /> Health Focus
-                  </span>
-                  {selectedFocus && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSelectedFocus(null);
-                      }}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-purple-600 hover:text-purple-800"
-                    >
-                      <RotateCcw className="h-3.5 w-3.5" />
-                      Reset
-                    </button>
-                  )}
-                </div>
-
-                <section className="space-y-2">
-                  <p className="text-xs font-bold uppercase tracking-[0.3em] text-purple-700/70">
-                    Select your goal
-                  </p>
-                  <div className="space-y-2">
-                    {healthFocuses.map((focus) => {
-                      const isSelected = selectedFocus === focus.id;
-                      const colors = healthFocusColors[focus.id] || healthFocusColors["calm-focus"];
-                      return (
-                        <button
-                          key={focus.id}
-                          type="button"
-                          onClick={() => setSelectedFocus(isSelected ? null : focus.id)}
-                          className={`w-full rounded-2xl border-2 px-4 py-3 text-left transition-all transform hover:scale-105 ${
-                            isSelected
-                              ? colors.selected
-                              : colors.default + " hover:shadow-md"
-                          }`}
-                        >
-                          <p className="text-sm font-bold">{focus.label}</p>
-                          <p className={`text-xs ${isSelected ? `text-${colors.text}-700/90` : `text-${colors.text}-700/70`}`}>
-                            {focus.tagline}
-                          </p>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </section>
-              </div>
-            </div>
-          </motion.aside>
-
-          <section className="space-y-4">
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-sm font-bold text-purple-700/70">
-                {filteredDrinks.length} {filteredDrinks.length === 1 ? 'recipe' : 'recipes'} found
-              </p>
-            </div>
-            <div className="grid gap-5 xl:grid-cols-2">
-              <AnimatePresence>
-                {filteredDrinks.map((drink) => (
-                  <DrinkCard
-                    key={drink.id}
-                    drink={drink}
-                    highlightedBenefit={highlightedBenefit}
-                    pinnedBenefit={pinnedBenefit}
-                    onHoverBenefit={setHoveredBenefit}
-                    onPinBenefit={(benefit) => setPinnedBenefit((current) => (current === benefit ? null : benefit))}
-                    isHighlightedRandom={highlightedDrinkId === drink.id}
-                  />
-                ))}
-              </AnimatePresence>
-            </div>
-          </section>
-        </div>
-
-        <motion.footer
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="pb-20 sm:pb-6 text-center text-sm text-purple-600/70 font-bold"
+        {/* Horizontal Health Focus Section */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="rounded-2xl border-2 border-purple-200/60 bg-white/60 backdrop-blur-md p-4 shadow-lg"
         >
-          ✨ Crafted with love and botanicals ✨
-        </motion.footer>
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2 text-sm font-bold text-purple-800">
+              <Filter className="h-4 w-4" />
+              <span>Health Focus</span>
+            </div>
+            {selectedFocus && (
+              <button
+                type="button"
+                onClick={() => setSelectedFocus(null)}
+                className="inline-flex items-center gap-1 text-xs font-bold text-purple-600 hover:text-purple-800 transition-colors"
+              >
+                <RotateCcw className="h-3.5 w-3.5" />
+                Reset
+              </button>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {healthFocuses.map((focus) => {
+              const isSelected = selectedFocus === focus.id;
+              const colors = healthFocusColors[focus.id] || healthFocusColors["calm-focus"];
+              return (
+                <motion.button
+                  key={focus.id}
+                  type="button"
+                  onClick={() => setSelectedFocus(isSelected ? null : focus.id)}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className={`rounded-xl border-2 px-3 py-2 text-left transition-all ${
+                    isSelected
+                      ? colors.selected
+                      : colors.default
+                  }`}
+                >
+                  <p className="text-xs font-bold">{focus.label}</p>
+                </motion.button>
+              );
+            })}
+          </div>
+        </motion.section>
+
+        <section className="flex-1 space-y-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-bold text-purple-700/70">
+              {filteredDrinks.length} {filteredDrinks.length === 1 ? 'recipe' : 'recipes'} found
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <AnimatePresence>
+              {filteredDrinks.map((drink) => (
+                <DrinkCard
+                  key={drink.id}
+                  drink={drink}
+                  highlightedBenefit={highlightedBenefit}
+                  pinnedBenefit={pinnedBenefit}
+                  onHoverBenefit={setHoveredBenefit}
+                  onPinBenefit={(benefit) => setPinnedBenefit((current) => (current === benefit ? null : benefit))}
+                  isHighlightedRandom={highlightedDrinkId === drink.id}
+                />
+              ))}
+            </AnimatePresence>
+          </div>
+        </section>
       </div>
       
       {/* Mobile Bottom Navigation */}
@@ -746,10 +607,7 @@ function DrinkCard({
   onPinBenefit,
   isHighlightedRandom = false,
 }: DrinkCardProps) {
-  const [isIngredientsExpanded, setIsIngredientsExpanded] = useState(false);
-  const [isPreparationExpanded, setIsPreparationExpanded] = useState(true);
-  const [isBenefitsExpanded, setIsBenefitsExpanded] = useState(false);
-  const [isFlavorExpanded, setIsFlavorExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   
   const gradientColors = [
     "from-rose-400 via-pink-400 to-purple-400",
@@ -772,229 +630,162 @@ function DrinkCard({
         y: 0, 
         scale: isHighlightedRandom ? 1.02 : 1,
         boxShadow: isHighlightedRandom 
-          ? "0 0 0 4px rgba(251, 191, 36, 0.6), 0 25px 50px -12px rgba(147, 51, 234, 0.3)" 
-          : "0 25px 50px -12px rgba(147, 51, 234, 0.2)"
+          ? "0 0 0 4px rgba(251, 191, 36, 0.6), 0 10px 25px -5px rgba(147, 51, 234, 0.2)" 
+          : "0 10px 25px -5px rgba(147, 51, 234, 0.15)"
       }}
       exit={{ opacity: 0, y: -20, scale: 0.95 }}
-      whileHover={{ y: -8, scale: 1.02 }}
+      whileHover={{ y: -4, scale: 1.01 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className={`group relative flex h-full flex-col rounded-[2rem] border-2 sm:rounded-[2.5rem] sm:border-4 ${
+      className={`group relative flex flex-col rounded-2xl border-2 ${
         isHighlightedRandom 
-          ? "border-amber-400 ring-4 ring-amber-400/30" 
-          : "border-purple-300/60"
-      } bg-white p-4 sm:p-7 shadow-2xl shadow-purple-500/20 backdrop-blur-sm overflow-hidden hover:shadow-purple-500/30 hover:border-purple-400/80`}
+          ? "border-amber-400 ring-2 ring-amber-400/30" 
+          : "border-purple-200/60"
+      } bg-white/95 p-4 shadow-lg backdrop-blur-sm overflow-hidden hover:shadow-xl hover:border-purple-300/80 cursor-pointer`}
+      onClick={() => setIsExpanded(!isExpanded)}
     >
       {/* Random highlight glow effect */}
       {isHighlightedRandom && (
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: [0.5, 1, 0.5] }}
+          animate={{ opacity: [0.3, 0.6, 0.3] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="absolute inset-0 bg-gradient-to-br from-amber-100/50 to-orange-100/50 pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-br from-amber-100/40 to-orange-100/40 pointer-events-none"
         />
       )}
       
       {/* Gradient Accent */}
-      <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${cardGradient}`} />
+      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${cardGradient}`} />
       
-      <div className="space-y-4">
-        <div className="flex items-start justify-between">
-          <div>
-            <motion.p
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-              className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] bg-gradient-to-r ${cardGradient} bg-clip-text text-transparent`}
-            >
+      {/* Collapsed View - Title, Description, Labels */}
+      <div className="space-y-2">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0 flex-1">
+            <p className={`text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r ${cardGradient} bg-clip-text text-transparent`}>
               {drink.type} blend
-            </motion.p>
-            <motion.h3
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mt-1 text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-700 to-pink-700 bg-clip-text text-transparent"
-            >
+            </p>
+            <h3 className="text-sm font-bold text-purple-900 truncate">
               {drink.name}
-            </motion.h3>
+            </h3>
           </div>
-          <div className="flex flex-col items-end gap-1.5">
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className={`flex items-center gap-1.5 sm:gap-2 rounded-full bg-gradient-to-r ${cardGradient} px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold text-white shadow-lg flex-shrink-0`}
-            >
-              <CupSteamIcon className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
-              <span className="hidden sm:inline">wellbeing</span>
-              <span className="sm:hidden">wellness</span>
-            </motion.div>
+          <div className="flex items-center gap-1.5 flex-shrink-0">
             <CaffeineIndicator drink={drink} />
+            <motion.div
+              animate={{ rotate: isExpanded ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
+              className="text-purple-400"
+            >
+              <ChevronDown className="h-4 w-4" />
+            </motion.div>
           </div>
         </div>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="text-xs sm:text-sm text-purple-900/80 leading-relaxed"
-        >
+        
+        <p className={`text-xs text-purple-700/80 leading-relaxed ${!isExpanded ? 'line-clamp-2' : ''}`}>
           {drink.description}
-        </motion.p>
+        </p>
 
-        {/* Flavor Profile Tags */}
-        <section className="space-y-2">
-          <button
-            onClick={() => setIsFlavorExpanded(!isFlavorExpanded)}
-            className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
-          >
-            <span>Flavor Notes</span>
-            {isFlavorExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-          </button>
-          <AnimatePresence>
-            {isFlavorExpanded && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
+        {/* Health benefit labels - always visible */}
+        <div className="flex flex-wrap gap-1">
+          {drink.healthBenefits.slice(0, isExpanded ? undefined : 3).map((benefit) => {
+            const isPinned = pinnedBenefit === benefit;
+            const isActive = highlightedBenefit === benefit;
+            return (
+              <button
+                key={benefit}
+                type="button"
+                onMouseEnter={() => onHoverBenefit(benefit)}
+                onMouseLeave={() => onHoverBenefit(null)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onPinBenefit(benefit);
+                }}
+                className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold transition-all ${
+                  isPinned
+                    ? `border-transparent bg-gradient-to-r ${cardGradient} text-white`
+                    : isActive
+                      ? "border-purple-300 bg-purple-50 text-purple-700"
+                      : "border-purple-200/60 bg-purple-50/50 text-purple-600 hover:bg-purple-100"
+                }`}
               >
-                <FlavorTags flavors={drink.flavorNotes} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </section>
-
-        <section className="space-y-2">
-          <button
-            onClick={() => setIsPreparationExpanded(!isPreparationExpanded)}
-            className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
-          >
-            <span>Preparation</span>
-            {isPreparationExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-          </button>
-          <AnimatePresence>
-            {isPreparationExpanded && (
-              <motion.ol
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-2 text-sm text-purple-900/80 overflow-hidden"
-              >
-                {drink.preparation.map((step, index) => (
-                  <li key={`${drink.id}-prep-${index}`} className="flex gap-2">
-                    <motion.span
-                      whileHover={{ scale: 1.2, rotate: 360 }}
-                      transition={{ duration: 0.5 }}
-                      className={`mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} text-xs font-bold text-white shadow-md flex-shrink-0`}
-                    >
-                      {index + 1}
-                    </motion.span>
-                    <span className="text-xs">{step}</span>
-                  </li>
-                ))}
-              </motion.ol>
-            )}
-          </AnimatePresence>
-        </section>
-
-        <section className="space-y-1.5 sm:space-y-2">
-          <button
-            onClick={() => setIsIngredientsExpanded(!isIngredientsExpanded)}
-            className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
-          >
-            <span>Ingredients</span>
-            <div className="flex items-center gap-2">
-              <span>{drink.ingredients.length}</span>
-              {isIngredientsExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-            </div>
-          </button>
-          <AnimatePresence>
-            {isIngredientsExpanded && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="grid gap-2 sm:grid-cols-2 overflow-hidden"
-              >
-                {drink.ingredients.map((ingredient) => {
-                  const isHighlighted = highlightedBenefit
-                    ? ingredient.benefits.includes(highlightedBenefit)
-                    : false;
-                  return (
-                    <div
-                      key={ingredient.name}
-                      className={`flex items-start gap-2 rounded-xl border-2 p-2 transition-all ${
-                        isHighlighted
-                          ? `border-purple-400 shadow-lg bg-purple-50`
-                          : "border-purple-300/60 bg-white/80 hover:shadow-md"
-                      }`}
-                    >
-                      <motion.div
-                        whileHover={{ rotate: 360 }}
-                        transition={{ duration: 0.5 }}
-                        className={`flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} shadow-md flex-shrink-0`}
-                      >
-                        {ingredientIconMap[ingredient.icon]}
-                      </motion.div>
-                      <div className="min-w-0">
-                        <p className="text-sm font-bold text-purple-900">{ingredient.name}</p>
-                        <p className="text-xs text-purple-700/70 line-clamp-2">{ingredient.description}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </section>
-
-        <section className="space-y-2">
-          <button
-            onClick={() => setIsBenefitsExpanded(!isBenefitsExpanded)}
-            className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
-          >
-            <span>Health Benefits</span>
-            <div className="flex items-center gap-2">
-              <span>{drink.healthBenefits.length}</span>
-              {isBenefitsExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-            </div>
-          </button>
-          <AnimatePresence>
-            {isBenefitsExpanded && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="flex flex-wrap gap-1.5 overflow-hidden"
-              >
-                {drink.healthBenefits.map((benefit) => {
-                  const isPinned = pinnedBenefit === benefit;
-                  const isActive = highlightedBenefit === benefit;
-                  return (
-                    <button
-                      key={benefit}
-                      type="button"
-                      onMouseEnter={() => onHoverBenefit(benefit)}
-                      onMouseLeave={() => onHoverBenefit(null)}
-                      onClick={() => onPinBenefit(benefit)}
-                      className={`rounded-full border-2 px-2.5 py-1 text-xs font-bold transition-all transform hover:scale-105 ${
-                        isPinned
-                          ? `border-transparent bg-gradient-to-r ${cardGradient} text-white shadow-md`
-                          : isActive
-                            ? "border-purple-400 bg-purple-100 text-purple-800 shadow-sm"
-                            : "border-purple-300/60 bg-white/90 text-purple-700 hover:bg-purple-100 hover:border-purple-400"
-                      }`}
-                    >
-                      {benefit}
-                    </button>
-                  );
-                })}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </section>
+                {benefit}
+              </button>
+            );
+          })}
+          {!isExpanded && drink.healthBenefits.length > 3 && (
+            <span className="text-[10px] text-purple-400 font-medium px-1">
+              +{drink.healthBenefits.length - 3}
+            </span>
+          )}
+        </div>
       </div>
+
+      {/* Expanded Content */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="pt-3 mt-3 border-t border-purple-100 space-y-3">
+              {/* Flavor Notes */}
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-purple-600 mb-1.5">Flavor Notes</p>
+                <FlavorTags flavors={drink.flavorNotes} />
+              </div>
+
+              {/* Preparation */}
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-purple-600 mb-1.5">Preparation</p>
+                <ol className="space-y-1.5">
+                  {drink.preparation.map((step, index) => (
+                    <li key={`${drink.id}-prep-${index}`} className="flex gap-2 items-start">
+                      <span className={`flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} text-[10px] font-bold text-white flex-shrink-0`}>
+                        {index + 1}
+                      </span>
+                      <span className="text-xs text-purple-800/80">{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* Ingredients */}
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-purple-600 mb-1.5">
+                  Ingredients ({drink.ingredients.length})
+                </p>
+                <div className="grid gap-1.5">
+                  {drink.ingredients.map((ingredient) => {
+                    const isHighlighted = highlightedBenefit
+                      ? ingredient.benefits.includes(highlightedBenefit)
+                      : false;
+                    return (
+                      <div
+                        key={ingredient.name}
+                        className={`flex items-center gap-2 rounded-lg border p-2 transition-all ${
+                          isHighlighted
+                            ? "border-purple-300 bg-purple-50"
+                            : "border-purple-100 bg-white/80"
+                        }`}
+                      >
+                        <div className={`flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} flex-shrink-0`}>
+                          {ingredientIconMap[ingredient.icon]}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-semibold text-purple-900">{ingredient.name}</p>
+                          <p className="text-[10px] text-purple-600/70 truncate">{ingredient.description}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.article>
   );
 }
