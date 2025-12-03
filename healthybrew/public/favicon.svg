@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="cupGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a855f7"/>
+      <stop offset="50%" style="stop-color:#ec4899"/>
+      <stop offset="100%" style="stop-color:#f97316"/>
+    </linearGradient>
+    <linearGradient id="coffeeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#92400e"/>
+      <stop offset="100%" style="stop-color:#451a03"/>
+    </linearGradient>
+  </defs>
+  <!-- Cup body -->
+  <path d="M20 35 L20 75 Q20 90 35 90 L65 90 Q80 90 80 75 L80 35 Z" fill="url(#cupGradient)"/>
+  <!-- Coffee liquid -->
+  <ellipse cx="50" cy="40" rx="27" ry="8" fill="url(#coffeeGradient)"/>
+  <!-- Cup handle -->
+  <path d="M80 45 Q95 45 95 60 Q95 75 80 75" fill="none" stroke="url(#cupGradient)" stroke-width="8" stroke-linecap="round"/>
+  <!-- Steam lines -->
+  <path d="M35 25 Q30 15 35 5" fill="none" stroke="#c4b5fd" stroke-width="4" stroke-linecap="round" opacity="0.8">
+    <animate attributeName="d" values="M35 25 Q30 15 35 5;M35 25 Q40 15 35 5;M35 25 Q30 15 35 5" dur="2s" repeatCount="indefinite"/>
+  </path>
+  <path d="M50 25 Q45 15 50 5" fill="none" stroke="#c4b5fd" stroke-width="4" stroke-linecap="round" opacity="0.8">
+    <animate attributeName="d" values="M50 25 Q45 15 50 5;M50 25 Q55 15 50 5;M50 25 Q45 15 50 5" dur="2s" repeatCount="indefinite" begin="0.3s"/>
+  </path>
+  <path d="M65 25 Q60 15 65 5" fill="none" stroke="#c4b5fd" stroke-width="4" stroke-linecap="round" opacity="0.8">
+    <animate attributeName="d" values="M65 25 Q60 15 65 5;M65 25 Q70 15 65 5;M65 25 Q60 15 65 5" dur="2s" repeatCount="indefinite" begin="0.6s"/>
+  </path>
+  <!-- Sparkle -->
+  <circle cx="30" cy="55" r="3" fill="white" opacity="0.6"/>
+</svg>

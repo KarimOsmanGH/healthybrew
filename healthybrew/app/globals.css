@@ -1,9 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: only light;
+  color-scheme: light dark;
   --background: linear-gradient(to bottom right, #fdf4ff, #f3e8ff, #e0e7ff);
   --foreground: #6b21a8;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --card-border: rgba(192, 132, 252, 0.6);
+  --text-primary: #581c87;
+  --text-secondary: rgba(107, 33, 168, 0.9);
+  --text-muted: rgba(107, 33, 168, 0.7);
+}
+
+.dark {
+  --background: linear-gradient(to bottom right, #0c0a1d, #1a1333, #0f172a);
+  --foreground: #e9d5ff;
+  --card-bg: rgba(30, 20, 50, 0.95);
+  --card-border: rgba(139, 92, 246, 0.4);
+  --text-primary: #f3e8ff;
+  --text-secondary: rgba(233, 213, 255, 0.9);
+  --text-muted: rgba(196, 181, 253, 0.7);
 }
 
 @theme inline {
@@ -31,10 +46,10 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - Light mode */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -49,6 +64,19 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #a855f7 0%, #ec4899 100%);
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: rgba(139, 92, 246, 0.15);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8b5cf6 0%, #a855f7 100%);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #7c3aed 0%, #9333ea 100%);
 }
 
 @keyframes float {
@@ -110,4 +138,93 @@ a {
 
 button {
   cursor: pointer;
+}
+
+/* Dark mode specific overrides */
+.dark .bg-white\/60 {
+  background-color: rgba(30, 20, 50, 0.6);
+}
+
+.dark .bg-white\/70 {
+  background-color: rgba(30, 20, 50, 0.7);
+}
+
+.dark .bg-white\/80 {
+  background-color: rgba(30, 20, 50, 0.8);
+}
+
+.dark .bg-white\/90 {
+  background-color: rgba(30, 20, 50, 0.9);
+}
+
+.dark .bg-white\/95 {
+  background-color: rgba(30, 20, 50, 0.95);
+}
+
+.dark .border-purple-200\/50 {
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.dark .border-purple-200\/60 {
+  border-color: rgba(139, 92, 246, 0.35);
+}
+
+.dark .border-purple-300\/60 {
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.dark .text-purple-700 {
+  color: #c4b5fd;
+}
+
+.dark .text-purple-700\/70 {
+  color: rgba(196, 181, 253, 0.7);
+}
+
+.dark .text-purple-700\/90 {
+  color: rgba(196, 181, 253, 0.9);
+}
+
+.dark .text-purple-800 {
+  color: #ddd6fe;
+}
+
+.dark .text-purple-900 {
+  color: #f3e8ff;
+}
+
+.dark .text-purple-600 {
+  color: #a78bfa;
+}
+
+.dark .text-purple-600\/70 {
+  color: rgba(167, 139, 250, 0.7);
+}
+
+.dark .text-purple-400 {
+  color: #c4b5fd;
+}
+
+.dark .hover\:text-purple-800:hover {
+  color: #ede9fe;
+}
+
+.dark .border-purple-100 {
+  border-color: rgba(139, 92, 246, 0.2);
+}
+
+.dark .bg-purple-50 {
+  background-color: rgba(139, 92, 246, 0.15);
+}
+
+.dark .bg-purple-50\/50 {
+  background-color: rgba(139, 92, 246, 0.1);
+}
+
+.dark .bg-purple-100 {
+  background-color: rgba(139, 92, 246, 0.2);
+}
+
+.dark .hover\:bg-purple-100:hover {
+  background-color: rgba(139, 92, 246, 0.25);
 }

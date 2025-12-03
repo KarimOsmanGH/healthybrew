@@ -37,8 +37,8 @@ export function MobileNav({
       animate={{ y: 0 }}
       className="fixed bottom-0 left-0 right-0 z-50 sm:hidden"
     >
-      <div className="mx-2 mb-2 rounded-2xl border-2 border-purple-300/60 bg-white/95 backdrop-blur-xl shadow-2xl shadow-purple-500/20">
-        <div className="flex items-center justify-around py-2 px-1">
+      <div className="mx-3 mb-3 rounded-3xl border-3 border-purple-300/60 dark:border-purple-600/40 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl shadow-2xl shadow-purple-500/20 dark:shadow-purple-900/30">
+        <div className="flex items-center justify-around py-3 px-2">
           {(["tea", "coffee", "water"] as DrinkType[]).map((type) => {
             const Icon = typeIcons[type];
             const isActive = activeType === type;
@@ -47,22 +47,22 @@ export function MobileNav({
                 key={type}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => onTypeChange(type)}
-                className="relative flex flex-col items-center p-2"
+                className="relative flex flex-col items-center p-3"
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeTab"
-                    className={`absolute inset-0 rounded-xl bg-gradient-to-br ${typeColors[type]} opacity-20`}
+                    className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${typeColors[type]} opacity-20`}
                   />
                 )}
                 <Icon
-                  className={`h-5 w-5 transition-colors ${
-                    isActive ? "text-purple-700" : "text-purple-400"
+                  className={`h-7 w-7 transition-colors ${
+                    isActive ? "text-purple-700 dark:text-purple-300" : "text-purple-400 dark:text-purple-500"
                   }`}
                 />
                 <span
-                  className={`mt-0.5 text-[10px] font-bold capitalize transition-colors ${
-                    isActive ? "text-purple-700" : "text-purple-400"
+                  className={`mt-1 text-xs font-bold capitalize transition-colors ${
+                    isActive ? "text-purple-700 dark:text-purple-300" : "text-purple-400 dark:text-purple-500"
                   }`}
                 >
                   {type}
@@ -70,7 +70,7 @@ export function MobileNav({
                 {isActive && (
                   <motion.div
                     layoutId="activeDot"
-                    className={`absolute -bottom-0.5 h-1 w-1 rounded-full bg-gradient-to-r ${typeColors[type]}`}
+                    className={`absolute -bottom-0.5 h-1.5 w-1.5 rounded-full bg-gradient-to-r ${typeColors[type]}`}
                   />
                 )}
               </motion.button>
@@ -78,18 +78,18 @@ export function MobileNav({
           })}
           
           {/* Divider */}
-          <div className="h-8 w-px bg-purple-200" />
+          <div className="h-12 w-px bg-purple-200 dark:bg-purple-700/50" />
           
           {/* Random Brew */}
           <motion.button
             whileTap={{ scale: 0.9, rotate: 180 }}
             onClick={onRandomBrew}
-            className="flex flex-col items-center p-2"
+            className="flex flex-col items-center p-3"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-orange-500 shadow-lg">
-              <Shuffle className="h-4 w-4 text-white" />
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-orange-500 shadow-lg">
+              <Shuffle className="h-5 w-5 text-white" />
             </div>
-            <span className="mt-0.5 text-[10px] font-bold text-amber-600">
+            <span className="mt-1 text-xs font-bold text-amber-600 dark:text-amber-400">
               Random
             </span>
           </motion.button>
@@ -98,26 +98,26 @@ export function MobileNav({
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={onMusicToggle}
-            className="flex flex-col items-center p-2"
+            className="flex flex-col items-center p-3"
           >
             <motion.div
               animate={isMusicPlaying ? { scale: [1, 1.1, 1] } : {}}
               transition={{ duration: 1, repeat: isMusicPlaying ? Infinity : 0 }}
-              className={`flex h-8 w-8 items-center justify-center rounded-full ${
+              className={`flex h-11 w-11 items-center justify-center rounded-full ${
                 isMusicPlaying
                   ? "bg-gradient-to-br from-purple-400 to-pink-500"
-                  : "bg-gray-200"
+                  : "bg-gradient-to-br from-slate-300 to-slate-400 dark:from-slate-600 dark:to-slate-700"
               } shadow-lg`}
             >
               {isMusicPlaying ? (
-                <Volume2 className="h-4 w-4 text-white" />
+                <Volume2 className="h-5 w-5 text-white" />
               ) : (
-                <VolumeX className="h-4 w-4 text-gray-500" />
+                <VolumeX className="h-5 w-5 text-white" />
               )}
             </motion.div>
             <span
-              className={`mt-0.5 text-[10px] font-bold ${
-                isMusicPlaying ? "text-purple-600" : "text-gray-500"
+              className={`mt-1 text-xs font-bold ${
+                isMusicPlaying ? "text-purple-600 dark:text-purple-400" : "text-slate-500 dark:text-slate-400"
               }`}
             >
               Music
