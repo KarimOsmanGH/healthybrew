@@ -375,8 +375,8 @@ export default function Home() {
               className="w-full text-left"
             >
               <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90">
-                  <Volume2 className="h-7 w-7 text-purple-600" />
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 dark:bg-slate-800/90">
+                  <Volume2 className="h-7 w-7 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div className="flex-1">
                   <p className="text-base font-bold text-white">Tap to play lofi music ♪</p>
@@ -386,7 +386,7 @@ export default function Home() {
             </button>
             <button
               onClick={() => setShowMusicPrompt(false)}
-              className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-md text-gray-600 hover:bg-gray-100 text-lg"
+              className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white dark:bg-slate-700 shadow-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-600 text-lg"
             >
               ×
             </button>
@@ -721,7 +721,7 @@ function DrinkCard({
             <motion.div
               animate={{ rotate: isExpanded ? 180 : 0 }}
               transition={{ duration: 0.2 }}
-              className="text-purple-400 dark:text-purple-500"
+              className="text-purple-400 dark:text-purple-300"
             >
               <ChevronDown className="h-5 w-5" />
             </motion.div>
@@ -760,7 +760,7 @@ function DrinkCard({
             );
           })}
           {!isExpanded && drink.healthBenefits.length > 3 && (
-            <span className="text-xs text-purple-400 dark:text-purple-500 font-medium px-2">
+            <span className="text-xs text-purple-400 dark:text-purple-300 font-medium px-2">
               +{drink.healthBenefits.length - 3}
             </span>
           )}

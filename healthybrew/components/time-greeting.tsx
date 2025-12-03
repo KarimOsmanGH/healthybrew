@@ -111,7 +111,7 @@ export function TimeGreeting() {
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-2xl border-2 border-white/30 bg-white/40 backdrop-blur-md p-4 shadow-lg"
+      className="relative overflow-hidden rounded-2xl border-2 border-white/30 dark:border-slate-700/50 bg-white/40 dark:bg-slate-800/40 backdrop-blur-md p-4 shadow-lg"
     >
       {/* Gradient accent bar */}
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${greeting.gradientFrom} ${greeting.gradientTo}`} />
@@ -131,15 +131,15 @@ export function TimeGreeting() {
               {greeting.greeting}
             </h2>
             {currentTime && (
-              <span className="text-xs font-medium text-purple-600/70 bg-purple-100/50 px-2 py-0.5 rounded-full">
+              <span className="text-xs font-medium text-purple-600/70 dark:text-purple-300/70 bg-purple-100/50 dark:bg-purple-900/40 px-2 py-0.5 rounded-full">
                 {currentTime}
               </span>
             )}
           </div>
-          <p className="text-sm text-purple-700/80 font-medium">{greeting.message}</p>
+          <p className="text-sm text-purple-700/80 dark:text-purple-200/80 font-medium">{greeting.message}</p>
           <div className="mt-2 flex items-center gap-1.5">
-            <Sparkles className="h-3.5 w-3.5 text-purple-500" />
-            <p className="text-xs text-purple-600/70 font-medium">{greeting.recommendation}</p>
+            <Sparkles className="h-3.5 w-3.5 text-purple-500 dark:text-purple-400" />
+            <p className="text-xs text-purple-600/70 dark:text-purple-300/70 font-medium">{greeting.recommendation}</p>
           </div>
         </div>
       </div>
