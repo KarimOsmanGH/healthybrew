@@ -394,12 +394,12 @@ export default function Home() {
         )}
       </AnimatePresence>
       
-      {/* Dark Mode Toggle Button */}
+      {/* Dark Mode Toggle Button - Hidden on mobile (available in MobileNav) */}
       <motion.button
         onClick={toggleDarkMode}
         whileHover={{ scale: 1.1, rotate: 15 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-32 right-6 sm:bottom-24 sm:right-8 z-50 flex h-16 w-16 sm:h-18 sm:w-18 items-center justify-center rounded-full bg-gradient-to-br from-indigo-400 via-violet-400 to-purple-500 dark:from-amber-400 dark:via-orange-400 dark:to-yellow-500 text-white shadow-2xl shadow-purple-500/30 dark:shadow-amber-500/30 transition-all focus:outline-none focus:ring-2 focus:ring-purple-300 dark:focus:ring-amber-300 focus:ring-offset-2"
+        className="fixed bottom-24 right-8 z-50 hidden sm:flex h-18 w-18 items-center justify-center rounded-full bg-gradient-to-br from-indigo-400 via-violet-400 to-purple-500 dark:from-amber-400 dark:via-orange-400 dark:to-yellow-500 text-white shadow-2xl shadow-purple-500/30 dark:shadow-amber-500/30 transition-all focus:outline-none focus:ring-2 focus:ring-purple-300 dark:focus:ring-amber-300 focus:ring-offset-2"
         aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
       >
         <motion.div
@@ -411,12 +411,12 @@ export default function Home() {
         </motion.div>
       </motion.button>
       
-      {/* Music Control Button */}
+      {/* Music Control Button - Hidden on mobile (available in MobileNav) */}
       <motion.button
         onClick={toggleMusic}
         whileHover={{ scale: 1.1, rotate: 5 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-48 right-6 sm:bottom-44 sm:right-8 z-50 flex h-16 w-16 sm:h-18 sm:w-18 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 text-white shadow-2xl shadow-purple-500/30 transition-all focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-offset-2"
+        className="fixed bottom-44 right-8 z-50 hidden sm:flex h-18 w-18 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 text-white shadow-2xl shadow-purple-500/30 transition-all focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-offset-2"
         aria-label={isMusicPlaying ? "Pause lofi music" : "Play lofi music"}
       >
         <motion.div
@@ -533,8 +533,7 @@ export default function Home() {
                   className="flex items-center gap-3 rounded-full bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 px-6 py-4 text-base font-bold text-white shadow-lg shadow-orange-400/40 transition-all hover:shadow-orange-500/50"
                 >
                   <Dices className="h-5 w-5" />
-                  <span className="hidden sm:inline">Random Brew</span>
-                  <span className="sm:hidden">Surprise!</span>
+                  <span>Surprise!</span>
                 </motion.button>
                 
                 <AnimatePresence>
