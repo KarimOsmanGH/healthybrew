@@ -54,43 +54,43 @@ const categoryIconMap: Record<DrinkType, ReactElement> = {
 
 const healthFocusColors: Record<string, { default: string; selected: string; text: string }> = {
   "calm-focus": {
-    default: "border-cyan-300/70 bg-white/70 dark:bg-slate-800/70 text-cyan-800 dark:text-cyan-300 hover:bg-cyan-50/90 dark:hover:bg-cyan-900/40 hover:border-cyan-400/70",
-    selected: "border-cyan-400/80 bg-gradient-to-r from-cyan-100 to-blue-100 dark:from-cyan-900/60 dark:to-blue-900/60 text-cyan-900 dark:text-cyan-200 shadow-lg shadow-cyan-400/30",
+    default: "border-cyan-300/70 dark:border-cyan-600/50 bg-white/70 dark:bg-slate-800/70 text-cyan-800 dark:text-cyan-300 hover:bg-cyan-50/90 dark:hover:bg-cyan-900/40 hover:border-cyan-400/70 dark:hover:border-cyan-500/60",
+    selected: "border-cyan-400/80 dark:border-cyan-500/60 bg-gradient-to-r from-cyan-100 to-blue-100 dark:from-cyan-900/60 dark:to-blue-900/60 text-cyan-900 dark:text-cyan-200 shadow-lg shadow-cyan-400/30 dark:shadow-cyan-500/20",
     text: "cyan"
   },
   "immunity": {
-    default: "border-emerald-300/70 bg-white/70 dark:bg-slate-800/70 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-50/90 dark:hover:bg-emerald-900/40 hover:border-emerald-400/70",
-    selected: "border-emerald-400/80 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900/60 dark:to-green-900/60 text-emerald-900 dark:text-emerald-200 shadow-lg shadow-emerald-400/30",
+    default: "border-emerald-300/70 dark:border-emerald-600/50 bg-white/70 dark:bg-slate-800/70 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-50/90 dark:hover:bg-emerald-900/40 hover:border-emerald-400/70 dark:hover:border-emerald-500/60",
+    selected: "border-emerald-400/80 dark:border-emerald-500/60 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900/60 dark:to-green-900/60 text-emerald-900 dark:text-emerald-200 shadow-lg shadow-emerald-400/30 dark:shadow-emerald-500/20",
     text: "emerald"
   },
   "metabolic": {
-    default: "border-orange-300/70 bg-white/70 dark:bg-slate-800/70 text-orange-800 dark:text-orange-300 hover:bg-orange-50/90 dark:hover:bg-orange-900/40 hover:border-orange-400/70",
-    selected: "border-orange-400/80 bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/60 dark:to-amber-900/60 text-orange-900 dark:text-orange-200 shadow-lg shadow-orange-400/30",
+    default: "border-orange-300/70 dark:border-orange-600/50 bg-white/70 dark:bg-slate-800/70 text-orange-800 dark:text-orange-300 hover:bg-orange-50/90 dark:hover:bg-orange-900/40 hover:border-orange-400/70 dark:hover:border-orange-500/60",
+    selected: "border-orange-400/80 dark:border-orange-500/60 bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/60 dark:to-amber-900/60 text-orange-900 dark:text-orange-200 shadow-lg shadow-orange-400/30 dark:shadow-orange-500/20",
     text: "orange"
   },
   "digestive": {
-    default: "border-lime-300/70 bg-white/70 dark:bg-slate-800/70 text-lime-800 dark:text-lime-300 hover:bg-lime-50/90 dark:hover:bg-lime-900/40 hover:border-lime-400/70",
-    selected: "border-lime-400/80 bg-gradient-to-r from-lime-100 to-green-100 dark:from-lime-900/60 dark:to-green-900/60 text-lime-900 dark:text-lime-200 shadow-lg shadow-lime-400/30",
+    default: "border-lime-300/70 dark:border-lime-600/50 bg-white/70 dark:bg-slate-800/70 text-lime-800 dark:text-lime-300 hover:bg-lime-50/90 dark:hover:bg-lime-900/40 hover:border-lime-400/70 dark:hover:border-lime-500/60",
+    selected: "border-lime-400/80 dark:border-lime-500/60 bg-gradient-to-r from-lime-100 to-green-100 dark:from-lime-900/60 dark:to-green-900/60 text-lime-900 dark:text-lime-200 shadow-lg shadow-lime-400/30 dark:shadow-lime-500/20",
     text: "lime"
   },
   "energy-mood": {
-    default: "border-yellow-300/70 bg-white/70 dark:bg-slate-800/70 text-yellow-800 dark:text-yellow-300 hover:bg-yellow-50/90 dark:hover:bg-yellow-900/40 hover:border-yellow-400/70",
-    selected: "border-yellow-400/80 bg-gradient-to-r from-yellow-100 to-amber-100 dark:from-yellow-900/60 dark:to-amber-900/60 text-yellow-900 dark:text-yellow-200 shadow-lg shadow-yellow-400/30",
+    default: "border-yellow-300/70 dark:border-yellow-600/50 bg-white/70 dark:bg-slate-800/70 text-yellow-800 dark:text-yellow-300 hover:bg-yellow-50/90 dark:hover:bg-yellow-900/40 hover:border-yellow-400/70 dark:hover:border-yellow-500/60",
+    selected: "border-yellow-400/80 dark:border-yellow-500/60 bg-gradient-to-r from-yellow-100 to-amber-100 dark:from-yellow-900/60 dark:to-amber-900/60 text-yellow-900 dark:text-yellow-200 shadow-lg shadow-yellow-400/30 dark:shadow-yellow-500/20",
     text: "yellow"
   },
   "heart-circulation": {
-    default: "border-rose-300/70 bg-white/70 dark:bg-slate-800/70 text-rose-800 dark:text-rose-300 hover:bg-rose-50/90 dark:hover:bg-rose-900/40 hover:border-rose-400/70",
-    selected: "border-rose-400/80 bg-gradient-to-r from-rose-100 to-pink-100 dark:from-rose-900/60 dark:to-pink-900/60 text-rose-900 dark:text-rose-200 shadow-lg shadow-rose-400/30",
+    default: "border-rose-300/70 dark:border-rose-600/50 bg-white/70 dark:bg-slate-800/70 text-rose-800 dark:text-rose-300 hover:bg-rose-50/90 dark:hover:bg-rose-900/40 hover:border-rose-400/70 dark:hover:border-rose-500/60",
+    selected: "border-rose-400/80 dark:border-rose-500/60 bg-gradient-to-r from-rose-100 to-pink-100 dark:from-rose-900/60 dark:to-pink-900/60 text-rose-900 dark:text-rose-200 shadow-lg shadow-rose-400/30 dark:shadow-rose-500/20",
     text: "rose"
   },
   "anti-inflammatory": {
-    default: "border-amber-300/70 bg-white/70 dark:bg-slate-800/70 text-amber-800 dark:text-amber-300 hover:bg-amber-50/90 dark:hover:bg-amber-900/40 hover:border-amber-400/70",
-    selected: "border-amber-400/80 bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-900/60 dark:to-yellow-900/60 text-amber-900 dark:text-amber-200 shadow-lg shadow-amber-400/30",
+    default: "border-amber-300/70 dark:border-amber-600/50 bg-white/70 dark:bg-slate-800/70 text-amber-800 dark:text-amber-300 hover:bg-amber-50/90 dark:hover:bg-amber-900/40 hover:border-amber-400/70 dark:hover:border-amber-500/60",
+    selected: "border-amber-400/80 dark:border-amber-500/60 bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-900/60 dark:to-yellow-900/60 text-amber-900 dark:text-amber-200 shadow-lg shadow-amber-400/30 dark:shadow-amber-500/20",
     text: "amber"
   },
   "stress-relief": {
-    default: "border-purple-300/70 bg-white/70 dark:bg-slate-800/70 text-purple-800 dark:text-purple-300 hover:bg-purple-50/90 dark:hover:bg-purple-900/40 hover:border-purple-400/70",
-    selected: "border-purple-400/80 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/60 dark:to-pink-900/60 text-purple-900 dark:text-purple-200 shadow-lg shadow-purple-400/30",
+    default: "border-purple-300/70 dark:border-purple-600/50 bg-white/70 dark:bg-slate-800/70 text-purple-800 dark:text-purple-300 hover:bg-purple-50/90 dark:hover:bg-purple-900/40 hover:border-purple-400/70 dark:hover:border-purple-500/60",
+    selected: "border-purple-400/80 dark:border-purple-500/60 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/60 dark:to-pink-900/60 text-purple-900 dark:text-purple-200 shadow-lg shadow-purple-400/30 dark:shadow-purple-500/20",
     text: "purple"
   }
 };
