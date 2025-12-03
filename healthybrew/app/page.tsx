@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactElement } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -19,31 +19,22 @@ import {
   TeaLeafIcon,
   WaterDropIcon,
 } from "@/components/icons";
-import { HealthSummary } from "@/components/health-summary";
-import { CherryBlossomRain } from "@/components/cherry-blossom-rain";
-import { JapaneseNatureBg } from "@/components/japanese-nature-bg";
+import { DynamicParticles } from "@/components/dynamic-particles";
+import { TimeGreeting } from "@/components/time-greeting";
+import { CaffeineIndicator } from "@/components/caffeine-indicator";
+import { FlavorTags } from "@/components/flavor-tags";
+import { MobileNav } from "@/components/mobile-nav";
 import {
   Check,
   ChevronDown,
   ChevronUp,
+  Dices,
   Filter,
   RotateCcw,
-  Save,
-  Search,
-  Share2,
   Sparkles,
-  Trash2,
   Volume2,
   VolumeX,
 } from "lucide-react";
-
-type SelectedIngredient = {
-  name: string;
-  count: number;
-  benefits: string[];
-  sources: string[];
-  icon: Ingredient["icon"];
-};
 
 const ingredientIconMap: Record<Ingredient["icon"], ReactElement> = {
   leaf: <TeaLeafIcon className="h-5 w-5 text-white" />,
@@ -60,13 +51,6 @@ const categoryIconMap: Record<DrinkType, ReactElement> = {
   coffee: <CoffeeBeanIcon className="h-6 w-6 text-white" />,
   water: <WaterDropIcon className="h-6 w-6 text-white" />,
 };
-
-const highlightPalette = [
-  "bg-emerald-50 text-emerald-700 ring-2 ring-inset ring-emerald-200",
-  "bg-rose-50 text-rose-700 ring-2 ring-inset ring-rose-200",
-  "bg-amber-50 text-amber-700 ring-2 ring-inset ring-amber-200",
-  "bg-sky-50 text-sky-700 ring-2 ring-inset ring-sky-200",
-];
 
 const healthFocusColors: Record<string, { default: string; selected: string; text: string }> = {
   "calm-focus": {
@@ -113,19 +97,19 @@ const healthFocusColors: Record<string, { default: string; selected: string; tex
 
 export default function Home() {
   const [activeType, setActiveType] = useState<DrinkType>("tea");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedIngredientFilters, setSelectedIngredientFilters] = useState<Set<string>>(new Set());
-  const [selectedBenefitFilters, setSelectedBenefitFilters] = useState<Set<string>>(new Set());
+  const [searchTerm] = useState("");
+  const [selectedIngredientFilters] = useState<Set<string>>(new Set());
+  const [selectedBenefitFilters] = useState<Set<string>>(new Set());
   const [selectedFocus, setSelectedFocus] = useState<string | null>(null);
   const [hoveredBenefit, setHoveredBenefit] = useState<string | null>(null);
   const [pinnedBenefit, setPinnedBenefit] = useState<string | null>(null);
-  const [selectedIngredients, setSelectedIngredients] = useState<Record<string, SelectedIngredient>>({});
   const [feedback, setFeedback] = useState<string | null>(null);
   const feedbackTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const autoplayAttempted = useRef(false);
   const [showMusicPrompt, setShowMusicPrompt] = useState(false);
+  const [highlightedDrinkId, setHighlightedDrinkId] = useState<string | null>(null);
 
   const triggerFeedback = (message: string) => {
     setFeedback(message);
@@ -157,9 +141,8 @@ export default function Home() {
           await audioRef.current.play();
           setIsMusicPlaying(true);
           setShowMusicPrompt(false);
-        } catch (error) {
+        } catch {
           // Autoplay blocked - show prompt and set up interaction listeners
-          console.log('Autoplay blocked - showing music prompt');
           setShowMusicPrompt(true);
           
           const handleFirstInteraction = async () => {
@@ -203,22 +186,6 @@ export default function Home() {
     [activeType],
   );
 
-  const ingredientOptions = useMemo(() => {
-    const set = new Set<string>();
-    drinksForType.forEach((drink) => {
-      drink.ingredients.forEach((ingredient) => set.add(ingredient.name));
-    });
-    return Array.from(set).sort();
-  }, [drinksForType]);
-
-  const benefitOptions = useMemo(() => {
-    const set = new Set<string>();
-    drinksForType.forEach((drink) => {
-      drink.healthBenefits.forEach((benefit) => set.add(benefit));
-    });
-    return Array.from(set).sort();
-  }, [drinksForType]);
-
   const highlightedBenefit = pinnedBenefit ?? hoveredBenefit;
 
   const filteredDrinks = useMemo(() => {
@@ -260,123 +227,6 @@ export default function Home() {
     return list.map((item) => item.drink);
   }, [activeFocus, drinksForType, searchTerm, selectedBenefitFilters, selectedIngredientFilters]);
 
-  const combinedBenefits = useMemo(() => {
-    const map = new Map<string, number>();
-    Object.values(selectedIngredients).forEach((ingredient) => {
-      ingredient.benefits.forEach((benefit) => {
-        map.set(benefit, (map.get(benefit) ?? 0) + ingredient.count);
-      });
-    });
-    return map;
-  }, [selectedIngredients]);
-
-  const totalTouchpoints = useMemo(
-    () => Array.from(combinedBenefits.values()).reduce((total, value) => total + value, 0),
-    [combinedBenefits],
-  );
-
-  const healthMetrics = useMemo(() => {
-    const buckets = [
-      {
-        id: "calm",
-        label: "Calm & Clarity",
-        description: "Stress relief, focus, gentle lift",
-        tags: ["Calming", "Stress relief", "Focus support", "Gentle energy", "Hormonal balance"],
-      },
-      {
-        id: "heart",
-        label: "Heart & Immunity",
-        description: "Cardio flow and immune resilience",
-        tags: ["Cardio health", "Circulation support", "Immune support", "Respiratory comfort", "Heart nourishment"],
-      },
-      {
-        id: "spark",
-        label: "Metabolic Spark",
-        description: "Energy, metabolism, mood",
-        tags: ["Energy lift", "Metabolism support", "Mood balance"],
-      },
-      {
-        id: "vitality",
-        label: "Soothe & Restore",
-        description: "Anti-inflammatory comfort",
-        tags: ["Digestive comfort", "Anti-inflammatory", "Joint support"],
-      },
-    ];
-
-    return buckets.map((bucket) => ({
-      id: bucket.id,
-      label: bucket.label,
-      description: bucket.description,
-      value: bucket.tags.reduce((score, tag) => score + (combinedBenefits.get(tag) ?? 0), 0),
-    }));
-  }, [combinedBenefits]);
-
-  const combinedBenefitList = useMemo(() => {
-    return Array.from(combinedBenefits.entries())
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 8);
-  }, [combinedBenefits]);
-
-  const handleToggleSet = (
-    value: string,
-    setter: Dispatch<SetStateAction<Set<string>>>,
-  ) => {
-    setter((prev) => {
-      const next = new Set(prev);
-      if (next.has(value)) {
-        next.delete(value);
-      } else {
-        next.add(value);
-      }
-      return next;
-    });
-  };
-
-  const handleAddDrinkToBlend = (drink: Drink) => {
-    setSelectedIngredients((prev) => {
-      const next = { ...prev };
-      drink.ingredients.forEach((ingredient) => {
-        if (!next[ingredient.name]) {
-          next[ingredient.name] = {
-            name: ingredient.name,
-            count: 0,
-            benefits: [...ingredient.benefits],
-            sources: [drink.name],
-            icon: ingredient.icon,
-          };
-        }
-
-        const current = next[ingredient.name];
-        current.count += 1;
-        current.benefits = Array.from(new Set([...current.benefits, ...ingredient.benefits]));
-        if (!current.sources.includes(drink.name)) {
-          current.sources.push(drink.name);
-        }
-      });
-      return next;
-    });
-
-    triggerFeedback(`${drink.name} added to blend`);
-  };
-
-  const handleRemoveIngredient = (name: string) => {
-    setSelectedIngredients((prev) => {
-      const next = { ...prev };
-      delete next[name];
-      return next;
-    });
-  };
-
-  const handleClearBlend = () => {
-    setSelectedIngredients({});
-    triggerFeedback("Blend cleared");
-  };
-
-  const handleSaveAction = (action: "save" | "export") => {
-    const label = action === "save" ? "Blend saved as favorite" : "Recipe exported";
-    triggerFeedback(label);
-  };
-
   const toggleMusic = () => {
     if (audioRef.current) {
       if (isMusicPlaying) {
@@ -390,6 +240,27 @@ export default function Home() {
         setIsMusicPlaying(true);
       }
     }
+  };
+
+  const handleRandomBrew = () => {
+    if (filteredDrinks.length === 0) return;
+    const randomIndex = Math.floor(Math.random() * filteredDrinks.length);
+    const randomDrink = filteredDrinks[randomIndex];
+    setHighlightedDrinkId(randomDrink.id);
+    triggerFeedback(`✨ Try ${randomDrink.name}!`);
+    
+    // Scroll to the drink card
+    setTimeout(() => {
+      const element = document.getElementById(`drink-${randomDrink.id}`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 100);
+    
+    // Remove highlight after animation
+    setTimeout(() => {
+      setHighlightedDrinkId(null);
+    }, 3000);
   };
 
   return (
@@ -419,8 +290,8 @@ export default function Home() {
       {/* Overlay gradient for better readability */}
       <div className="absolute inset-0 bg-gradient-to-br from-pink-50/90 via-purple-50/90 to-blue-50/90 pointer-events-none" />
       
-      {/* Cherry Blossom Rain */}
-      <CherryBlossomRain />
+      {/* Dynamic Particles based on drink type */}
+      <DynamicParticles drinkType={activeType} />
       
       {/* Floating Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -592,42 +463,62 @@ export default function Home() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+            className="mt-6 flex flex-col gap-3"
           >
-            <div className="flex items-center gap-3 rounded-full bg-white/80 p-1.5 shadow-lg backdrop-blur-sm border-2 border-purple-200/50">
-              {drinkTypes.map((type) => (
-                <button
-                  key={type}
-                  type="button"
-                  onClick={() => setActiveType(type)}
-                  className={`flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition-all ${
-                    activeType === type
-                      ? "bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 text-white shadow-lg shadow-purple-400/50"
-                      : "text-purple-700/70 hover:text-purple-800 hover:bg-white/60"
-                  }`}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div className="flex items-center gap-2 sm:gap-3 rounded-full bg-white/80 p-1 sm:p-1.5 shadow-lg backdrop-blur-sm border-2 border-purple-200/50">
+                {drinkTypes.map((type) => (
+                  <button
+                    key={type}
+                    type="button"
+                    onClick={() => setActiveType(type)}
+                    className={`flex items-center gap-1 sm:gap-2 rounded-full px-2.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-bold transition-all ${
+                      activeType === type
+                        ? "bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 text-white shadow-lg shadow-purple-400/50"
+                        : "text-purple-700/70 hover:text-purple-800 hover:bg-white/60"
+                    }`}
+                  >
+                    {categoryIconMap[type]}
+                    <span className="capitalize">{type}</span>
+                  </button>
+                ))}
+              </div>
+              
+              <div className="flex items-center gap-2">
+                {/* Random Brew Button */}
+                <motion.button
+                  onClick={handleRandomBrew}
+                  whileHover={{ scale: 1.05, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-orange-400/40 transition-all hover:shadow-orange-500/50"
                 >
-                  {categoryIconMap[type]}
-                  <span className="capitalize">{type}</span>
-                </button>
-              ))}
+                  <Dices className="h-4 w-4" />
+                  <span className="hidden sm:inline">Random Brew</span>
+                  <span className="sm:hidden">Surprise!</span>
+                </motion.button>
+                
+                <AnimatePresence>
+                  {feedback && (
+                    <motion.span
+                      key={feedback}
+                      initial={{ opacity: 0, y: -6, scale: 0.9 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -6, scale: 0.9 }}
+                      transition={{ duration: 0.2 }}
+                      className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-green-400/50"
+                    >
+                      <Check className="h-4 w-4" />
+                      {feedback}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
-            <AnimatePresence>
-              {feedback && (
-                <motion.span
-                  key={feedback}
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.2 }}
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-green-400/50"
-                >
-                  <Check className="h-4 w-4" />
-                  {feedback}
-                </motion.span>
-              )}
-            </AnimatePresence>
           </motion.div>
         </motion.header>
+        
+        {/* Time-based Greeting */}
+        <TimeGreeting />
 
         <div className="grid flex-1 gap-4 lg:gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
           <motion.aside
@@ -793,6 +684,11 @@ export default function Home() {
           </motion.aside>
 
           <section className="space-y-4">
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-sm font-bold text-purple-700/70">
+                {filteredDrinks.length} {filteredDrinks.length === 1 ? 'recipe' : 'recipes'} found
+              </p>
+            </div>
             <div className="grid gap-5 xl:grid-cols-2">
               <AnimatePresence>
                 {filteredDrinks.map((drink) => (
@@ -803,6 +699,7 @@ export default function Home() {
                     pinnedBenefit={pinnedBenefit}
                     onHoverBenefit={setHoveredBenefit}
                     onPinBenefit={(benefit) => setPinnedBenefit((current) => (current === benefit ? null : benefit))}
+                    isHighlightedRandom={highlightedDrinkId === drink.id}
                   />
                 ))}
               </AnimatePresence>
@@ -814,11 +711,20 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
-          className="pb-6 text-center text-sm text-purple-600/70 font-bold"
+          className="pb-20 sm:pb-6 text-center text-sm text-purple-600/70 font-bold"
         >
           ✨ Crafted with love and botanicals ✨
         </motion.footer>
       </div>
+      
+      {/* Mobile Bottom Navigation */}
+      <MobileNav
+        activeType={activeType}
+        onTypeChange={setActiveType}
+        onRandomBrew={handleRandomBrew}
+        isMusicPlaying={isMusicPlaying}
+        onMusicToggle={toggleMusic}
+      />
     </div>
   );
 }
@@ -829,6 +735,7 @@ interface DrinkCardProps {
   pinnedBenefit: string | null;
   onHoverBenefit: (benefit: string | null) => void;
   onPinBenefit: (benefit: string) => void;
+  isHighlightedRandom?: boolean;
 }
 
 function DrinkCard({
@@ -837,10 +744,12 @@ function DrinkCard({
   pinnedBenefit,
   onHoverBenefit,
   onPinBenefit,
+  isHighlightedRandom = false,
 }: DrinkCardProps) {
   const [isIngredientsExpanded, setIsIngredientsExpanded] = useState(false);
   const [isPreparationExpanded, setIsPreparationExpanded] = useState(true);
   const [isBenefitsExpanded, setIsBenefitsExpanded] = useState(false);
+  const [isFlavorExpanded, setIsFlavorExpanded] = useState(true);
   
   const gradientColors = [
     "from-rose-400 via-pink-400 to-purple-400",
@@ -855,14 +764,36 @@ function DrinkCard({
   
   return (
     <motion.article
+      id={`drink-${drink.id}`}
       layout
       initial={{ opacity: 0, y: 20, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      animate={{ 
+        opacity: 1, 
+        y: 0, 
+        scale: isHighlightedRandom ? 1.02 : 1,
+        boxShadow: isHighlightedRandom 
+          ? "0 0 0 4px rgba(251, 191, 36, 0.6), 0 25px 50px -12px rgba(147, 51, 234, 0.3)" 
+          : "0 25px 50px -12px rgba(147, 51, 234, 0.2)"
+      }}
       exit={{ opacity: 0, y: -20, scale: 0.95 }}
       whileHover={{ y: -8, scale: 1.02 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="group relative flex h-full flex-col rounded-[2rem] border-2 sm:rounded-[2.5rem] sm:border-4 border-purple-300/60 bg-white p-4 sm:p-7 shadow-2xl shadow-purple-500/20 backdrop-blur-sm overflow-hidden hover:shadow-purple-500/30 hover:border-purple-400/80"
+      className={`group relative flex h-full flex-col rounded-[2rem] border-2 sm:rounded-[2.5rem] sm:border-4 ${
+        isHighlightedRandom 
+          ? "border-amber-400 ring-4 ring-amber-400/30" 
+          : "border-purple-300/60"
+      } bg-white p-4 sm:p-7 shadow-2xl shadow-purple-500/20 backdrop-blur-sm overflow-hidden hover:shadow-purple-500/30 hover:border-purple-400/80`}
     >
+      {/* Random highlight glow effect */}
+      {isHighlightedRandom && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="absolute inset-0 bg-gradient-to-br from-amber-100/50 to-orange-100/50 pointer-events-none"
+        />
+      )}
+      
       {/* Gradient Accent */}
       <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${cardGradient}`} />
       
@@ -886,14 +817,17 @@ function DrinkCard({
               {drink.name}
             </motion.h3>
           </div>
-          <motion.div
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            className={`flex items-center gap-1.5 sm:gap-2 rounded-full bg-gradient-to-r ${cardGradient} px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold text-white shadow-lg flex-shrink-0`}
-          >
-            <CupSteamIcon className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
-            <span className="hidden sm:inline">wellbeing</span>
-            <span className="sm:hidden">wellness</span>
-          </motion.div>
+          <div className="flex flex-col items-end gap-1.5">
+            <motion.div
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              className={`flex items-center gap-1.5 sm:gap-2 rounded-full bg-gradient-to-r ${cardGradient} px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold text-white shadow-lg flex-shrink-0`}
+            >
+              <CupSteamIcon className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
+              <span className="hidden sm:inline">wellbeing</span>
+              <span className="sm:hidden">wellness</span>
+            </motion.div>
+            <CaffeineIndicator drink={drink} />
+          </div>
         </div>
         <motion.p
           initial={{ opacity: 0 }}
@@ -903,6 +837,30 @@ function DrinkCard({
         >
           {drink.description}
         </motion.p>
+
+        {/* Flavor Profile Tags */}
+        <section className="space-y-2">
+          <button
+            onClick={() => setIsFlavorExpanded(!isFlavorExpanded)}
+            className="flex w-full items-center justify-between text-xs font-bold uppercase tracking-[0.2em] text-purple-700 hover:text-purple-900 transition-colors"
+          >
+            <span>Flavor Notes</span>
+            {isFlavorExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          </button>
+          <AnimatePresence>
+            {isFlavorExpanded && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <FlavorTags flavors={drink.flavorNotes} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </section>
 
         <section className="space-y-2">
           <button
