@@ -277,7 +277,7 @@ export default function Home() {
       </motion.div>
       
       {/* Rice paper + lantern glow overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-amber-50/40 via-stone-100/50 to-stone-200/60 dark:from-black/50 dark:via-slate-950/60 dark:to-slate-950/70 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-amber-50/20 via-stone-100/20 to-stone-200/20 dark:from-black/20 dark:via-slate-950/20 dark:to-slate-950/20 pointer-events-none" />
       
       {/* Dynamic Particles based on drink type */}
       <DynamicParticles drinkType={activeType} />
