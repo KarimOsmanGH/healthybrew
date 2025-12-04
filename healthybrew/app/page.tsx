@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactElement } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -309,14 +310,19 @@ export default function Home() {
           ease: "easeInOut",
         }}
         className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "url('/japan-nature-bg.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center top",
-          backgroundRepeat: "no-repeat",
-          opacity: isDarkMode ? 0.06 : 0.12,
-        }}
-      />
+      >
+        <Image
+          src="/japan-nature-bg.jpg"
+          alt="Tranquil Japanese temple courtyard with nature background"
+          fill
+          priority
+          style={{
+            objectFit: "cover",
+            objectPosition: "center top",
+            opacity: isDarkMode ? 0.06 : 0.12,
+          }}
+        />
+      </motion.div>
       
       {/* Rice paper + lantern glow overlay for readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-amber-50/80 via-stone-100/92 to-stone-200/96 dark:from-black/80 dark:via-slate-950/94 dark:to-slate-950/98 pointer-events-none" />
