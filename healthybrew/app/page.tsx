@@ -108,8 +108,6 @@ export default function Home() {
   const feedbackTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const autoplayAttempted = useRef(false);
-  const [showMusicPrompt, setShowMusicPrompt] = useState(false);
   const [highlightedDrinkId, setHighlightedDrinkId] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // This runs only on initial render
@@ -162,51 +160,6 @@ export default function Home() {
     };
   }, []);
 
-  // Auto-play music on mount with better mobile handling
-  useEffect(() => {
-    const attemptAutoplay = async () => {
-      if (audioRef.current && !autoplayAttempted.current) {
-        autoplayAttempted.current = true;
-        
-        try {
-          // Try to play immediately
-          await audioRef.current.play();
-          setIsMusicPlaying(true);
-          setShowMusicPrompt(false);
-        } catch {
-          // Autoplay blocked - show prompt and set up interaction listeners
-          setShowMusicPrompt(true);
-          
-          const handleFirstInteraction = async () => {
-            if (audioRef.current && !isMusicPlaying) {
-              try {
-                await audioRef.current.play();
-                setIsMusicPlaying(true);
-                setShowMusicPrompt(false);
-              } catch (err) {
-                console.log('Play attempt failed:', err);
-              }
-            }
-          };
-
-          // Add event listeners for first interaction
-          const events = ['click', 'touchstart', 'keydown'];
-          events.forEach(event => {
-            document.addEventListener(event, handleFirstInteraction, { once: true, passive: true });
-          });
-          
-          // Cleanup function
-          return () => {
-            events.forEach(event => {
-              document.removeEventListener(event, handleFirstInteraction);
-            });
-          };
-        }
-      }
-    };
-
-    attemptAutoplay();
-  }, [isMusicPlaying]);
 
   const activeFocus = useMemo(
     () => (selectedFocus ? healthFocuses.find((focus) => focus.id === selectedFocus) ?? null : null),
@@ -319,13 +272,12 @@ export default function Home() {
           style={{
             objectFit: "cover",
             objectPosition: "center top",
-            opacity: isDarkMode ? 0.06 : 0.12,
           }}
         />
       </motion.div>
       
       {/* Rice paper + lantern glow overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-amber-50/80 via-stone-100/92 to-stone-200/96 dark:from-black/80 dark:via-slate-950/94 dark:to-slate-950/98 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-amber-50/20 via-stone-100/20 to-stone-200/20 dark:from-black/20 dark:via-slate-950/20 dark:to-slate-950/20 pointer-events-none" />
       
       {/* Dynamic Particles based on drink type */}
       <DynamicParticles drinkType={activeType} />
@@ -358,47 +310,6 @@ export default function Home() {
         <source src="https://stream.zeno.fm/f3wvbbqmdg8uv" type="audio/mpeg" />
       </audio>
       
-      {/* Music Prompt for Mobile */}
-      <AnimatePresence>
-        {showMusicPrompt && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-44 right-6 sm:bottom-32 sm:right-8 z-50 rounded-3xl bg-gradient-to-br from-red-700 via-amber-500 to-amber-300 p-5 sm:p-6 shadow-2xl max-w-[320px] sm:max-w-sm"
-          >
-            <button
-              onClick={() => {
-                if (audioRef.current) {
-                  audioRef.current.play().then(() => {
-                    setIsMusicPlaying(true);
-                    setShowMusicPrompt(false);
-                  }).catch(() => {
-                    triggerFeedback("Could not play music");
-                  });
-                }
-              }}
-              className="w-full text-left"
-            >
-              <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-amber-50/95 dark:bg-zinc-900/95">
-                  <Volume2 className="h-7 w-7 text-red-700 dark:text-amber-300" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-base font-bold text-amber-50">Tap to play temple lofi ♪</p>
-                  <p className="text-sm text-amber-100/80">Perfect for a calm tea ritual</p>
-                </div>
-              </div>
-            </button>
-            <button
-              onClick={() => setShowMusicPrompt(false)}
-              className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full bg-amber-50 dark:bg-zinc-800 shadow-md text-stone-700 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-zinc-700 text-lg"
-            >
-              ×
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
       
       {/* Dark Mode Toggle Button - Hidden on mobile (available in MobileNav) */}
       <motion.button
