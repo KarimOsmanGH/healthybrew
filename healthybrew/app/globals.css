@@ -2,23 +2,29 @@
 
 :root {
   color-scheme: light dark;
-  --background: linear-gradient(to bottom right, #fdf4ff, #f3e8ff, #e0e7ff);
-  --foreground: #6b21a8;
-  --card-bg: rgba(255, 255, 255, 0.95);
-  --card-border: rgba(192, 132, 252, 0.6);
-  --text-primary: #581c87;
-  --text-secondary: rgba(107, 33, 168, 0.9);
-  --text-muted: rgba(107, 33, 168, 0.7);
+  /* Soft temple courtyard inspired background:
+     warm rice-paper sky fading into stone floor */
+  --background: radial-gradient(circle at top, #fef9e7 0%, #fdf3d3 35%, #f4e1b7 70%, #e2d2b0 100%);
+  /* Deep umber ink for primary text */
+  --foreground: #3b2716;
+  /* Rice paper card with subtle warmth */
+  --card-bg: rgba(255, 251, 235, 0.96);
+  /* Desaturated lacquered wood / temple pillar accent */
+  --card-border: rgba(127, 29, 29, 0.45);
+  --text-primary: #3b2716;
+  --text-secondary: rgba(87, 51, 25, 0.9);
+  --text-muted: rgba(87, 51, 25, 0.7);
 }
 
 .dark {
-  --background: linear-gradient(to bottom right, #0c0a1d, #1a1333, #0f172a);
-  --foreground: #e9d5ff;
-  --card-bg: rgba(30, 20, 50, 0.95);
-  --card-border: rgba(139, 92, 246, 0.4);
-  --text-primary: #f3e8ff;
-  --text-secondary: rgba(233, 213, 255, 0.9);
-  --text-muted: rgba(196, 181, 253, 0.7);
+  /* Night-time temple courtyard with lantern glow */
+  --background: radial-gradient(circle at top, #1a1b2d 0%, #050816 35%, #05040b 100%);
+  --foreground: #fef9e7;
+  --card-bg: rgba(17, 15, 24, 0.98);
+  --card-border: rgba(248, 250, 252, 0.08);
+  --text-primary: #fef9e7;
+  --text-secondary: rgba(251, 244, 214, 0.9);
+  --text-muted: rgba(209, 213, 219, 0.7);
 }
 
 @theme inline {
@@ -53,30 +59,30 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(147, 51, 234, 0.1);
+  background: rgba(127, 29, 29, 0.08);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #c084fc 0%, #f472b6 100%);
+  background: linear-gradient(180deg, #7f1d1d 0%, #f97316 50%, #f59e0b 100%);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #a855f7 0%, #ec4899 100%);
+  background: linear-gradient(180deg, #991b1b 0%, #ea580c 50%, #d97706 100%);
 }
 
 /* Dark mode scrollbar */
 .dark ::-webkit-scrollbar-track {
-  background: rgba(139, 92, 246, 0.15);
+  background: rgba(15, 23, 42, 0.7);
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #8b5cf6 0%, #a855f7 100%);
+  background: linear-gradient(180deg, #f97316 0%, #f59e0b 40%, #facc15 100%);
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #7c3aed 0%, #9333ea 100%);
+  background: linear-gradient(180deg, #fb923c 0%, #facc15 40%, #fef08a 100%);
 }
 
 @keyframes float {
