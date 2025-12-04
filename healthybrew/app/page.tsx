@@ -295,16 +295,16 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 dark:from-slate-950 dark:via-purple-950 dark:to-slate-900">
-      {/* Japanese Background Image with Animation */}
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Temple courtyard background image with subtle motion */}
       <motion.div
         animate={{
-          scale: [1, 1.05, 1],
-          x: [0, -20, 0],
-          y: [0, -10, 0],
+          scale: [1, 1.03, 1],
+          x: [0, -10, 0],
+          y: [0, -6, 0],
         }}
         transition={{
-          duration: 30,
+          duration: 40,
           repeat: Infinity,
           ease: "easeInOut",
         }}
@@ -312,39 +312,39 @@ export default function Home() {
         style={{
           backgroundImage: "url('/japan-nature-bg.jpg')",
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "center top",
           backgroundRepeat: "no-repeat",
-          opacity: isDarkMode ? 0.08 : 0.15,
+          opacity: isDarkMode ? 0.06 : 0.12,
         }}
       />
       
-      {/* Overlay gradient for better readability */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-50/90 via-purple-50/90 to-blue-50/90 dark:from-slate-950/95 dark:via-purple-950/95 dark:to-slate-900/95 pointer-events-none" />
+      {/* Rice paper + lantern glow overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-amber-50/80 via-stone-100/92 to-stone-200/96 dark:from-black/80 dark:via-slate-950/94 dark:to-slate-950/98 pointer-events-none" />
       
       {/* Dynamic Particles based on drink type */}
       <DynamicParticles drinkType={activeType} />
       
-      {/* Floating Background Elements */}
+      {/* Floating Temple Elements: pillars and lantern glows */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          animate={{ y: [0, -20, 0], rotate: [0, 180, 360] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-20 left-10 w-48 h-48 bg-gradient-to-br from-pink-300/20 to-purple-300/20 dark:from-pink-500/10 dark:to-purple-500/10 rounded-full blur-2xl"
+          animate={{ y: [0, -18, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-10 left-4 w-24 sm:w-32 h-[260px] bg-gradient-to-b from-red-900/35 via-red-800/25 to-amber-700/0 rounded-t-3xl"
         />
         <motion.div
-          animate={{ y: [0, 30, 0], rotate: [360, 180, 0] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute top-40 right-20 w-60 h-60 bg-gradient-to-br from-blue-300/20 to-cyan-300/20 dark:from-blue-500/10 dark:to-cyan-500/10 rounded-full blur-2xl"
+          animate={{ y: [0, 20, 0] }}
+          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-16 right-6 w-24 sm:w-32 h-[260px] bg-gradient-to-b from-red-900/35 via-red-800/25 to-amber-700/0 rounded-t-3xl"
         />
         <motion.div
-          animate={{ y: [0, -40, 0], x: [0, 20, 0] }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-20 left-1/4 w-72 h-72 bg-gradient-to-br from-yellow-300/20 to-orange-300/20 dark:from-yellow-500/10 dark:to-orange-500/10 rounded-full blur-2xl"
+          animate={{ y: [0, -12, 0], x: [0, 24, 0] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-16 left-1/5 w-64 h-64 bg-gradient-to-b from-amber-300/20 via-amber-400/25 to-transparent dark:from-amber-400/15 dark:via-amber-500/20 dark:to-transparent rounded-full blur-3xl"
         />
         <motion.div
-          animate={{ y: [0, 20, 0], x: [0, -30, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-40 right-1/3 w-54 h-54 bg-gradient-to-br from-rose-300/20 to-pink-300/20 dark:from-rose-500/10 dark:to-pink-500/10 rounded-full blur-2xl"
+          animate={{ y: [0, 14, 0], x: [0, -22, 0] }}
+          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-28 right-1/4 w-52 h-52 bg-gradient-to-b from-red-500/25 via-amber-300/25 to-transparent dark:from-red-400/20 dark:via-amber-300/25 dark:to-transparent rounded-full blur-3xl"
         />
       </div>
       {/* Lofi Music Player */}
@@ -359,7 +359,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-44 right-6 sm:bottom-32 sm:right-8 z-50 rounded-3xl bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 p-5 sm:p-6 shadow-2xl max-w-[320px] sm:max-w-sm"
+            className="fixed bottom-44 right-6 sm:bottom-32 sm:right-8 z-50 rounded-3xl bg-gradient-to-br from-red-700 via-amber-500 to-amber-300 p-5 sm:p-6 shadow-2xl max-w-[320px] sm:max-w-sm"
           >
             <button
               onClick={() => {
@@ -375,18 +375,18 @@ export default function Home() {
               className="w-full text-left"
             >
               <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 dark:bg-slate-800/90">
-                  <Volume2 className="h-7 w-7 text-purple-600 dark:text-purple-400" />
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-amber-50/95 dark:bg-zinc-900/95">
+                  <Volume2 className="h-7 w-7 text-red-700 dark:text-amber-300" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-base font-bold text-white">Tap to play lofi music ♪</p>
-                  <p className="text-sm text-white/80">Perfect for browsing</p>
+                  <p className="text-base font-bold text-amber-50">Tap to play temple lofi ♪</p>
+                  <p className="text-sm text-amber-100/80">Perfect for a calm tea ritual</p>
                 </div>
               </div>
             </button>
             <button
               onClick={() => setShowMusicPrompt(false)}
-              className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white dark:bg-slate-700 shadow-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-600 text-lg"
+              className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full bg-amber-50 dark:bg-zinc-800 shadow-md text-stone-700 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-zinc-700 text-lg"
             >
               ×
             </button>
@@ -399,7 +399,7 @@ export default function Home() {
         onClick={toggleDarkMode}
         whileHover={{ scale: 1.1, rotate: 15 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-24 right-8 z-50 hidden sm:flex h-18 w-18 items-center justify-center rounded-full bg-gradient-to-br from-indigo-400 via-violet-400 to-purple-500 dark:from-amber-400 dark:via-orange-400 dark:to-yellow-500 text-white shadow-2xl shadow-purple-500/30 dark:shadow-amber-500/30 transition-all focus:outline-none focus:ring-2 focus:ring-purple-300 dark:focus:ring-amber-300 focus:ring-offset-2"
+        className="fixed bottom-24 right-8 z-50 hidden sm:flex h-18 w-18 items-center justify-center rounded-full bg-gradient-to-br from-red-700 via-red-600 to-amber-500 dark:from-amber-400 dark:via-orange-400 dark:to-yellow-500 text-amber-50 shadow-2xl shadow-red-900/40 dark:shadow-amber-500/30 transition-all focus:outline-none focus:ring-2 focus:ring-amber-300 dark:focus:ring-amber-300 focus:ring-offset-2"
         aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
       >
         <motion.div
@@ -416,7 +416,7 @@ export default function Home() {
         onClick={toggleMusic}
         whileHover={{ scale: 1.1, rotate: 5 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-44 right-8 z-50 hidden sm:flex h-18 w-18 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 text-white shadow-2xl shadow-purple-500/30 transition-all focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-offset-2"
+        className="fixed bottom-44 right-8 z-50 hidden sm:flex h-18 w-18 items-center justify-center rounded-full bg-gradient-to-br from-red-700 via-amber-500 to-amber-300 text-amber-50 shadow-2xl shadow-red-900/40 transition-all focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2"
         aria-label={isMusicPlaying ? "Pause lofi music" : "Play lofi music"}
       >
         <motion.div
@@ -432,22 +432,22 @@ export default function Home() {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="rounded-[2.5rem] border-3 sm:rounded-[3rem] sm:border-4 border-purple-300/60 dark:border-purple-600/40 bg-gradient-to-br from-purple-100/90 via-pink-100/90 to-blue-100/90 dark:from-purple-900/50 dark:via-pink-900/50 dark:to-slate-800/50 p-6 sm:p-10 shadow-2xl shadow-purple-500/20 dark:shadow-purple-900/30 backdrop-blur-xl relative overflow-hidden"
+          className="rounded-[2.5rem] border-[3px] sm:rounded-[3rem] sm:border-[3.5px] border-red-900/70 dark:border-red-900/60 bg-gradient-to-b from-amber-50/95 via-amber-100/95 to-stone-100/95 dark:from-zinc-950/95 dark:via-zinc-950/95 dark:to-slate-900/95 p-6 sm:p-10 shadow-[0_18px_60px_rgba(15,23,42,0.35)] dark:shadow-[0_22px_70px_rgba(0,0,0,0.75)] backdrop-blur-xl relative overflow-hidden"
         >
-          {/* Sparkle Effects */}
+          {/* Lantern glow and incense spark effects */}
           <motion.div
             animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="absolute top-6 right-6 text-5xl pointer-events-none"
+            className="absolute top-6 right-6 text-4xl pointer-events-none"
           >
-            ✨
+            🏮
           </motion.div>
           <motion.div
             animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
-            className="absolute bottom-6 left-6 text-4xl pointer-events-none"
+            className="absolute bottom-6 left-6 text-3xl pointer-events-none"
           >
-            ☆
+            香
           </motion.div>
           
           {/* Big Animated Coffee/Tea/Water Emoji */}
@@ -471,9 +471,9 @@ export default function Home() {
               rotate: [0, -10, 10, -10, 0],
               transition: { duration: 0.5 }
             }}
-            className="absolute top-4 right-4 text-6xl sm:top-8 sm:right-20 sm:text-[10rem] cursor-pointer filter drop-shadow-2xl"
+            className="absolute top-4 right-4 text-6xl sm:top-8 sm:right-20 sm:text-[7rem] cursor-pointer filter drop-shadow-2xl"
             style={{ 
-              textShadow: "0 10px 40px rgba(147, 51, 234, 0.3)"
+              textShadow: "0 10px 40px rgba(127, 29, 29, 0.45)"
             }}
           >
             {activeType === 'tea' ? '🍵' : activeType === 'coffee' ? '☕' : '💧'}
@@ -484,18 +484,18 @@ export default function Home() {
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 dark:from-purple-400 dark:via-pink-400 dark:to-blue-400 bg-clip-text text-transparent sm:text-4xl lg:text-6xl pr-16 sm:pr-0 flex items-center gap-4"
+                className="text-3xl font-bold bg-gradient-to-r from-red-900 via-red-800 to-amber-700 dark:from-amber-200 dark:via-amber-300 dark:to-yellow-300 bg-clip-text text-transparent sm:text-4xl lg:text-6xl pr-16 sm:pr-0 flex items-center gap-4 tracking-[0.18em] uppercase"
               >
-                <Sparkles className="h-8 w-8 sm:h-10 sm:w-10 text-purple-600 dark:text-purple-400" />
-                Healthbrew
+                <Sparkles className="h-8 w-8 sm:h-10 sm:w-10 text-red-700 dark:text-amber-300" />
+                健康茶殿
               </motion.h1>
               <motion.p
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="max-w-2xl text-base sm:text-lg text-purple-700/90 dark:text-purple-300/90"
+                className="max-w-2xl text-base sm:text-lg text-stone-700/90 dark:text-zinc-200/90"
               >
-                Explore delightful recipes and discover the perfect blend for your wellness journey ✨✿✨
+                Step into a tranquil Japanese-inspired tea hall and discover wellness brews worthy of a temple ceremony.
               </motion.p>
             </div>
           </div>
@@ -506,7 +506,7 @@ export default function Home() {
             className="mt-8 flex flex-col gap-4"
           >
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div className="flex items-center gap-3 sm:gap-4 rounded-full bg-white/80 dark:bg-slate-800/80 p-1.5 sm:p-2 shadow-lg backdrop-blur-sm border-2 border-purple-200/50 dark:border-purple-600/30">
+              <div className="flex items-center gap-3 sm:gap-4 rounded-full bg-amber-50/90 dark:bg-zinc-900/90 p-1.5 sm:p-2 shadow-lg backdrop-blur-sm border-2 border-red-900/60 dark:border-red-900/70">
                 {drinkTypes.map((type) => (
                   <button
                     key={type}
@@ -514,8 +514,8 @@ export default function Home() {
                     onClick={() => setActiveType(type)}
                     className={`flex items-center gap-2 sm:gap-3 rounded-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-bold transition-all ${
                       activeType === type
-                        ? "bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 text-white shadow-lg shadow-purple-400/50"
-                        : "text-purple-700/70 dark:text-purple-300/70 hover:text-purple-800 dark:hover:text-purple-200 hover:bg-white/60 dark:hover:bg-slate-700/60"
+                        ? "bg-gradient-to-r from-red-800 via-red-700 to-amber-500 text-amber-50 shadow-lg shadow-red-900/50"
+                        : "text-stone-700/80 dark:text-zinc-300/80 hover:text-red-900 dark:hover:text-amber-200 hover:bg-amber-100/60 dark:hover:bg-zinc-800/60"
                     }`}
                   >
                     {categoryIconMap[type]}
@@ -530,7 +530,7 @@ export default function Home() {
                   onClick={handleRandomBrew}
                   whileHover={{ scale: 1.05, rotate: 5 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-3 rounded-full bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 px-6 py-4 text-base font-bold text-white shadow-lg shadow-orange-400/40 transition-all hover:shadow-orange-500/50"
+                  className="flex items-center gap-3 rounded-full bg-gradient-to-r from-red-800 via-red-700 to-amber-500 px-6 py-4 text-base font-bold text-amber-50 shadow-lg shadow-red-900/40 transition-all hover:shadow-red-900/60"
                 >
                   <Dices className="h-5 w-5" />
                   <span>Surprise!</span>
@@ -538,13 +538,13 @@ export default function Home() {
                 
                 <AnimatePresence>
                   {feedback && (
-                    <motion.span
+                        <motion.span
                       key={feedback}
                       initial={{ opacity: 0, y: -6, scale: 0.9 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -6, scale: 0.9 }}
                       transition={{ duration: 0.2 }}
-                      className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 px-6 py-3 text-base font-bold text-white shadow-lg shadow-green-400/50"
+                      className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-amber-600 to-amber-400 px-6 py-3 text-base font-bold text-amber-50 shadow-lg shadow-amber-500/60"
                     >
                       <Check className="h-5 w-5" />
                       {feedback}
@@ -561,10 +561,10 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="rounded-3xl border-3 border-purple-200/60 dark:border-purple-600/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md p-6 shadow-lg"
+          className="rounded-3xl border-[3px] border-red-900/60 dark:border-red-900/70 bg-amber-50/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 shadow-lg"
         >
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3 text-base font-bold text-purple-800 dark:text-purple-200">
+            <div className="flex items-center gap-3 text-base font-bold text-stone-900 dark:text-amber-100">
               <Filter className="h-5 w-5" />
               <span>Health Focus</span>
             </div>
@@ -572,7 +572,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setSelectedFocus(null)}
-                className="inline-flex items-center gap-2 text-sm font-bold text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-200 transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-bold text-red-800 dark:text-amber-300 hover:text-red-900 dark:hover:text-amber-200 transition-colors"
               >
                 <RotateCcw className="h-4 w-4" />
                 Reset
@@ -605,7 +605,7 @@ export default function Home() {
 
         <section className="flex-1 space-y-6">
           <div className="flex items-center justify-between">
-            <p className="text-base font-bold text-purple-700/70 dark:text-purple-300/70">
+            <p className="text-base font-bold text-stone-700/80 dark:text-zinc-300/80">
               {filteredDrinks.length} {filteredDrinks.length === 1 ? 'recipe' : 'recipes'} found
             </p>
           </div>
@@ -659,12 +659,12 @@ function DrinkCard({
   const [isExpanded, setIsExpanded] = useState(false);
   
   const gradientColors = [
-    "from-rose-400 via-pink-400 to-purple-400",
-    "from-blue-400 via-cyan-400 to-teal-400",
-    "from-amber-400 via-orange-400 to-red-400",
-    "from-emerald-400 via-green-400 to-lime-400",
-    "from-violet-400 via-purple-400 to-fuchsia-400",
-    "from-yellow-400 via-amber-400 to-orange-400",
+    "from-red-900 via-red-800 to-amber-600",        // temple pillars / lacquered wood
+    "from-amber-700 via-amber-500 to-yellow-400",   // lantern glow
+    "from-stone-700 via-stone-600 to-stone-400",    // stone courtyard
+    "from-emerald-800 via-emerald-700 to-emerald-500", // mossy garden greens
+    "from-slate-900 via-slate-800 to-red-700",      // tiled roof with red trim
+    "from-orange-800 via-amber-600 to-amber-400",   // sunset over the temple
   ];
   const gradientIndex = drink.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % gradientColors.length;
   const cardGradient = gradientColors[gradientIndex];
@@ -685,11 +685,11 @@ function DrinkCard({
       exit={{ opacity: 0, y: -20, scale: 0.95 }}
       whileHover={{ y: -6, scale: 1.01 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className={`group relative flex flex-col rounded-3xl border-3 ${
+      className={`group relative flex flex-col rounded-3xl border-[3px] ${
         isHighlightedRandom 
-          ? "border-amber-400 ring-2 ring-amber-400/30" 
-          : "border-purple-200/60 dark:border-purple-600/30"
-      } bg-white/95 dark:bg-slate-800/95 p-6 shadow-lg backdrop-blur-sm overflow-hidden hover:shadow-xl hover:border-purple-300/80 dark:hover:border-purple-500/50 cursor-pointer`}
+          ? "border-amber-500 ring-2 ring-amber-400/40" 
+          : "border-red-900/60 dark:border-red-900/70"
+      } bg-amber-50/95 dark:bg-zinc-950/95 p-6 shadow-lg backdrop-blur-sm overflow-hidden hover:shadow-xl hover:border-red-900/80 dark:hover:border-amber-400/70 cursor-pointer`}
       onClick={() => setIsExpanded(!isExpanded)}
     >
       {/* Random highlight glow effect */}
@@ -702,17 +702,17 @@ function DrinkCard({
         />
       )}
       
-      {/* Gradient Accent */}
+      {/* Gradient Accent - lacquered beam */}
       <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${cardGradient}`} />
       
       {/* Collapsed View - Title, Description, Labels */}
       <div className="space-y-3">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
-            <p className={`text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${cardGradient} bg-clip-text text-transparent`}>
+            <p className={`text-xs font-bold uppercase tracking-[0.18em] bg-gradient-to-r ${cardGradient} bg-clip-text text-transparent`}>
               {drink.type} blend
             </p>
-            <h3 className="text-base font-bold text-purple-900 dark:text-purple-100 truncate">
+            <h3 className="text-base font-bold text-stone-900 dark:text-amber-50 truncate">
               {drink.name}
             </h3>
           </div>
@@ -721,14 +721,14 @@ function DrinkCard({
             <motion.div
               animate={{ rotate: isExpanded ? 180 : 0 }}
               transition={{ duration: 0.2 }}
-              className="text-purple-400 dark:text-purple-300"
+              className="text-red-700 dark:text-amber-300"
             >
               <ChevronDown className="h-5 w-5" />
             </motion.div>
           </div>
         </div>
         
-        <p className={`text-sm text-purple-700/80 dark:text-purple-300/80 leading-relaxed ${!isExpanded ? 'line-clamp-2' : ''}`}>
+        <p className={`text-sm text-stone-700/80 dark:text-zinc-200/80 leading-relaxed ${!isExpanded ? 'line-clamp-2' : ''}`}>
           {drink.description}
         </p>
 
@@ -751,8 +751,8 @@ function DrinkCard({
                   isPinned
                     ? `border-transparent bg-gradient-to-r ${cardGradient} text-white`
                     : isActive
-                      ? "border-purple-300 dark:border-purple-500 bg-purple-50 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300"
-                      : "border-purple-200/60 dark:border-purple-600/40 bg-purple-50/50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-800/40"
+                      ? "border-amber-500 dark:border-amber-400 bg-amber-50 dark:bg-zinc-900/60 text-stone-900 dark:text-amber-100"
+                      : "border-amber-200/70 dark:border-zinc-700/70 bg-amber-50/60 dark:bg-zinc-900/60 text-stone-700 dark:text-zinc-200 hover:bg-amber-100/80 dark:hover:bg-zinc-800/70"
                 }`}
               >
                 {benefit}
@@ -778,23 +778,23 @@ function DrinkCard({
             className="overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="pt-4 mt-4 border-t border-purple-100 dark:border-purple-700/50 space-y-4">
+            <div className="pt-4 mt-4 border-t border-amber-200/80 dark:border-zinc-800/80 space-y-4">
               {/* Flavor Notes */}
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-2">Flavor Notes</p>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-red-800 dark:text-amber-300 mb-2">Flavor Notes</p>
                 <FlavorTags flavors={drink.flavorNotes} />
               </div>
 
               {/* Preparation */}
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-2">Preparation</p>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-red-800 dark:text-amber-300 mb-2">Preparation</p>
                 <ol className="space-y-2">
                   {drink.preparation.map((step, index) => (
                     <li key={`${drink.id}-prep-${index}`} className="flex gap-3 items-start">
-                      <span className={`flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} text-xs font-bold text-white flex-shrink-0`}>
+                      <span className={`flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} text-xs font-bold text-amber-50 flex-shrink-0`}>
                         {index + 1}
                       </span>
-                      <span className="text-sm text-purple-800/80 dark:text-purple-200/80">{step}</span>
+                      <span className="text-sm text-stone-800/80 dark:text-zinc-200/80">{step}</span>
                     </li>
                   ))}
                 </ol>
@@ -802,7 +802,7 @@ function DrinkCard({
 
               {/* Ingredients */}
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-2">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-red-800 dark:text-amber-300 mb-2">
                   Ingredients ({drink.ingredients.length})
                 </p>
                 <div className="grid gap-2">
@@ -815,16 +815,16 @@ function DrinkCard({
                         key={ingredient.name}
                         className={`flex items-center gap-3 rounded-xl border p-3 transition-all ${
                           isHighlighted
-                            ? "border-purple-300 dark:border-purple-500 bg-purple-50 dark:bg-purple-900/40"
-                            : "border-purple-100 dark:border-purple-700/50 bg-white/80 dark:bg-slate-700/50"
+                            ? "border-amber-500 dark:border-amber-400 bg-amber-50 dark:bg-zinc-900/60"
+                            : "border-amber-100 dark:border-zinc-800/70 bg-amber-50/80 dark:bg-zinc-900/60"
                         }`}
                       >
                         <div className={`flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br ${cardGradient} flex-shrink-0`}>
                           {ingredientIconMap[ingredient.icon]}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <p className="text-sm font-semibold text-purple-900 dark:text-purple-100">{ingredient.name}</p>
-                          <p className="text-xs text-purple-600/70 dark:text-purple-400/70 truncate">{ingredient.description}</p>
+                          <p className="text-sm font-semibold text-stone-900 dark:text-amber-50">{ingredient.name}</p>
+                          <p className="text-xs text-stone-600/80 dark:text-zinc-300/80 truncate">{ingredient.description}</p>
                         </div>
                       </div>
                     );
