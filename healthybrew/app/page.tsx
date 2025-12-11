@@ -18,11 +18,11 @@ export default function Home() {
   const selected = selectedDrink ? drinks.find(d => d.id === selectedDrink) : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-stone-50 to-orange-50 dark:from-zinc-950 dark:via-slate-950 dark:to-zinc-900">
+    <div className="min-h-screen bg-gradient-to-b from-stone-100 to-stone-200 dark:from-zinc-900 dark:to-zinc-950">
       <div className="mx-auto max-w-5xl px-6 py-12">
         {/* Big Toggle */}
         <div className="flex justify-center mb-12">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/80 dark:bg-zinc-900/80 p-2 shadow-xl backdrop-blur-sm border border-stone-200 dark:border-zinc-800">
+          <div className="inline-flex items-center gap-1 rounded-full bg-white dark:bg-zinc-900 p-1.5 shadow-lg">
             {drinkTypes.map((type) => (
               <button
                 key={type}
@@ -75,7 +75,7 @@ export default function Home() {
           </div>
 
           {/* Right: Thin List of Brews */}
-          <div className="bg-white/60 dark:bg-zinc-900/60 rounded-3xl p-6 shadow-lg backdrop-blur-sm border border-stone-200/50 dark:border-zinc-800/50">
+          <div className="bg-white dark:bg-zinc-900 rounded-2xl p-5 shadow-lg">
             <h2 className="text-sm font-bold uppercase tracking-widest text-stone-500 dark:text-zinc-500 mb-4">
               {filteredDrinks.length} {activeType} brews
             </h2>
@@ -114,7 +114,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="mt-8 bg-white/80 dark:bg-zinc-900/80 rounded-3xl p-8 shadow-xl backdrop-blur-sm border border-stone-200/50 dark:border-zinc-800/50"
+              className="mt-8 bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg"
             >
               <h3 className="text-2xl font-bold text-stone-900 dark:text-white mb-2">
                 {selected.name}
