@@ -7,21 +7,33 @@ export function AudioPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [volume, setVolume] = useState(0.5);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Lo-fi/ambient audio URL - using a free ambient track
   const audioUrl = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3";
 
   useEffect(() => {
-    audioRef.current = new Audio(audioUrl);
-    audioRef.current.loop = true;
-    audioRef.current.volume = volume;
+    const audio = new Audio(audioUrl);
+    audio.loop = true;
+    audio.volume = 0.5; // Use initial volume directly
+    audioRef.current = audio;
+    
+    // Attempt to autoplay
+    audio.play()
+      .then(() => {
+        setIsPlaying(true);
+        setAutoplayBlocked(false);
+      })
+      .catch(() => {
+        // Autoplay was blocked by browser
+        setAutoplayBlocked(true);
+        setIsPlaying(false);
+      });
     
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
+      audio.pause();
+      audioRef.current = null;
     };
   }, []);
 
@@ -42,19 +54,42 @@ export function AudioPlayer() {
       });
     }
     setIsPlaying(!isPlaying);
+    setAutoplayBlocked(false);
   };
 
   return (
     <div className="relative">
       <motion.button
         type="button"
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={() => {
+          if (autoplayBlocked) {
+            // User interaction - try to play audio
+            togglePlay();
+          }
+          setIsExpanded(!isExpanded);
+        }}
         className="w-10 h-10 rounded-full bg-white/80 dark:bg-zinc-800/80 backdrop-blur-sm shadow-lg flex items-center justify-center hover:scale-110 transition-transform border border-stone-200 dark:border-zinc-700"
         whileTap={{ scale: 0.95 }}
         aria-label="Audio controls"
+        animate={autoplayBlocked ? { scale: [1, 1.1, 1] } : {}}
+        transition={autoplayBlocked ? { duration: 1.5, repeat: Infinity } : {}}
       >
         <span className="text-xl">{isPlaying ? "🎵" : "🔇"}</span>
       </motion.button>
+      
+      {/* Prompt when autoplay is blocked */}
+      <AnimatePresence>
+        {autoplayBlocked && (
+          <motion.div
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            className="absolute right-12 top-1/2 -translate-y-1/2 bg-amber-500 text-white text-xs px-3 py-1.5 rounded-full whitespace-nowrap shadow-lg"
+          >
+            Click to play music 🎶
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {isExpanded && (
