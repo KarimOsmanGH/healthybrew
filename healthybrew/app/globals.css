@@ -4,7 +4,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  color-scheme: light dark;
+  /* Ensure browser UI (forms/scrollbars) matches our toggle, not OS. */
+  color-scheme: light;
   /* Soft temple courtyard inspired background:
      warm rice-paper sky fading into stone floor */
   --background: radial-gradient(circle at top, #fef9e7 0%, #fdf3d3 35%, #f4e1b7 70%, #e2d2b0 100%);
@@ -20,6 +21,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   /* Night-time temple courtyard with lantern glow */
   --background: radial-gradient(circle at top, #1a1b2d 0%, #050816 35%, #05040b 100%);
   --foreground: #fef9e7;
