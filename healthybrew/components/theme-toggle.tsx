@@ -1,21 +1,44 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 
-export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(true);
-  const [mounted, setMounted] = useState(false);
+function subscribeTheme(callback: () => void) {
+  // Keep theme in sync across tabs + within this tab.
+  window.addEventListener("storage", callback);
+  window.addEventListener("themechange", callback as EventListener);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener("themechange", callback as EventListener);
+  };
+}
 
-  useEffect(() => {
-    setMounted(true);
-    setIsDark(document.documentElement.classList.contains("dark"));
-  }, []);
+function getThemeSnapshot() {
+  return document.documentElement.classList.contains("dark");
+}
+
+function getThemeServerSnapshot() {
+  // Server render can't know user preference.
+  return false;
+}
+
+function subscribeClient(onStoreChange: () => void) {
+  // No-op subscription; hydration will switch from server->client snapshot automatically.
+  void onStoreChange;
+  return () => {};
+}
+
+export function ThemeToggle() {
+  const isClient = useSyncExternalStore(subscribeClient, () => true, () => false);
+  const isDark = useSyncExternalStore(
+    subscribeTheme,
+    getThemeSnapshot,
+    getThemeServerSnapshot
+  );
 
   const toggleTheme = () => {
     const newIsDark = !isDark;
-    setIsDark(newIsDark);
-    
+
     if (newIsDark) {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
@@ -23,9 +46,12 @@ export function ThemeToggle() {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
+
+    // Notify any listeners (including this component).
+    window.dispatchEvent(new Event("themechange"));
   };
 
-  if (!mounted) {
+  if (!isClient) {
     return (
       <div className="w-10 h-10 rounded-full bg-white/80 dark:bg-zinc-800/80" />
     );

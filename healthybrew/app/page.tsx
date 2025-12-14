@@ -20,7 +20,9 @@ export default function Home() {
   const selected = selectedDrink ? drinks.find(d => d.id === selectedDrink) : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-stone-100 to-stone-200 dark:from-zinc-900 dark:to-zinc-950">
+    // Background/theme is handled globally via CSS variables in `app/globals.css`
+    // so the entire site responds uniformly when toggling `.dark` on `<html>`.
+    <div className="min-h-screen">
       {/* Top Right Controls */}
       <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
         <AudioPlayer />
